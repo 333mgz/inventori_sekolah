@@ -4,19 +4,82 @@
  * and open the template in the editor.
  */
 package tampilan;
-
+import Koneksi.Koneksi;
+import java.awt.event.KeyEvent;
+import java.sql.*;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 /**
  *
- * @author andre_f1brqrv
+ * @author raisa
  */
 public class FormUser extends javax.swing.JFrame {
+    private Connection conn = Koneksi.getKoneksi(); 
+    private DefaultTableModel tabmode;
 
+    public FormUser() {
+        initComponents();
+        setTitle("Form Data User");
+        kosong();
+        datatable();
+        autoId();
+        
+        // Pilihan level sesuai gambar referensi
+        cblevel.removeAllItems();
+        cblevel.addItem("Admin");
+        cblevel.addItem("User");
+    }
+
+    protected void kosong() {
+        txtuser.setText("");
+        txtpass.setText("");
+        cblevel.setSelectedIndex(0);
+        txtcari.setText("");
+    }
     /**
      * Creates new form FormUser
      */
-    public FormUser() {
-        initComponents();
+    protected void datatable() {
+    Object[] Baris = {"ID User", "Username", "Password", "Level"};
+    tabmode = new DefaultTableModel(null, Baris);
+    String cari = txtcari.getText();
+    
+    try {
+        // Mencari user berdasarkan username
+        String sql = "SELECT * FROM user WHERE username LIKE '%" + cari + "%' ORDER BY id_user ASC";
+        Statement stat = conn.createStatement();
+        ResultSet hasil = stat.executeQuery(sql);
+        while (hasil.next()) {
+            tabmode.addRow(new Object[]{
+                hasil.getString("id_user"),
+                hasil.getString("username"),
+                "********", // Password tidak ditampilkan demi keamanan
+                hasil.getString("level")
+            });
+        }
+        tbluser.setModel(tabmode);
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Data gagal dipanggil: " + e);
     }
+}
+
+private void autoId() {
+    try {
+        String sql = "SELECT MAX(id_user) FROM user";
+        ResultSet rs = conn.createStatement().executeQuery(sql);
+        if (rs.next() && rs.getString(1) != null) {
+            String id = rs.getString(1);
+            int angka = Integer.parseInt(id.substring(1)); 
+            angka++;
+            txtid.setText(String.format("U%03d", angka));
+        } else {
+            txtid.setText("U001");
+        }
+    } catch (Exception e) {
+        txtid.setText("U001");
+    }
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,21 +90,284 @@ public class FormUser extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtid = new javax.swing.JTextField();
+        txtuser = new javax.swing.JTextField();
+        txtpass = new javax.swing.JPasswordField();
+        cblevel = new javax.swing.JComboBox<>();
+        bsimpan = new javax.swing.JButton();
+        bedit = new javax.swing.JButton();
+        bhapus = new javax.swing.JButton();
+        bbatal = new javax.swing.JButton();
+        bkeluar = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        txtcari = new javax.swing.JTextField();
+        bcari = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbluser = new javax.swing.JTable();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel1.setText("FORM DATA USER");
+
+        jLabel2.setText("ID USER");
+
+        jLabel3.setText("USERNAME");
+
+        jLabel4.setText("PASSWORD");
+
+        jLabel5.setText("LEVEL");
+
+        cblevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih", "Admin", "User" }));
+
+        bsimpan.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        bsimpan.setText("SIMPAN");
+        bsimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bsimpanActionPerformed(evt);
+            }
+        });
+
+        bedit.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        bedit.setText("EDIT");
+        bedit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                beditActionPerformed(evt);
+            }
+        });
+
+        bhapus.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        bhapus.setText("HAPUS");
+        bhapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bhapusActionPerformed(evt);
+            }
+        });
+
+        bbatal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        bbatal.setText("BATAL");
+        bbatal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bbatalActionPerformed(evt);
+            }
+        });
+
+        bkeluar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        bkeluar.setText("KELUAR");
+        bkeluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bkeluarActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jLabel6.setText("Data User");
+
+        bcari.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        bcari.setText("CARI");
+        bcari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bcariActionPerformed(evt);
+            }
+        });
+        bcari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                bcariKeyPressed(evt);
+            }
+        });
+
+        tbluser.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tbluser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbluserMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbluser);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(286, 286, 286)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(149, 149, 149)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(bsimpan)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(bedit)
+                                    .addGap(29, 29, 29)
+                                    .addComponent(bhapus)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(bbatal)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(bkeluar))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtid)
+                                        .addComponent(txtuser)
+                                        .addComponent(cblevel, 0, 181, Short.MAX_VALUE)
+                                        .addComponent(txtpass)))
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(txtcari, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(bcari))))))
+                .addContainerGap(178, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtuser, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(txtpass)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cblevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bsimpan)
+                    .addComponent(bedit)
+                    .addComponent(bhapus)
+                    .addComponent(bbatal)
+                    .addComponent(bkeluar))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtcari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bcari))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(122, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bhapusActionPerformed
+    String sql = "UPDATE user SET username=?, password=?, level=? WHERE id_user=?";
+    try {
+        PreparedStatement stat = conn.prepareStatement(sql);
+        stat.setString(1, txtuser.getText());
+        stat.setString(2, txtpass.getText());
+        stat.setString(3, cblevel.getSelectedItem().toString());
+        stat.setString(4, txtid.getText());
+
+        stat.executeUpdate();
+        JOptionPane.showMessageDialog(null, "Data User Diperbarui");
+        kosong();
+        datatable();
+        autoId();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Gagal Edit: " + e);
+    }    // TODO add your handling code here:
+    }//GEN-LAST:event_bhapusActionPerformed
+
+    private void bsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bsimpanActionPerformed
+    String sql = "INSERT INTO user VALUES (?,?,?,?)";
+    try {
+        PreparedStatement stat = conn.prepareStatement(sql);
+        stat.setString(1, txtid.getText());
+        stat.setString(2, txtuser.getText());
+        stat.setString(3, txtpass.getText()); 
+        stat.setString(4, cblevel.getSelectedItem().toString());
+
+        stat.executeUpdate();
+        JOptionPane.showMessageDialog(null, "User Berhasil Ditambahkan");
+        kosong();
+        datatable();
+        autoId();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Gagal Simpan: " + e);
+    } // TODO add your handling code here:
+    }//GEN-LAST:event_bsimpanActionPerformed
+
+    private void beditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beditActionPerformed
+    String sql = "UPDATE user SET username=?, password=?, level=? WHERE id_user=?";
+    try {
+        PreparedStatement stat = conn.prepareStatement(sql);
+        stat.setString(1, txtuser.getText());
+        stat.setString(2, txtpass.getText());
+        stat.setString(3, cblevel.getSelectedItem().toString());
+        stat.setString(4, txtid.getText());
+
+        stat.executeUpdate();
+        JOptionPane.showMessageDialog(null, "Data User Diperbarui");
+        kosong();
+        datatable();
+        autoId();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Gagal Edit: " + e);
+    }    // TODO add your handling code here:
+    }//GEN-LAST:event_beditActionPerformed
+
+    private void tbluserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbluserMouseClicked
+    int bar = tbluser.getSelectedRow();
+    txtid.setText(tabmode.getValueAt(bar, 0).toString());
+    txtuser.setText(tabmode.getValueAt(bar, 1).toString());
+    }//GEN-LAST:event_tbluserMouseClicked
+
+    private void bbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bbatalActionPerformed
+    kosong();
+    datatable();     // TODO add your handling code here:
+    }//GEN-LAST:event_bbatalActionPerformed
+
+    private void bcariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcariActionPerformed
+    datatable();     // TODO add your handling code here:
+    }//GEN-LAST:event_bcariActionPerformed
+
+    private void bcariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bcariKeyPressed
+     if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            datatable();
+        }     // TODO add your handling code here:
+    }//GEN-LAST:event_bcariKeyPressed
+
+    private void bkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkeluarActionPerformed
+    new MenuUtama().setVisible(true); // Panggil form menu utama
+    this.dispose();    // TODO add your handling code here:
+    }//GEN-LAST:event_bkeluarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +405,24 @@ public class FormUser extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bbatal;
+    private javax.swing.JButton bcari;
+    private javax.swing.JButton bedit;
+    private javax.swing.JButton bhapus;
+    private javax.swing.JButton bkeluar;
+    private javax.swing.JButton bsimpan;
+    private javax.swing.JComboBox<String> cblevel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tbluser;
+    private javax.swing.JTextField txtcari;
+    private javax.swing.JTextField txtid;
+    private javax.swing.JPasswordField txtpass;
+    private javax.swing.JTextField txtuser;
     // End of variables declaration//GEN-END:variables
 }
