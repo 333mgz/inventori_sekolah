@@ -24,7 +24,7 @@ public class FormUser extends javax.swing.JFrame {
         datatable();
         autoId();
         
-        // Pilihan level sesuai gambar referensi
+        
         cblevel.removeAllItems();
         cblevel.addItem("Admin");
         cblevel.addItem("User");
