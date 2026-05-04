@@ -260,6 +260,7 @@ public class FormKategori extends javax.swing.JFrame {
         stat.setString(1, txtid.getText());
         stat.setString(2, txtnama.getText());
 
+        
         stat.executeUpdate();
         JOptionPane.showMessageDialog(null, "Data Berhasil Disimpan");
         kosong();
