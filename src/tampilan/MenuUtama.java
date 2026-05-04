@@ -9,6 +9,8 @@ import tampilan.FormBarang;
 import tampilan.FormKategori;
 import tampilan.FormSupplier;
 import tampilan.FormUser;
+import tampilan.FormBarangMasuk;
+
 /**
  *
  * @author andre_f1brqrv
@@ -33,7 +35,6 @@ public class MenuUtama extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         DesktopPane = new javax.swing.JDesktopPane();
-        jpanel = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         menuBarang = new javax.swing.JMenuItem();
@@ -41,9 +42,11 @@ public class MenuUtama extends javax.swing.JFrame {
         menuSupplier = new javax.swing.JMenuItem();
         menuUser = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        menuBarangMasuk = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,34 +55,15 @@ public class MenuUtama extends javax.swing.JFrame {
 
         DesktopPane.setBackground(new java.awt.Color(153, 153, 153));
 
-        javax.swing.GroupLayout jpanelLayout = new javax.swing.GroupLayout(jpanel);
-        jpanel.setLayout(jpanelLayout);
-        jpanelLayout.setHorizontalGroup(
-            jpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jpanelLayout.setVerticalGroup(
-            jpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 23, Short.MAX_VALUE)
-        );
-
-        DesktopPane.setLayer(jpanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         javax.swing.GroupLayout DesktopPaneLayout = new javax.swing.GroupLayout(DesktopPane);
         DesktopPane.setLayout(DesktopPaneLayout);
         DesktopPaneLayout.setHorizontalGroup(
             DesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DesktopPaneLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(549, 549, 549))
+            .addGap(0, 1231, Short.MAX_VALUE)
         );
         DesktopPaneLayout.setVerticalGroup(
             DesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DesktopPaneLayout.createSequentialGroup()
-                .addGap(240, 240, 240)
-                .addComponent(jpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(501, Short.MAX_VALUE))
+            .addGap(0, 764, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Master Data");
@@ -119,9 +103,19 @@ public class MenuUtama extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Transaksi");
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu2ActionPerformed(evt);
+            }
+        });
 
-        jMenuItem5.setText(" barang masuk");
-        jMenu2.add(jMenuItem5);
+        menuBarangMasuk.setText(" barang masuk");
+        menuBarangMasuk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuBarangMasukActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuBarangMasuk);
 
         jMenuItem6.setText("kerusakan");
         jMenu2.add(jMenuItem6);
@@ -131,6 +125,12 @@ public class MenuUtama extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu3.setText("Report");
+        jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("Logout");
+        jMenuBar1.add(jMenu4);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -139,14 +139,16 @@ public class MenuUtama extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(DesktopPane)
             .addGroup(layout.createSequentialGroup()
+                .addGap(41, 41, 41)
                 .addComponent(jLabel1)
-                .addGap(0, 87, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(DesktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -168,6 +170,19 @@ new FormKategori().setVisible(true);        // TODO add your handling code here:
     private void menuUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuUserActionPerformed
 new FormUser().setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_menuUserActionPerformed
+
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu2ActionPerformed
+
+    private void menuBarangMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBarangMasukActionPerformed
+    FormBarangMasuk fbm = new FormBarangMasuk ();
+    DesktopPane.add(fbm);
+    fbm.setVisible(true);
+     // TODO add your handling code here:
+    }//GEN-LAST:event_menuBarangMasukActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,12 +224,13 @@ new FormUser().setVisible(true);        // TODO add your handling code here:
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JPanel jpanel;
     private javax.swing.JMenuItem menuBarang;
+    private javax.swing.JMenuItem menuBarangMasuk;
     private javax.swing.JMenuItem menuSupplier;
     private javax.swing.JMenuItem menuUser;
     private javax.swing.JMenuItem menukategori;
