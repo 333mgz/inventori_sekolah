@@ -302,8 +302,8 @@ public class FormKategori extends javax.swing.JFrame {
     }//GEN-LAST:event_beditActionPerformed
 
     private void bkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkeluarActionPerformed
-    new MenuUtama().setVisible(true); // Panggil form menu utama
-    this.dispose(); // Tutup form kategori ini    // TODO add your handling code here:
+    new MenuUtama().setVisible(true); 
+    this.dispose();   // TODO add your handling code here:
     }//GEN-LAST:event_bkeluarActionPerformed
 
     private void tblkategoriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblkategoriMouseClicked
