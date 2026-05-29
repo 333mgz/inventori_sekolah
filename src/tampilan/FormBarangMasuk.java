@@ -291,7 +291,8 @@ private void resetForm() {
         String idSupplier = supplier.split(" - ")[0];
 
         // INSERT transaksi
-        String sql = "INSERT INTO barang_masuk VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO barang_masuk (id_transaksi, tanggal, id_barang, id_supplier, jumlah) VALUES (?,?,?,?,?)";
+
         PreparedStatement pst = conn.prepareStatement(sql);
 
         pst.setString(1, txtId.getText());
