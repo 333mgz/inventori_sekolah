@@ -3,35 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tampilan;
+package tampilan.transaksi;
 
 import Koneksi.Koneksi;
 import java.sql.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author andre_f1brqrv
  */
-public class FormBarangMasuk extends javax.swing.JInternalFrame
- {
+public class FormBarangMasuk extends javax.swing.JFrame {
 
     /**
-     * Creates new form FormBarangMasuk
+     * Creates new form FormBarangMasuk1
      */
     public FormBarangMasuk() {
         initComponents();
-        setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
-        setResizable(true);
-        loadBarang();
-        loadSupplier();
-        tampilData();
-        autoId();
-    }
+        
+        initComponents();
 
+    setResizable(true);
+    loadBarang();
+    loadSupplier();
+    tampilData();
+    autoId();
+    }
     
     private void loadBarang() {
     try {
@@ -129,6 +126,7 @@ private void resetForm() {
     cbBarang.setSelectedIndex(0);
     cbSupplier.setSelectedIndex(0);
 }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -138,6 +136,12 @@ private void resetForm() {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         txtTanggal = new javax.swing.JTextField();
         btnReset = new javax.swing.JButton();
@@ -147,14 +151,26 @@ private void resetForm() {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableTransaksi = new javax.swing.JTable();
         btnSimpan = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel3.setText("FORM BARANG MASUK");
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("Id Transaksi");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setText("Tanggal");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setText("Barang");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setText("Supplier");
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel6.setText("Jumlah");
 
         btnReset.setText("Reset");
 
@@ -181,24 +197,6 @@ private void resetForm() {
                 btnSimpanActionPerformed(evt);
             }
         });
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel3.setText("FORM BARANG MASUK");
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Id Transaksi");
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Tanggal");
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel4.setText("Barang");
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel5.setText("Supplier");
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel6.setText("Jumlah");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -239,7 +237,7 @@ private void resetForm() {
                                 .addComponent(btnSimpan)
                                 .addGap(29, 29, 29)
                                 .addComponent(btnReset)))))
-                .addContainerGap(477, Short.MAX_VALUE))
+                .addContainerGap(628, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,54 +271,54 @@ private void resetForm() {
                     .addComponent(btnSimpan))
                 .addGap(138, 138, 138)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-       try {
-        Connection conn = Koneksi.getKoneksi();
+        try {
+            Connection conn = Koneksi.getKoneksi();
 
-        // ambil ID dari combobox
-        String barang = cbBarang.getSelectedItem().toString();
-        String idBarang = barang.split(" - ")[0];
+            // ambil ID dari combobox
+            String barang = cbBarang.getSelectedItem().toString();
+            String idBarang = barang.split(" - ")[0];
 
-        String supplier = cbSupplier.getSelectedItem().toString();
-        String idSupplier = supplier.split(" - ")[0];
+            String supplier = cbSupplier.getSelectedItem().toString();
+            String idSupplier = supplier.split(" - ")[0];
 
-        // INSERT transaksi
-        String sql = "INSERT INTO barang_masuk (id_transaksi, tanggal, id_barang, id_supplier, jumlah) VALUES (?,?,?,?,?)";
+            // INSERT transaksi
+            String sql = "INSERT INTO barang_masuk (id_transaksi, tanggal, id_barang, id_supplier, jumlah) VALUES (?,?,?,?,?)";
 
-        PreparedStatement pst = conn.prepareStatement(sql);
+            PreparedStatement pst = conn.prepareStatement(sql);
 
-        pst.setString(1, txtId.getText());
-        pst.setString(2, txtTanggal.getText());
-        pst.setString(3, idBarang);
-        pst.setString(4, idSupplier);
-        pst.setInt(5, Integer.parseInt(txtJumlah.getText()));
+            pst.setString(1, txtId.getText());
+            pst.setString(2, txtTanggal.getText());
+            pst.setString(3, idBarang);
+            pst.setString(4, idSupplier);
+            pst.setInt(5, Integer.parseInt(txtJumlah.getText()));
 
-        pst.executeUpdate();
+            pst.executeUpdate();
 
-        // UPDATE stok
-        String sql2 = "UPDATE barang SET stok = stok + ? WHERE id_barang=?";
-        PreparedStatement pst2 = conn.prepareStatement(sql2);
+            // UPDATE stok
+            String sql2 = "UPDATE barang SET stok = stok + ? WHERE id_barang=?";
+            PreparedStatement pst2 = conn.prepareStatement(sql2);
 
-        pst2.setInt(1, Integer.parseInt(txtJumlah.getText()));
-        pst2.setString(2, idBarang);
+            pst2.setInt(1, Integer.parseInt(txtJumlah.getText()));
+            pst2.setString(2, idBarang);
 
-        pst2.executeUpdate();
+            pst2.executeUpdate();
 
-        JOptionPane.showMessageDialog(null, "Transaksi berhasil!");
+            JOptionPane.showMessageDialog(null, "Transaksi berhasil!");
 
-        tampilData();
-        autoId();
-        resetForm();
+            tampilData();
+            autoId();
+            resetForm();
 
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, e);
-    } // TODO add your handling code here:
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        } // TODO add your handling code here:
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     /**
@@ -349,11 +347,12 @@ private void resetForm() {
             java.util.logging.Logger.getLogger(FormBarangMasuk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormBarangMasuk().setVisible(true); 
+                new FormBarangMasuk().setVisible(true);
             }
         });
     }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tampilan;
+package tampilan.master;
 import Koneksi.Koneksi;
 import java.awt.event.KeyEvent;
 import java.sql.*;
@@ -365,7 +365,7 @@ private void autoId() {
     }//GEN-LAST:event_bcariKeyPressed
 
     private void bkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkeluarActionPerformed
-    new MenuUtama().setVisible(true); // Panggil form menu utama
+     // Panggil form menu utama
     this.dispose();    // TODO add your handling code here:
     }//GEN-LAST:event_bkeluarActionPerformed
 

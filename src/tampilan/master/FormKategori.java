@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tampilan;
+package tampilan.master;
 import Koneksi.Koneksi;
 import java.awt.event.KeyEvent;
 import java.sql.*;
@@ -303,7 +303,7 @@ public class FormKategori extends javax.swing.JFrame {
     }//GEN-LAST:event_beditActionPerformed
 
     private void bkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkeluarActionPerformed
-    new MenuUtama().setVisible(true); 
+    
     this.dispose();   // TODO add your handling code here:
     }//GEN-LAST:event_bkeluarActionPerformed
 
