@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.sql.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import tampilan.dashboard.dashboard;
 /**
  *
  * @author raisa
@@ -68,70 +69,25 @@ public class FormKategori extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        txtid = new javax.swing.JTextField();
-        txtnama = new javax.swing.JTextField();
-        bsimpan = new javax.swing.JButton();
-        bedit = new javax.swing.JButton();
-        bhapus = new javax.swing.JButton();
         bkeluar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         txtcari = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         bcari = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtid = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblkategori = new javax.swing.JTable();
+        txtnama = new javax.swing.JTextField();
+        bsimpan = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        bedit = new javax.swing.JButton();
+        bhapus = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel1.setText("FORM DATA KATEGORI");
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jLabel2.setText("ID Kategori");
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jLabel3.setText("Nama Kategori");
-
-        txtid.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtidActionPerformed(evt);
-            }
-        });
-
-        txtnama.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtnamaActionPerformed(evt);
-            }
-        });
-
-        bsimpan.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        bsimpan.setText("SIMPAN");
-        bsimpan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bsimpanActionPerformed(evt);
-            }
-        });
-
-        bedit.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        bedit.setText("EDIT");
-        bedit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                beditActionPerformed(evt);
-            }
-        });
-
-        bhapus.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        bhapus.setText("HAPUS");
-        bhapus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bhapusActionPerformed(evt);
-            }
-        });
-
         bkeluar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        bkeluar.setText("KELUAR");
+        bkeluar.setText("HOME");
         bkeluar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bkeluarActionPerformed(evt);
@@ -140,6 +96,9 @@ public class FormKategori extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jLabel4.setText("Data Kategori");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel1.setText("FORM DATA KATEGORI");
 
         bcari.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         bcari.setText("CARI");
@@ -151,6 +110,15 @@ public class FormKategori extends javax.swing.JFrame {
         bcari.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 bcariKeyPressed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel2.setText("ID Kategori");
+
+        txtid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtidActionPerformed(evt);
             }
         });
 
@@ -171,6 +139,39 @@ public class FormKategori extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tblkategori);
+
+        txtnama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtnamaActionPerformed(evt);
+            }
+        });
+
+        bsimpan.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        bsimpan.setText("SIMPAN");
+        bsimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bsimpanActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel3.setText("Nama Kategori");
+
+        bedit.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        bedit.setText("EDIT");
+        bedit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                beditActionPerformed(evt);
+            }
+        });
+
+        bhapus.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        bhapus.setText("HAPUS");
+        bhapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bhapusActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -210,7 +211,7 @@ public class FormKategori extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGap(196, 196, 196)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(178, Short.MAX_VALUE))
+                .addContainerGap(196, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,7 +240,7 @@ public class FormKategori extends javax.swing.JFrame {
                     .addComponent(bcari))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(249, Short.MAX_VALUE))
         );
 
         pack();
@@ -303,7 +304,10 @@ public class FormKategori extends javax.swing.JFrame {
     }//GEN-LAST:event_beditActionPerformed
 
     private void bkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkeluarActionPerformed
-    
+    dashboard db = new dashboard();
+
+    db.setVisible(true);
+
     this.dispose();   // TODO add your handling code here:
     }//GEN-LAST:event_bkeluarActionPerformed
 

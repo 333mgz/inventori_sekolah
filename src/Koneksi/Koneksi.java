@@ -12,7 +12,7 @@ public class Koneksi {
     public static Connection getKoneksi() {
         try {
             if (conn == null) {
-                String url = "jdbc:mysql://localhost:3306/inventori_sekolah?useSSL=false&serverTimezone=UTC";
+                String url = "jdbc:mysql://localhost:3307/inventori_sekolah?useSSL=false&serverTimezone=UTC";
                 String user = "root";
                 String pass = "";
 
