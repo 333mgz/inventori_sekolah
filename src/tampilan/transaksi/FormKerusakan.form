@@ -132,11 +132,13 @@
                       <Component id="spTanggal" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jLabel4" min="-2" pref="123" max="-2" attributes="0"/>
-                      <Component id="cbPetugas" max="32767" attributes="0"/>
-                      <Component id="jLabel5" alignment="0" pref="141" max="32767" attributes="0"/>
-                      <Component id="txtIDP" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jLabel4" min="-2" pref="123" max="-2" attributes="0"/>
+                          <Component id="jLabel5" alignment="0" pref="141" max="32767" attributes="0"/>
+                          <Component id="txtIDP" max="32767" attributes="0"/>
+                      </Group>
+                      <Component id="cbPetugas" min="-2" pref="141" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="84" max="32767" attributes="0"/>
               </Group>
