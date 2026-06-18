@@ -279,7 +279,7 @@ public class dashboard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panelheader.setBackground(new java.awt.Color(51, 51, 255));
+        panelheader.setBackground(new java.awt.Color(102, 204, 255));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setText("SISTEM INVENTORI FASILITAS SEKOLAH");
@@ -304,10 +304,9 @@ public class dashboard extends javax.swing.JFrame {
         jLabel7.setText("AKTIVITAS TERBARU");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(51, 51, 255));
         jLabel8.setText("DASHBOARD INVENTORI SEKOLAH");
 
-        jPanel3.setBackground(new java.awt.Color(0, 102, 255));
+        jPanel3.setBackground(new java.awt.Color(102, 204, 255));
 
         jLabel1.setText("TOTAL BARANG");
 
@@ -419,9 +418,9 @@ public class dashboard extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addGap(56, 56, 56)
                 .addComponent(panelbarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addComponent(panelrusak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(80, 80, 80)
                 .addComponent(panelmutasi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -442,7 +441,7 @@ public class dashboard extends javax.swing.JFrame {
                 .addContainerGap(54, Short.MAX_VALUE))
         );
 
-        panelGrafik.setBackground(new java.awt.Color(0, 102, 255));
+        panelGrafik.setBackground(new java.awt.Color(102, 204, 255));
 
         javax.swing.GroupLayout panelGrafikLayout = new javax.swing.GroupLayout(panelGrafik);
         panelGrafik.setLayout(panelGrafikLayout);
@@ -501,7 +500,7 @@ public class dashboard extends javax.swing.JFrame {
                 .addContainerGap(94, Short.MAX_VALUE))
         );
 
-        panelsidebar.setBackground(new java.awt.Color(51, 51, 255));
+        panelsidebar.setBackground(new java.awt.Color(102, 204, 255));
 
         btnBarang.setText("BARANG");
         btnBarang.addActionListener(new java.awt.event.ActionListener() {
@@ -572,16 +571,20 @@ public class dashboard extends javax.swing.JFrame {
             panelsidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelsidebarLayout.createSequentialGroup()
                 .addGroup(panelsidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(47, 47, 47))
+            .addGroup(panelsidebarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelsidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnBarang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnKategori, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSupplier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBarangMasuk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnKerusakan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBarangMasuk, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                    .addComponent(btnKerusakan, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
                     .addComponent(btnMutasi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(47, 47, 47))
+                .addContainerGap())
         );
         panelsidebarLayout.setVerticalGroup(
             panelsidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -590,15 +593,15 @@ public class dashboard extends javax.swing.JFrame {
                 .addComponent(btnBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
                 .addComponent(btnSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
                 .addComponent(btnUser)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnBarangMasuk)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnKerusakan)
-                .addGap(75, 75, 75)
+                .addGap(66, 66, 66)
                 .addComponent(btnMutasi)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 228, Short.MAX_VALUE)
                 .addComponent(btnReport)

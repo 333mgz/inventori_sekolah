@@ -34,143 +34,177 @@ public class login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDesktopPane1 = new javax.swing.JDesktopPane();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        txtUsername9 = new javax.swing.JTextField();
+        txtPassword9 = new javax.swing.JPasswordField();
+        bkeluar9 = new javax.swing.JButton();
+        btnLogin9 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtUsername = new javax.swing.JTextField();
-        txtPassword = new javax.swing.JPasswordField();
-        bkeluar = new javax.swing.JButton();
-        btnLogin = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 0, 153));
 
-        jPanel1.setBackground(new java.awt.Color(134, 134, 134));
+        jPanel4.setBackground(new java.awt.Color(51, 204, 255));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel3.setText("SISTEM INVENTORI FASILITAS SEKOLAH");
+        jPanel13.setBackground(new java.awt.Color(204, 204, 204));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Username");
+        jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel28.setText("SISTEM INVENTORI FASILITAS SEKOLAH");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Password");
+        jLabel29.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel29.setText("Username");
 
-        txtUsername.addActionListener(new java.awt.event.ActionListener() {
+        jLabel30.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel30.setText("Password");
+
+        txtUsername9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsernameActionPerformed(evt);
+                txtUsername9txtUsernameActionPerformed(evt);
             }
         });
-        txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtUsername9.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtUsernameKeyPressed(evt);
+                txtUsername9txtUsernameKeyPressed(evt);
             }
         });
 
-        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtPassword9.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtPasswordKeyPressed(evt);
+                txtPassword9txtPasswordKeyPressed(evt);
             }
         });
 
-        bkeluar.setText("KELUAR");
-        bkeluar.addActionListener(new java.awt.event.ActionListener() {
+        bkeluar9.setBackground(new java.awt.Color(204, 0, 0));
+        bkeluar9.setText("KELUAR");
+        bkeluar9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bkeluarActionPerformed(evt);
+                bkeluar9bkeluarActionPerformed(evt);
             }
         });
 
-        btnLogin.setText("LOGIN");
-        btnLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+        btnLogin9.setBackground(new java.awt.Color(51, 102, 255));
+        btnLogin9.setText("LOGIN");
+        btnLogin9.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnLoginKeyPressed(evt);
+                btnLogin9btnLoginKeyPressed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\haika\\OneDrive\\Documents\\NetBeansProjects\\Inventory_SekolahXYZ\\Inventory_SekolahXYZ\\src\\Asset\\profile.png")); // NOI18N
+
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\haika\\OneDrive\\Documents\\NetBeansProjects\\Inventory_SekolahXYZ\\Inventory_SekolahXYZ\\src\\Asset\\password.png")); // NOI18N
+
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\haika\\OneDrive\\Documents\\NetBeansProjects\\Inventory_SekolahXYZ\\Inventory_SekolahXYZ\\src\\Asset\\Logo_Sekolah_XYZ_50px Nobackground.png")); // NOI18N
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel13Layout.createSequentialGroup()
                         .addGap(68, 68, 68)
-                        .addComponent(jLabel3))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel28))
+                    .addGroup(jPanel13Layout.createSequentialGroup()
                         .addGap(82, 82, 82)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addGap(34, 34, 34)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnLogin)
-                                .addGap(28, 28, 28)
-                                .addComponent(bkeluar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtPassword)
-                            .addComponent(txtUsername))))
+                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel13Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtUsername9, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel13Layout.createSequentialGroup()
+                                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel30)
+                                    .addComponent(jLabel29))
+                                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel13Layout.createSequentialGroup()
+                                        .addGap(44, 44, 44)
+                                        .addComponent(btnLogin9)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(bkeluar9))
+                                    .addGroup(jPanel13Layout.createSequentialGroup()
+                                        .addGap(16, 16, 16)
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtPassword9, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addContainerGap(67, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(264, 264, 264))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(116, 116, 116)
-                        .addComponent(jLabel3))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(198, 198, 198)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))))
-                .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bkeluar)
-                    .addComponent(btnLogin))
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel28)
+                .addGap(30, 30, 30)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel29)
+                    .addComponent(jLabel1)
+                    .addComponent(txtUsername9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel30)
+                    .addComponent(txtPassword9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(43, 43, 43)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bkeluar9)
+                    .addComponent(btnLogin9))
                 .addContainerGap(155, Short.MAX_VALUE))
         );
 
-        jDesktopPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(444, 444, 444)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(466, Short.MAX_VALUE))
-        );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(118, 118, 118)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(175, Short.MAX_VALUE))
-        );
+        jPanel4.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addGap(46, 46, 46)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 847, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(1677, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(149, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLogin9btnLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLogin9btnLoginKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLogin9btnLoginKeyPressed
+
+    private void bkeluar9bkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkeluar9bkeluarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bkeluar9bkeluarActionPerformed
+
+    private void txtPassword9txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassword9txtPasswordKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPassword9txtPasswordKeyPressed
+
+    private void txtUsername9txtUsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsername9txtUsernameKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsername9txtUsernameKeyPressed
+
+    private void txtUsername9txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsername9txtUsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsername9txtUsernameActionPerformed
 
     /*
  * To change this license header, choose License Headers in Project Properties.
@@ -198,8 +232,8 @@ public class login extends javax.swing.JFrame {
         String sql = "SELECT * FROM user WHERE username=? AND password=?";
         java.sql.PreparedStatement pst = conn.prepareStatement(sql);
 
-        pst.setString(1, txtUsername.getText());
-        pst.setString(2, new String(txtPassword.getPassword()));
+        pst.setString(1, txtUsername9.getText());
+        pst.setString(2, new String(txtPassword9.getPassword()));
 
         java.sql.ResultSet rs = pst.executeQuery();
 
@@ -219,35 +253,6 @@ public class login extends javax.swing.JFrame {
    
 
     
-
-    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
-                                              
-    prosesLogin(); // Memanggil method proses login agar codingan tidak double
-  // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsernameActionPerformed
-
-    private void bkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkeluarActionPerformed
-        // TODO add your handling code here:
-        dispose();
-    }//GEN-LAST:event_bkeluarActionPerformed
-
-    private void txtUsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyPressed
-if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-        prosesLogin();
-}
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsernameKeyPressed
-
-    private void btnLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLoginKeyPressed
-
-       // TODO add your handling code here:
-    }//GEN-LAST:event_btnLoginKeyPressed
-
-    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
-       if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-        prosesLogin();
-       }// TODO add your handling code here:
-    }//GEN-LAST:event_txtPasswordKeyPressed
 
     /**
      * @param args the command line arguments
@@ -285,14 +290,17 @@ if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bkeluar;
-    private javax.swing.JButton btnLogin;
-    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JButton bkeluar9;
+    private javax.swing.JButton btnLogin9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField txtPassword;
-    private javax.swing.JTextField txtUsername;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPasswordField txtPassword9;
+    private javax.swing.JTextField txtUsername9;
     // End of variables declaration//GEN-END:variables
 }

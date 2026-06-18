@@ -54,7 +54,7 @@
     <Container class="javax.swing.JPanel" name="panelheader">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="33" red="33" type="rgb"/>
+          <Color blue="ff" green="cc" red="66" type="rgb"/>
         </Property>
       </Properties>
 
@@ -142,16 +142,13 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="24" style="1"/>
             </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="33" red="33" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="DASHBOARD INVENTORI SEKOLAH"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel3">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="66" red="0" type="rgb"/>
+              <Color blue="ff" green="cc" red="66" type="rgb"/>
             </Property>
           </Properties>
 
@@ -159,9 +156,9 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                       <Component id="panelbarang" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="70" max="32767" attributes="0"/>
+                      <EmptySpace pref="68" max="32767" attributes="0"/>
                       <Component id="panelrusak" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
                       <Component id="panelmutasi" min="-2" max="-2" attributes="0"/>
@@ -361,7 +358,7 @@
         <Container class="javax.swing.JPanel" name="panelGrafik">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="66" red="0" type="rgb"/>
+              <Color blue="ff" green="cc" red="66" type="rgb"/>
             </Property>
           </Properties>
 
@@ -404,7 +401,7 @@
     <Container class="javax.swing.JPanel" name="panelsidebar">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="33" red="33" type="rgb"/>
+          <Color blue="ff" green="cc" red="66" type="rgb"/>
         </Property>
       </Properties>
 
@@ -413,17 +410,23 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="btnReport" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnLogout" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btnBarang" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnKategori" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnSupplier" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnBarangMasuk" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnReport" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnLogout" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnUser" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnKerusakan" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnBarangMasuk" alignment="0" pref="170" max="32767" attributes="0"/>
+                      <Component id="btnKerusakan" alignment="0" pref="170" max="32767" attributes="0"/>
                       <Component id="btnMutasi" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -434,15 +437,15 @@
                   <Component id="btnBarang" min="-2" pref="50" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnKategori" min="-2" pref="50" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="btnSupplier" min="-2" pref="50" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   <Component id="btnUser" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnBarangMasuk" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnKerusakan" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
                   <Component id="btnMutasi" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="228" max="32767" attributes="0"/>
                   <Component id="btnReport" min="-2" max="-2" attributes="0"/>
