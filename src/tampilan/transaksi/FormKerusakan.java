@@ -6,11 +6,9 @@
 package tampilan.transaksi;
 import Koneksi.Koneksi;
 import java.sql.Connection;
+import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;import tampilan.dashboard.dashboard;
 
@@ -69,61 +67,40 @@ public class FormKerusakan extends javax.swing.JFrame {
 
     
     private void tampilPetugas() {
-        try {
-            Connection conn = Koneksi.getKoneksi();
-            String sql = "SELECT username FROM user"; 
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            
-            cbPetugas.removeAllItems();
-            cbPetugas.addItem("- Pilih Petugas -");
-            while (rs.next()) {
-                cbPetugas.addItem(rs.getString("username"));
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Gagal memuat petugas: " + e.getMessage());
+    try {
+        Connection conn = Koneksi.getKoneksi();
+        String sql = "SELECT username FROM user"; 
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        
+        cbPetugas.removeAllItems();
+        cbPetugas.addItem("- Pilih Petugas -");
+        while (rs.next()) {
+            cbPetugas.addItem(rs.getString("username"));
         }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Gagal memuat petugas: " + e.getMessage());
     }
+}
 
     
     private void tampilBarang() {
-        try {
-            Connection conn = Koneksi.getKoneksi();
-            String sql = "SELECT nama_barang FROM barang";
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            
-            cbBarang.removeAllItems();
-            cbBarang.addItem("- Pilih Barang -");
-            while (rs.next()) {
-                cbBarang.addItem(rs.getString("nama_barang"));
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Gagal memuat barang: " + e.getMessage());
+    try {
+        Connection conn = Koneksi.getKoneksi();
+        String sql = "SELECT nama_barang FROM barang"; 
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        
+        cbBarang.removeAllItems();
+        cbBarang.addItem("- Pilih Barang -");
+        while (rs.next()) {
+            cbBarang.addItem(rs.getString("nama_barang"));
         }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Gagal memuat data barang: " + e.getMessage());
     }
-
+}
    
-    private void cbPetugasActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        if (cbPetugas.getSelectedIndex() > 0) {
-            try {
-                Connection conn = Koneksi.getKoneksi();
-                String sql = "SELECT id_user FROM user WHERE username= ?";
-                PreparedStatement pst = conn.prepareStatement(sql);
-                pst.setString(1, cbPetugas.getSelectedItem().toString());
-                ResultSet rs = pst.executeQuery();
-                
-                if (rs.next()) {
-                    txtIDP.setText(rs.getString("id_user"));
-                }
-                txtIDP.setEditable(false);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, e.getMessage());
-            }
-        } else {
-            txtIDP.setText("");
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -193,7 +170,19 @@ public class FormKerusakan extends javax.swing.JFrame {
 
         jLabel4.setText("Petugas: ");
 
+        cbPetugas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbPetugasActionPerformed(evt);
+            }
+        });
+
         jLabel5.setText("ID Petugas:");
+
+        txtIDP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIDPActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -478,6 +467,31 @@ public class FormKerusakan extends javax.swing.JFrame {
 
     this.dispose();      // TODO add your handling code here:
     }//GEN-LAST:event_btnHomeActionPerformed
+
+    private void txtIDPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIDPActionPerformed
+
+    private void cbPetugasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPetugasActionPerformed
+    if (cbPetugas.getSelectedIndex() > 0) {
+        try {
+            Connection conn = Koneksi.getKoneksi();
+            String sql = "SELECT id_user FROM user WHERE username = ?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, cbPetugas.getSelectedItem().toString());
+            ResultSet rs = pst.executeQuery();
+            
+            if (rs.next()) {
+                txtIDP.setText(rs.getString("id_user"));
+            }
+            txtIDP.setEditable(false);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal memuat ID Petugas: " + e.getMessage());
+        }
+    } else {
+        txtIDP.setText("");
+    }    // TODO add your handling code here:
+    }//GEN-LAST:event_cbPetugasActionPerformed
 
     /**
      * @param args the command line arguments
