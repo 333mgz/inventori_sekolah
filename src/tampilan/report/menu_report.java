@@ -4,6 +4,12 @@
  * and open the template in the editor.
  */
 package tampilan.report;
+import Koneksi.Koneksi;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,6 +24,17 @@ public class menu_report extends javax.swing.JFrame {
         initComponents();
     }
 
+    private void bukaForm(javax.swing.JInternalFrame form){
+
+    desktopPane.removeAll();
+    desktopPane.repaint();
+    desktopPane.revalidate();
+
+    desktopPane.add(form);
+
+    form.setVisible(true);
+
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,449 +44,130 @@ public class menu_report extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        panelStok = new javax.swing.JPanel();
-        panelMasuk = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        txtAwalMasuk = new javax.swing.JTextField();
-        txtTglAkhirMasuk = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        cbSuppLierMasuk = new javax.swing.JComboBox<>();
-        btnTampilMasuk = new javax.swing.JButton();
-        btnCetakMasuk = new javax.swing.JButton();
-        btnHome = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblMasuk = new javax.swing.JTable();
-        panelKerusakan = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        txtTglAwalRusak = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        txtTglAkhirRusak = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        cbKondisi = new javax.swing.JComboBox<>();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tblKerusakan = new javax.swing.JTable();
-        btnTampil = new javax.swing.JButton();
-        btnCetakRusak = new javax.swing.JButton();
-        btnHomeRusak = new javax.swing.JButton();
-        panelMutasi = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        txtTglAwalMutasi = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
-        txtTglAkhirMutasi = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
-        cbJenisMutasi = new javax.swing.JComboBox<>();
-        jLabel13 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        tblMutasi = new javax.swing.JTable();
-        btnTampilMutasi = new javax.swing.JButton();
-        btnCetakMutasi = new javax.swing.JButton();
-        btnHomeMutasi = new javax.swing.JButton();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        btnBarangMasuk = new javax.swing.JButton();
+        btnBarangRusak = new javax.swing.JButton();
+        btnDataBarang = new javax.swing.JButton();
+        btnMutasi = new javax.swing.JButton();
+        desktopPane = new javax.swing.JDesktopPane();
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout panelStokLayout = new javax.swing.GroupLayout(panelStok);
-        panelStok.setLayout(panelStokLayout);
-        panelStokLayout.setHorizontalGroup(
-            panelStokLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 587, Short.MAX_VALUE)
-        );
-        panelStokLayout.setVerticalGroup(
-            panelStokLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("STOK BARANG MASUK", panelStok);
-
-        jLabel4.setText("TANGGAL AWAL");
-
-        txtAwalMasuk.addActionListener(new java.awt.event.ActionListener() {
+        btnBarangMasuk.setText("LAPORAN BARANG MASUK");
+        btnBarangMasuk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAwalMasukActionPerformed(evt);
+                btnBarangMasukActionPerformed(evt);
             }
         });
 
-        txtTglAkhirMasuk.addActionListener(new java.awt.event.ActionListener() {
+        btnBarangRusak.setText("LAPORAN BARANG RUSAK");
+        btnBarangRusak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTglAkhirMasukActionPerformed(evt);
+                btnBarangRusakActionPerformed(evt);
             }
         });
 
-        jLabel5.setText("TANGGAL  AWAL");
-
-        jLabel6.setText("SUPPLIER");
-
-        cbSuppLierMasuk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbSuppLierMasuk.addActionListener(new java.awt.event.ActionListener() {
+        btnDataBarang.setText("LAPORAN DATA BARANG ");
+        btnDataBarang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbSuppLierMasukActionPerformed(evt);
+                btnDataBarangActionPerformed(evt);
             }
         });
 
-        btnTampilMasuk.setText("TAMPILKAN");
-        btnTampilMasuk.addActionListener(new java.awt.event.ActionListener() {
+        btnMutasi.setText("LAPORAN MUTASI");
+        btnMutasi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTampilMasukActionPerformed(evt);
+                btnMutasiActionPerformed(evt);
             }
         });
-
-        btnCetakMasuk.setText("CETAK PDF");
-        btnCetakMasuk.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCetakMasukActionPerformed(evt);
-            }
-        });
-
-        btnHome.setText("HOME");
-        btnHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHomeActionPerformed(evt);
-            }
-        });
-
-        tblMasuk.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "ID", "TGL", "KDE  BRG", "NM BRG", "JUMLAH", "SATUAN", "SUPPLIER", "PENERIMA"
-            }
-        ));
-        jScrollPane2.setViewportView(tblMasuk);
-
-        javax.swing.GroupLayout panelMasukLayout = new javax.swing.GroupLayout(panelMasuk);
-        panelMasuk.setLayout(panelMasukLayout);
-        panelMasukLayout.setHorizontalGroup(
-            panelMasukLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelMasukLayout.createSequentialGroup()
-                .addGroup(panelMasukLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelMasukLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtAwalMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
-                        .addGap(21, 21, 21)
-                        .addComponent(txtTglAkhirMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelMasukLayout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addGroup(panelMasukLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnTampilMasuk))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelMasukLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelMasukLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(btnCetakMasuk)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(cbSuppLierMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(30, Short.MAX_VALUE))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
-        );
-        panelMasukLayout.setVerticalGroup(
-            panelMasukLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelMasukLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(panelMasukLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAwalMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTglAkhirMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(panelMasukLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(cbSuppLierMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44)
-                .addGroup(panelMasukLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTampilMasuk)
-                    .addComponent(btnCetakMasuk)
-                    .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(99, 99, 99)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("BARANG MASUK", panelMasuk);
-
-        jLabel7.setText("TANGGAL AWAL");
-
-        txtTglAwalRusak.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTglAwalRusakActionPerformed(evt);
-            }
-        });
-
-        jLabel8.setText("TANGGAL AKHIR");
-
-        jLabel9.setText("KONDISI");
-
-        cbKondisi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SEMUA", "RUSAK RINGAN ", "RUSAK BESAR" }));
-
-        tblKerusakan.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "ID", "TGL", "KDE BRG", "NM BRG", "KONDISI", "LOKASI", "KET", "PETUGAS"
-            }
-        ));
-        jScrollPane3.setViewportView(tblKerusakan);
-
-        btnTampil.setText("TAMPILKAN ");
-
-        btnCetakRusak.setText("CETAK PDF");
-
-        btnHomeRusak.setText("HOME");
-        btnHomeRusak.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHomeRusakActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelKerusakanLayout = new javax.swing.GroupLayout(panelKerusakan);
-        panelKerusakan.setLayout(panelKerusakanLayout);
-        panelKerusakanLayout.setHorizontalGroup(
-            panelKerusakanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelKerusakanLayout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addGroup(panelKerusakanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelKerusakanLayout.createSequentialGroup()
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTglAwalRusak, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtTglAkhirRusak, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelKerusakanLayout.createSequentialGroup()
-                        .addGroup(panelKerusakanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(panelKerusakanLayout.createSequentialGroup()
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbKondisi, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelKerusakanLayout.createSequentialGroup()
-                                .addComponent(btnTampil, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCetakRusak, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnHomeRusak, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelKerusakanLayout.setVerticalGroup(
-            panelKerusakanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelKerusakanLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addGroup(panelKerusakanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelKerusakanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtTglAkhirRusak, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelKerusakanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtTglAwalRusak, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(36, 36, 36)
-                .addGroup(panelKerusakanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbKondisi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49)
-                .addGroup(panelKerusakanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTampil, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCetakRusak, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnHomeRusak, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("KERUSAKAN", panelKerusakan);
-
-        jLabel10.setText("TGL AWAL");
-
-        jLabel11.setText("TGL AKHIR");
-
-        jLabel12.setText("JENIS");
-
-        cbJenisMutasi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SEMUA", "PINDAH", "KELUAR", " " }));
-
-        tblMutasi.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "ID", "TGL", "KDE BRG", "NM BRG", "JENIS", "JUMLAH", "DARI", "KE", "PETUGAS"
-            }
-        ));
-        jScrollPane4.setViewportView(tblMutasi);
-
-        btnTampilMutasi.setText("TAMPILKAN");
-
-        btnCetakMutasi.setText("CETAK PDF");
-
-        btnHomeMutasi.setText("HOME");
-        btnHomeMutasi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHomeMutasiActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelMutasiLayout = new javax.swing.GroupLayout(panelMutasi);
-        panelMutasi.setLayout(panelMutasiLayout);
-        panelMutasiLayout.setHorizontalGroup(
-            panelMutasiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelMutasiLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4))
-            .addGroup(panelMutasiLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(panelMutasiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelMutasiLayout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtTglAwalMutasi, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(51, 51, 51)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtTglAkhirMutasi, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelMutasiLayout.createSequentialGroup()
-                        .addGroup(panelMutasiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(panelMutasiLayout.createSequentialGroup()
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cbJenisMutasi, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelMutasiLayout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addComponent(btnTampilMutasi)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel13)
-                                .addGap(32, 32, 32)
-                                .addComponent(btnCetakMutasi)))
-                        .addGap(42, 42, 42)
-                        .addComponent(btnHomeMutasi)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelMutasiLayout.setVerticalGroup(
-            panelMutasiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelMutasiLayout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addGroup(panelMutasiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTglAkhirMutasi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTglAwalMutasi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
-                .addGroup(panelMutasiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbJenisMutasi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(65, 65, 65)
-                .addGroup(panelMutasiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(btnTampilMutasi)
-                    .addComponent(btnCetakMutasi)
-                    .addComponent(btnHomeMutasi))
-                .addGap(41, 41, 41)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("MUTASI", panelMutasi);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(btnDataBarang)
+                .addGap(43, 43, 43)
+                .addComponent(btnBarangMasuk)
                 .addGap(44, 44, 44)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(360, Short.MAX_VALUE))
+                .addComponent(btnBarangRusak)
+                .addGap(42, 42, 42)
+                .addComponent(btnMutasi)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
+                .addContainerGap(48, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBarangMasuk)
+                    .addComponent(btnDataBarang)
+                    .addComponent(btnBarangRusak)
+                    .addComponent(btnMutasi))
+                .addGap(30, 30, 30))
         );
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout desktopPaneLayout = new javax.swing.GroupLayout(desktopPane);
+        desktopPane.setLayout(desktopPaneLayout);
+        desktopPaneLayout.setHorizontalGroup(
+            desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1046, Short.MAX_VALUE)
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 777, Short.MAX_VALUE)
+        desktopPaneLayout.setVerticalGroup(
+            desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 786, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 25, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtAwalMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAwalMasukActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAwalMasukActionPerformed
+    private void btnBarangRusakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBarangRusakActionPerformed
+ bukaForm(new laporan_barangrusak());        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBarangRusakActionPerformed
 
-    private void txtTglAkhirMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTglAkhirMasukActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTglAkhirMasukActionPerformed
+    private void btnDataBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDataBarangActionPerformed
+bukaForm(new laporan_databarang());
+            // TODO add your handling code here:
+    }//GEN-LAST:event_btnDataBarangActionPerformed
 
-    private void cbSuppLierMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSuppLierMasukActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbSuppLierMasukActionPerformed
+    private void btnBarangMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBarangMasukActionPerformed
+bukaForm(new laporan_barangmasuk());
+       // TODO add your handling code here:
+    }//GEN-LAST:event_btnBarangMasukActionPerformed
 
-    private void btnTampilMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTampilMasukActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnTampilMasukActionPerformed
-
-    private void btnCetakMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakMasukActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCetakMasukActionPerformed
-
-    private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnHomeActionPerformed
-
-    private void txtTglAwalRusakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTglAwalRusakActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTglAwalRusakActionPerformed
-
-    private void btnHomeRusakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeRusakActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnHomeRusakActionPerformed
-
-    private void btnHomeMutasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeMutasiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnHomeMutasiActionPerformed
+    private void btnMutasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMutasiActionPerformed
+bukaForm(new laporan_mutasi());       // TODO add your handling code here:
+    }//GEN-LAST:event_btnMutasiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -507,46 +205,12 @@ public class menu_report extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCetakMasuk;
-    private javax.swing.JButton btnCetakMutasi;
-    private javax.swing.JButton btnCetakRusak;
-    private javax.swing.JButton btnHome;
-    private javax.swing.JButton btnHomeMutasi;
-    private javax.swing.JButton btnHomeRusak;
-    private javax.swing.JButton btnTampil;
-    private javax.swing.JButton btnTampilMasuk;
-    private javax.swing.JButton btnTampilMutasi;
-    private javax.swing.JComboBox<String> cbJenisMutasi;
-    private javax.swing.JComboBox<String> cbKondisi;
-    private javax.swing.JComboBox<String> cbSuppLierMasuk;
-    private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JButton btnBarangMasuk;
+    private javax.swing.JButton btnBarangRusak;
+    private javax.swing.JButton btnDataBarang;
+    private javax.swing.JButton btnMutasi;
+    private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JPanel panelKerusakan;
-    private javax.swing.JPanel panelMasuk;
-    private javax.swing.JPanel panelMutasi;
-    private javax.swing.JPanel panelStok;
-    private javax.swing.JTable tblKerusakan;
-    private javax.swing.JTable tblMasuk;
-    private javax.swing.JTable tblMutasi;
-    private javax.swing.JTextField txtAwalMasuk;
-    private javax.swing.JTextField txtTglAkhirMasuk;
-    private javax.swing.JButton txtTglAkhirMutasi;
-    private javax.swing.JButton txtTglAkhirRusak;
-    private javax.swing.JButton txtTglAwalMutasi;
-    private javax.swing.JButton txtTglAwalRusak;
+    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }

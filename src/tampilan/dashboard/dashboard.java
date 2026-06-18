@@ -20,13 +20,18 @@ import tampilan.master.FormBarang;
 import tampilan.master.FormKategori;
 import tampilan.master.FormSupplier;
 import tampilan.master.FormUser;
-import tampilan.report.FormReport;
+import tampilan.report.menu_report;
+import tampilan.report.laporan_databarang;
+import tampilan.report.laporan_barangmasuk;
+import tampilan.report.laporan_barangrusak;
+import tampilan.report.laporan_mutasi;
+
 
 import tampilan.transaksi.FormBarangMasuk;
 import tampilan.transaksi.FormKerusakan;
 import tampilan.transaksi.FormMutasi;
 
-import tampilan.report.menu_report;
+
 
 /**
  *
@@ -658,7 +663,7 @@ public class dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnKerusakanActionPerformed
 
     private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
-        FormReport fr = new FormReport();
+        menu_report fr = new menu_report();
 
         fr.setVisible(true);
 
