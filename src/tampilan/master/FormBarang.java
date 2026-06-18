@@ -245,7 +245,7 @@ public class FormBarang extends javax.swing.JFrame {
                 btnHomeActionPerformed(evt);
             }
         });
-        jPanel2.add(btnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 70, -1, -1));
+        jPanel2.add(btnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 80, -1, 30));
 
         cbKondisi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbKondisi.addActionListener(new java.awt.event.ActionListener() {
