@@ -125,7 +125,7 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="spTanggal" max="32767" attributes="0"/>
                       <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtNoMutasi" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtIdMutasi" alignment="0" max="32767" attributes="0"/>
                       <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
@@ -161,7 +161,7 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtNoMutasi" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                      <Component id="txtIdMutasi" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtIDP" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -178,9 +178,8 @@
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="spTanggal" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="50" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace pref="14" max="32767" attributes="0"/>
@@ -201,7 +200,7 @@
             <Property name="text" type="java.lang.String" value="ID Mutasi:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtNoMutasi">
+        <Component class="javax.swing.JTextField" name="txtIdMutasi">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
@@ -298,7 +297,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtID" alignment="0" min="-2" pref="131" max="-2" attributes="0"/>
+                              <Component id="txtIdBarang" alignment="0" min="-2" pref="131" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -329,7 +328,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtID" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtIdBarang" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="bCari" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -406,7 +405,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTextPane" name="txtnama">
+            <Component class="javax.swing.JTextPane" name="txtNamaBarang">
             </Component>
           </SubComponents>
         </Container>
@@ -415,7 +414,7 @@
             <Property name="text" type="java.lang.String" value="ID Barang:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtID">
+        <Component class="javax.swing.JTextField" name="txtIdBarang">
         </Component>
         <Component class="javax.swing.JButton" name="bCari">
           <Properties>
@@ -434,11 +433,11 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tblMutasi">
+        <Component class="javax.swing.JTable" name="tabelMutasi">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="6" rowCount="4">
-                <Column editable="true" title="No" type="java.lang.Integer"/>
+                <Column editable="true" title="Id Mutasi" type="java.lang.Integer"/>
                 <Column editable="true" title="Kode Barang" type="java.lang.String"/>
                 <Column editable="true" title="Nama Barang" type="java.lang.String"/>
                 <Column editable="true" title="Qty" type="java.lang.Integer"/>

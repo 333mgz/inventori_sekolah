@@ -24,6 +24,7 @@ DefaultTableModel modeltabel;
 
     public FormMutasi() {
     initComponents();
+        idOtomatis();
         initTable();
         setTanggalOtomatis();
         tampilComboBoxPetugas(); 
@@ -79,20 +80,20 @@ DefaultTableModel modeltabel;
                 return false;
             }
         };
-        tblMutasi.setModel(modeltabel);
+        tabelMutasi.setModel(modeltabel);
     }
     private void setTanggalOtomatis() {
         spTanggal.setValue(new java.util.Date());
     }
     private void bersihkanInputBarang() {
-        txtID.setText("");
-        txtnama.setText("");
+        txtIdBarang.setText("");
+        txtNamaBarang.setText("");
         spJumlah.setValue(1); 
         txtKeterangan.setText("");
-        txtID.requestFocus();
+        txtIdBarang.requestFocus();
     }
     private void resetSemuaForm() {
-        txtNoMutasi.setText("");
+        txtIdMutasi.setText("");
         cbPetugas.setSelectedIndex(0);
         txtIDP.setText("");
         cbRA.setSelectedIndex(0);
@@ -124,6 +125,35 @@ DefaultTableModel modeltabel;
         JOptionPane.showMessageDialog(this, "Gagal memuat data petugas: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
     }
+    private void idOtomatis() {
+    try {
+        Connection conn = Koneksi.getKoneksi();
+        // Mengambil id_mutasi terakhir dari database
+        String sql = "SELECT id_mutasi FROM mutasi ORDER BY id_mutasi DESC LIMIT 1";
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        
+        if (rs.next()) {
+            String idMutasiLama = rs.getString("id_mutasi");
+            // Mengambil 4 digit angka di belakang kode MTS (misal MTS0001 diambil 0001)
+            String nomorAngka = idMutasiLama.substring(3);
+            int angka = Integer.parseInt(nomorAngka) + 1;
+            
+            // Menyusun format kode baru agar berdigit 4 (Contoh: MTS0002)
+            String kodeBaru = String.format("MTS%04d", angka);
+            txtIdMutasi.setText(kodeBaru); // <-- Sudah disesuaikan ke txtIdMutasi
+        } else {
+            // Jika tabel database masih kosong
+            txtIdMutasi.setText("MTS0001");
+        }
+        
+        // Mengunci textfield agar tidak bisa diketik manual oleh user
+        txtIdMutasi.setEditable(false);
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Gagal membuat ID Otomatis: " + e.getMessage());
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -137,7 +167,7 @@ DefaultTableModel modeltabel;
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtNoMutasi = new javax.swing.JTextField();
+        txtIdMutasi = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -157,12 +187,12 @@ DefaultTableModel modeltabel;
         txtKeterangan = new javax.swing.JTextArea();
         bTambah = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        txtnama = new javax.swing.JTextPane();
+        txtNamaBarang = new javax.swing.JTextPane();
         jLabel12 = new javax.swing.JLabel();
-        txtID = new javax.swing.JTextField();
+        txtIdBarang = new javax.swing.JTextField();
         bCari = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblMutasi = new javax.swing.JTable();
+        tabelMutasi = new javax.swing.JTable();
         jLabel11 = new javax.swing.JLabel();
         bSimpan = new javax.swing.JButton();
         bBatal = new javax.swing.JButton();
@@ -203,7 +233,7 @@ DefaultTableModel modeltabel;
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(spTanggal)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtNoMutasi)
+                    .addComponent(txtIdMutasi)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(113, 113, 113)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,7 +261,7 @@ DefaultTableModel modeltabel;
                     .addComponent(cbPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNoMutasi, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdMutasi, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(txtIDP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -244,9 +274,8 @@ DefaultTableModel modeltabel;
                         .addGap(13, 13, 13)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addComponent(spTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(50, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -276,7 +305,7 @@ DefaultTableModel modeltabel;
             }
         });
 
-        jScrollPane3.setViewportView(txtnama);
+        jScrollPane3.setViewportView(txtNamaBarang);
 
         jLabel12.setText("ID Barang:");
 
@@ -302,7 +331,7 @@ DefaultTableModel modeltabel;
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
-                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtIdBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(41, 41, 41)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(bCari)
@@ -326,7 +355,7 @@ DefaultTableModel modeltabel;
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtIdBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bCari)
                             .addComponent(jLabel10))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -343,7 +372,7 @@ DefaultTableModel modeltabel;
                 .addGap(24, 24, 24))
         );
 
-        tblMutasi.setModel(new javax.swing.table.DefaultTableModel(
+        tabelMutasi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -351,7 +380,7 @@ DefaultTableModel modeltabel;
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "No", "Kode Barang", "Nama Barang", "Qty", "Keterangan", "Aksi"
+                "Id Mutasi", "Kode Barang", "Nama Barang", "Qty", "Keterangan", "Aksi"
             }
         ) {
             Class[] types = new Class [] {
@@ -362,7 +391,7 @@ DefaultTableModel modeltabel;
                 return types [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(tblMutasi);
+        jScrollPane2.setViewportView(tabelMutasi);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel11.setText("DAFTAR MUTASI BARANG");
@@ -457,52 +486,46 @@ DefaultTableModel modeltabel;
     }//GEN-LAST:event_bHomeActionPerformed
 
     private void bTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTambahActionPerformed
-    String kode = txtID.getText().trim();
+    // 1. Ambil ID Mutasi yang sedang aktif secara otomatis
+    String idMutasi = txtIdMutasi.getText(); 
     
-    // Menggunakan replace untuk membersihkan karakter format bawaan JTextPane (jika ada)
-    String nama = txtnama.getText().trim().replace("\r", "").replace("\n", "");
-    
-    String qty = spJumlah.getValue().toString();
-    String keterangan = txtKeterangan.getText().trim();
-
-    
-    if (kode.isEmpty() || nama.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Lengkapi data barang dengan menekan tombol 'Cari' terlebih dahulu!", "Error", JOptionPane.ERROR_MESSAGE);
-        txtID.requestFocus();
+    // 2. Validasi input ID Barang (pastikan tidak kosong)
+    if (txtIdBarang.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Silakan pilih atau cari barang terlebih dahulu!");
         return;
     }
     
+    String idBarang = txtIdBarang.getText();
+    String namaBarang = txtNamaBarang.getText();
+    int qty = (int) spJumlah.getValue();
+    String keterangan = txtKeterangan.getText();
     
-    int jumlahQty = Integer.parseInt(qty);
-    if (jumlahQty <= 0) {
-        JOptionPane.showMessageDialog(this, "Jumlah (Qty) barang harus lebih dari 0!", "Error", JOptionPane.ERROR_MESSAGE);
-        spJumlah.requestFocus();
+    if (qty <= 0) {
+        JOptionPane.showMessageDialog(this, "Jumlah barang harus lebih dari 0!");
         return;
     }
+    
+    // 3. Masukkan ke tabel dengan susunan: ID Mutasi, Kode Barang, Nama Barang, Qty, Keterangan, Aksi
+    DefaultTableModel model = (DefaultTableModel) tabelMutasi.getModel(); // Sesuaikan nama variabel tabelmu
+    Object[] dataBaris = {idMutasi, idBarang, namaBarang, qty, keterangan, "Hapus"};
+    model.addRow(dataBaris);
+    
+    // 4. Reset input detail barang setelah berhasil ditambah ke tabel
+    txtIdBarang.setText("");
+    txtNamaBarang.setText("");
+    spJumlah.setValue(1);
+    txtKeterangan.setText("");
 
-    
-    Object[] dataBarang = {
-        nomorUrut++,
-        kode, 
-        nama,
-        qty,
-        keterangan.isEmpty() ? "-" : keterangan,
-        "Hapus" 
-    };
-    
-    modeltabel.addRow(dataBarang);
- 
-    bersihkanInputBarang();
     // TODO add your handling code here:
     }//GEN-LAST:event_bTambahActionPerformed
 
     private void bCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCariActionPerformed
-    String kodeBarang = txtID.getText().trim();
+    String kodeBarang = txtIdBarang.getText().trim();
     
     // Validasi jika input ID Barang masih kosong
     if (kodeBarang.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Masukkan ID Barang terlebih dahulu!", "Peringatan", JOptionPane.WARNING_MESSAGE);
-        txtID.requestFocus();
+        txtIdBarang.requestFocus();
         return;
     }
     
@@ -517,15 +540,15 @@ DefaultTableModel modeltabel;
         
         if (hasil.next()) {
             // Jika data ditemukan, otomatis set text ke komponen txtnama
-            txtnama.setText(hasil.getString("nama_barang"));
+            txtNamaBarang.setText(hasil.getString("nama_barang"));
             
             // Langsung arahkan fokus kursor ke Spinner Jumlah setelah barang ketemu
             spJumlah.requestFocus(); 
         } else {
             // Jika data tidak ditemukan
             JOptionPane.showMessageDialog(this, "Data Barang tidak ditemukan di database!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-            txtnama.setText(""); // Kosongkan kembali nama barang jika pencarian gagal
-            txtID.requestFocus();
+            txtNamaBarang.setText(""); // Kosongkan kembali nama barang jika pencarian gagal
+            txtIdBarang.requestFocus();
         }
         
     } catch (SQLException e) {
@@ -535,69 +558,70 @@ DefaultTableModel modeltabel;
     }//GEN-LAST:event_bCariActionPerformed
 
     private void bSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSimpanActionPerformed
-                                        
-        String noMutasi = txtNoMutasi.getText().trim();
-        String idPetugas = txtIDP.getText().trim();
-        String asal = cbRA.getSelectedItem().toString();
-        String tujuan = cbRT.getSelectedItem().toString();
-
-        // Format tanggal
-        java.util.Date dateValue = (java.util.Date) spTanggal.getValue();
-        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
-        String tanggalStr = sdf.format(dateValue); 
-
-        // 1. Validasi Input Header
-        if (noMutasi.isEmpty() || cbPetugas.getSelectedIndex() == 0 || cbRA.getSelectedIndex() == 0 || cbRT.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(this, "Data Header (No. Mutasi, Petugas, Ruangan) harus diisi lengkap!", "Peringatan", JOptionPane.WARNING_MESSAGE);
-            return;
+                                           
+    DefaultTableModel model = (DefaultTableModel) tabelMutasi.getModel(); 
+    int jumlahBaris = model.getRowCount();
+    
+    // 1. Validasi jika tabel kosong
+    if (jumlahBaris == 0) {
+        JOptionPane.showMessageDialog(this, "Daftar mutasi barang masih kosong! Tambahkan barang terlebih dahulu.");
+        return;
+    }
+    
+    // 2. Validasi JComboBox Ruangan agar tidak memilih tulisan default
+    if (cbRA.getSelectedIndex() <= 0 || cbRT.getSelectedIndex() <= 0) {
+        JOptionPane.showMessageDialog(this, "Silakan pilih Ruangan Asal dan Ruangan Tujuan terlebih dahulu!");
+        return;
+    }
+    
+    try {
+        Connection conn = Koneksi.getKoneksi();
+        
+        // 3. Mengambil dan memformat tanggal dari JSpinner (spTanggal)
+        java.util.Date dateFromSpinner = (java.util.Date) spTanggal.getValue();
+        java.text.SimpleDateFormat formatMsql = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        String tanggalFormatted = formatMsql.format(dateFromSpinner);
+        
+        // 4. Ambil data ruangan dari ComboBox
+        String ruanganAsal = cbRA.getSelectedItem().toString();
+        String ruanganTujuan = cbRT.getSelectedItem().toString();
+        
+        // 5. Loop untuk menyimpan baris demi baris dari JTable ke dalam tabel 'mutasi'
+        for (int i = 0; i < jumlahBaris; i++) {
+            // Menyesuaikan query dengan nama tabel dan kolom asli di databasemu
+            String sql = "INSERT INTO mutasi (id_mutasi, tanggal, id_barang, lokasi_asal, lokasi_tujuan, jumlah, id_user) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            
+            pst.setString(1, model.getValueAt(i, 0).toString()); // Kolom 0 = id_mutasi
+            pst.setString(2, tanggalFormatted);                  // tanggal hasil format
+            pst.setString(3, model.getValueAt(i, 1).toString()); // Kolom 1 = id_barang (Kode Barang)
+            pst.setString(4, ruanganAsal);                       // lokasi_asal
+            pst.setString(5, ruanganTujuan);                     // lokasi_tujuan
+            pst.setInt(6, Integer.parseInt(model.getValueAt(i, 3).toString())); // Kolom 3 = jumlah (Qty)
+            pst.setString(7, txtIDP.getText());                  // id_user (U001)
+            
+            pst.executeUpdate();
         }
         
-        // 2. Validasi Ruangan Asal & Tujuan tidak boleh sama
-        if (asal.equals(tujuan)) {
-            JOptionPane.showMessageDialog(this, "Ruangan asal dan tujuan tidak boleh sama!", "Peringatan", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        // 3. Validasi isi Tabel Mutasi (tidak boleh kosong)
-        int jumlahBaris = modeltabel.getRowCount();
-        if (jumlahBaris == 0) {
-            JOptionPane.showMessageDialog(this, "Belum ada data barang yang ditambahkan ke tabel!", "Peringatan", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        // 4. Proses Simpan Multi-Row ke Database
-        String sql = "INSERT INTO mutasi (id_mutasi, tanggal, id_barang, lokasi_asal, lokasi_tujuan, jumlah, id_user) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        JOptionPane.showMessageDialog(this, "Data Mutasi Berhasil Disimpan ke Database!");
         
-        try {
-            Connection conn = Koneksi.getKoneksi();
-            // Menggunakan PreparedStatement di luar loop untuk efisiensi
-            PreparedStatement stat = conn.prepareStatement(sql);
-            
-            int berhasilSimpan = 0;
+        // 6. Alur Akhir: Bersihkan tabel layar dan majukan kode ID otomatis ke MTS berikutnya
+        model.setRowCount(0); 
+        idOtomatis();         
+        
+        // Reset field inputan detail barang dan ruangan
+        cbRA.setSelectedIndex(0);
+        cbRT.setSelectedIndex(0);
+        txtIdBarang.setText("");
+        txtNamaBarang.setText("");
+        spJumlah.setValue(1);
+        txtKeterangan.setText("");
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Gagal menyimpan transaksi: " + e.getMessage());
+    }
 
-            // Lakukan looping sebanyak baris yang ada di tabel temporary
-            for (int i = 0; i < jumlahBaris; i++) {
-                String kodeBarang = modeltabel.getValueAt(i, 1).toString();
-                int qty = Integer.parseInt(modeltabel.getValueAt(i, 3).toString());
-                
-                stat.setString(1, noMutasi);
-                stat.setString(2, tanggalStr); 
-                stat.setString(3, kodeBarang);  // Kolom ke-3: ID Barang
-                stat.setString(4, asal);        // Kolom ke-4: Lokasi Asal
-                stat.setString(5, tujuan);      // Kolom ke-5: Lokasi Tujuan
-                stat.setInt(6, qty);            // Kolom ke-6: Jumlah (Qty)
-                stat.setString(7, idPetugas);   
-                
-                stat.executeUpdate();
-                berhasilSimpan++;
-            }
-            
-            JOptionPane.showMessageDialog(this, berhasilSimpan + " Data mutasi barang berhasil disimpan ke database!", "Sukses", JOptionPane.INFORMATION_MESSAGE);
-            resetSemuaForm(); // Bersihkan form setelah sukses
-            
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Gagal menyimpan data: " + e.getMessage(), "Error Database", JOptionPane.ERROR_MESSAGE);
-        }    // TODO add your handling code here:
+   // TODO add your handling code here:
     }//GEN-LAST:event_bSimpanActionPerformed
 
     private void bBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBatalActionPerformed
@@ -672,11 +696,11 @@ DefaultTableModel modeltabel;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSpinner spJumlah;
     private javax.swing.JSpinner spTanggal;
-    private javax.swing.JTable tblMutasi;
-    private javax.swing.JTextField txtID;
+    private javax.swing.JTable tabelMutasi;
     private javax.swing.JTextField txtIDP;
+    private javax.swing.JTextField txtIdBarang;
+    private javax.swing.JTextField txtIdMutasi;
     private javax.swing.JTextArea txtKeterangan;
-    private javax.swing.JTextField txtNoMutasi;
-    private javax.swing.JTextPane txtnama;
+    private javax.swing.JTextPane txtNamaBarang;
     // End of variables declaration//GEN-END:variables
 }
