@@ -64,74 +64,108 @@ public class FormBarangMasuk extends javax.swing.JFrame {
             System.out.println("Eror ID Otomatis: " + e.getMessage());
         }
     }
-
-   private void loadSupplier() {
+  private void loadSupplier() {
     cbSupplier.removeAllItems(); 
     cbSupplier.addItem("- Pilih Supplier -"); 
     try {
-        java.sql.Connection conn = (java.sql.Connection) Koneksi.getKoneksi();
+        java.sql.Connection conn = Koneksi.getKoneksi();
         java.sql.Statement st = conn.createStatement();
-        
-        
         String sql = "SELECT id_supplier, nama_supplier FROM supplier"; 
         java.sql.ResultSet rs = st.executeQuery(sql);
         
         while (rs.next()) {
-
-            String item = rs.getString("id_supplier") + " - " + rs.getString("nama_supplier");
+            // PERBAIKAN: Hanya memasukkan nama_supplier ke combobox
+            String item = rs.getString("nama_supplier");
             cbSupplier.addItem(item);
         }
     } catch (Exception e) {
-        System.out.println("Eror Load Supplier: " + e.getMessage());
+        javax.swing.JOptionPane.showMessageDialog(null, "Eror Load Supplier: " + e.getMessage());
     }
 }
 
-    private void loadBarang() {
-        cbBarang.removeAllItems();
-        cbBarang.addItem("- Pilih Barang -");
-        try {
-            java.sql.Connection conn = (java.sql.Connection) Koneksi.getKoneksi();
-            java.sql.Statement st = conn.createStatement();
-            String sql = "SELECT id_barang, nama_barang FROM barang"; 
-            java.sql.ResultSet rs = st.executeQuery(sql);
-            
-            while (rs.next()) {
-                String item = rs.getString("id_barang") + " - " + rs.getString("nama_barang");
-                cbBarang.addItem(item);
-            }
-        } catch (Exception e) {
-            System.out.println("Eror Load Barang: " + e.getMessage());
-        }
+  private void cbSupplierActionPerformed(java.awt.event.ActionEvent evt) {
+    // Memastikan item yang dipilih tidak kosong dan bukan teks default
+    if (cbSupplier.getSelectedItem() != null && !cbSupplier.getSelectedItem().toString().equals("- Pilih Supplier -")) {
+        String selectedSupplier = cbSupplier.getSelectedItem().toString();
+        
+        // Memisahkan ID dan Nama menggunakan pembatas " - "
+        String idSupplier = selectedSupplier.split(" - ")[0]; 
+        
+        // Contoh tindakan: Jika Anda punya txtIDSupplier, kodenya:
+        // txtIDSupplier.setText(idSupplier);
+    } else {
+        // txtIDSupplier.setText(""); 
     }
-    private void loadPetugas() {
-    cbPetugas.removeAllItems(); // Mengosongkan data bawaan (Item 1, Item 2, dll)
-    cbPetugas.addItem("- Pilih Petugas -"); // Tambahkan baris pilihan default ini
+  }
+
+
+   private void loadBarang() {
+    cbBarang.removeAllItems();
+    cbBarang.addItem("- Pilih Barang -");
     try {
-        // PERBAIKAN: Hapus casting (java.sql.Connection) di depan Koneksi.getKoneksi()
         java.sql.Connection conn = Koneksi.getKoneksi();
         java.sql.Statement st = conn.createStatement();
-        
-        String sql = "SELECT id_user, nama_user FROM user"; 
+        String sql = "SELECT id_barang, nama_barang FROM barang"; 
         java.sql.ResultSet rs = st.executeQuery(sql);
         
         while (rs.next()) {
-            // Format tampilan: "USR001 - Nama Petugas"
-            String item = rs.getString("id_user") + " - " + rs.getString("nama_user");
+            // PERBAIKAN: Hanya memasukkan nama_barang ke combobox
+            String item = rs.getString("nama_barang");
+            cbBarang.addItem(item);
+        }
+    } catch (Exception e) {
+        javax.swing.JOptionPane.showMessageDialog(null, "Eror Load Barang: " + e.getMessage());
+    }
+}
+    private void cbBarangActionPerformed(java.awt.event.ActionEvent evt) {
+    // Memastikan item yang dipilih tidak kosong dan bukan teks default
+    if (cbBarang.getSelectedItem() != null && !cbBarang.getSelectedItem().toString().equals("- Pilih Barang -")) {
+        String selectedBarang = cbBarang.getSelectedItem().toString();
+        
+        // Memisahkan ID Barang dan Nama Barang menggunakan pembatas " - "
+        String idBarang = selectedBarang.split(" - ")[0];  // Menghasilkan "BRG001"
+        String namaBarang = selectedBarang.split(" - ")[1]; // Menghasilkan "Komputer"
+        
+        // Selesai diurai, data ini sudah siap kamu gunakan untuk dimasukkan ke tabel transaksi nanti
+    }
+}
+    private void loadPetugas() {
+    cbPetugas.removeAllItems(); 
+    cbPetugas.addItem("- Pilih Petugas -"); 
+    try {
+        java.sql.Connection conn = Koneksi.getKoneksi();
+        java.sql.Statement st = conn.createStatement();
+        String sql = "SELECT id_user, username FROM user"; 
+        java.sql.ResultSet rs = st.executeQuery(sql);
+        
+        while (rs.next()) {
+          
+            String item = rs.getString("username");
             cbPetugas.addItem(item);
         }
     } catch (Exception e) {
-        System.out.println("Eror Load Petugas: " + e.getMessage());
+        javax.swing.JOptionPane.showMessageDialog(null, "Eror Load Petugas: " + e.getMessage());
     }
-    }
+}
     private void cbPetugasActionPerformed(java.awt.event.ActionEvent evt) {
-        if (cbPetugas.getSelectedItem() != null && !cbPetugas.getSelectedItem().toString().equals("- Pilih Petugas -")) {
-            String selectedPetugas = cbPetugas.getSelectedItem().toString();
-            String idUser = selectedPetugas.split(" - ")[0]; 
-            txtIDP.setText(idUser);
-        } else {
-            txtIDP.setText(""); // Kosongkan jika kembali memilih "- Pilih Petugas -"
+    if (cbPetugas.getSelectedItem() != null && !cbPetugas.getSelectedItem().toString().equals("- Pilih Petugas -")) {
+        String namaTerpilih = cbPetugas.getSelectedItem().toString();
+        try {
+            java.sql.Connection conn = Koneksi.getKoneksi();
+            String sql = "SELECT id_user FROM user WHERE username = ?";
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, namaTerpilih);
+            java.sql.ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                txtIDP.setText(rs.getString("id_user"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error cari ID User: " + e.getMessage());
         }
+    } else {
+        txtIDP.setText(""); 
     }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -216,7 +250,7 @@ public class FormBarangMasuk extends javax.swing.JFrame {
 
         jLabel8.setText("Supplier :");
 
-        jLabel9.setText("ID Petugas :");
+        jLabel9.setText("ID User :");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -397,81 +431,126 @@ public class FormBarangMasuk extends javax.swing.JFrame {
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
     int jumlahBaris = tableTransaksi.getRowCount();
-    if (jumlahBaris == 0) {
-        JOptionPane.showMessageDialog(this, "Keranjang transaksi masih kosong! Silakan klik 'Tambah' dulu.");
-        return;
+if (jumlahBaris == 0) {
+    JOptionPane.showMessageDialog(this, "Keranjang transaksi masih kosong! Silakan klik 'Tambah' dulu.");
+    return;
+}
+
+// Validasi agar supplier tidak boleh dalam posisi default
+if (cbSupplier.getSelectedItem().toString().equals("- Pilih Supplier -")) {
+    JOptionPane.showMessageDialog(this, "Silakan pilih Supplier terlebih dahulu!");
+    return;
+}
+
+try {
+    String idMasuk = txtId.getText();
+    
+    Date tglData = (Date) spTanggal.getValue();
+    SimpleDateFormat formatTgl = new SimpleDateFormat("yyyy-MM-dd");
+    String tanggal = formatTgl.format(tglData);
+    
+    // PERBAIKAN 1: Ambil ID User langsung dari txtIDP (karena sudah otomatis terisi saat pilih petugas)
+    String idUser = txtIDP.getText(); 
+    
+    // PERBAIKAN 2: Cari ID Supplier ke database berdasarkan nama supplier yang dipilih di ComboBox
+    String namaSupplier = cbSupplier.getSelectedItem().toString();
+    String idSupplier = "";
+    
+    Connection conn = (Connection) Koneksi.getKoneksi();
+    
+    String sqlCariSupplier = "SELECT id_supplier FROM supplier WHERE nama_supplier = ?";
+    PreparedStatement pstCari = conn.prepareStatement(sqlCariSupplier);
+    pstCari.setString(1, namaSupplier);
+    ResultSet rsCari = pstCari.executeQuery();
+    if (rsCari.next()) {
+        idSupplier = rsCari.getString("id_supplier");
     }
     
-    try {
-        String idMasuk = txtId.getText();
+    // Proses Insert ke tabel barang_masuk
+    String sql = "INSERT INTO barang_masuk (id_masuk, tanggal, id_barang, id_supplier, jumlah, id_user) VALUES (?, ?, ?, ?, ?, ?)";
+    PreparedStatement pst = conn.prepareStatement(sql);
+    
+    for (int i = 0; i < jumlahBaris; i++) {
+        String idBarang = tableTransaksi.getValueAt(i, 0).toString(); 
+        int jumlah = Integer.parseInt(tableTransaksi.getValueAt(i, 2).toString()); 
         
-        Date tglData = (Date) spTanggal.getValue();
-        SimpleDateFormat formatTgl = new SimpleDateFormat("yyyy-MM-dd");
-        String tanggal = formatTgl.format(tglData);
+        pst.setString(1, idMasuk);
+        pst.setString(2, tanggal);
+        pst.setString(3, idBarang);
+        pst.setString(4, idSupplier); // Sekarang idSupplier sudah berisi kode bersih "S001"
+        pst.setInt(5, jumlah);
+        pst.setString(6, idUser);     // idUser berisi kode bersih "U001"
         
-        String idUser = cbPetugas.getSelectedItem().toString().split(" - ")[0];
-        String idSupplier = cbSupplier.getSelectedItem().toString().split(" - ")[0];
-        
-        
-        Connection conn = (Connection) Koneksi.getKoneksi();
-        String sql = "INSERT INTO barang_masuk (id_masuk, tanggal, id_barang, id_supplier, jumlah, id_user) VALUES (?, ?, ?, ?, ?, ?)";
-        PreparedStatement pst = conn.prepareStatement(sql);
-        
-        for (int i = 0; i < jumlahBaris; i++) {
-            String idBarang = tableTransaksi.getValueAt(i, 0).toString(); 
-            int jumlah = Integer.parseInt(tableTransaksi.getValueAt(i, 2).toString()); 
-            
-            pst.setString(1, idMasuk);
-            pst.setString(2, tanggal);
-            pst.setString(3, idBarang);
-            pst.setString(4, idSupplier);
-            pst.setInt(5, jumlah);
-            pst.setString(6, idUser);
-            
-            pst.addBatch(); 
-        }
-        
-        pst.executeBatch();
-        JOptionPane.showMessageDialog(this, "Transaksi Berhasil! Semua barang telah disimpan ke database.");
-        
-        
-        idOtomatis();                   
-        cbSupplier.setSelectedIndex(0); 
-        cbBarang.setSelectedIndex(0);  
-        cbPetugas.setSelectedIndex(0);  
-        txtIDP.setText("");
-        spJumlah.setValue(0);           
-        txtKeterangan.setText("");      
-        spJumlah.setValue(1);
-
-        DefaultTableModel model = (DefaultTableModel) tableTransaksi.getModel();
-        model.setRowCount(0); 
-        
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Gagal menyimpan transaksi: " + e.getMessage());
+        pst.addBatch(); 
     }
+    
+    pst.executeBatch();
+    JOptionPane.showMessageDialog(this, "Transaksi Berhasil! Semua barang telah disimpan ke database.");
+    
+    // Reset Form ke kondisi awal
+    idOtomatis();                   
+    cbSupplier.setSelectedIndex(0); 
+    cbBarang.setSelectedIndex(0);  
+    cbPetugas.setSelectedIndex(0);  
+    txtIDP.setText("");
+    txtKeterangan.setText("");      
+    spJumlah.setValue(1);
 
-    // TODO add your handling code here:
+    DefaultTableModel model = (DefaultTableModel) tableTransaksi.getModel();
+    model.setRowCount(0); 
+    
+} catch (Exception e) {
+    JOptionPane.showMessageDialog(this, "Gagal menyimpan transaksi: " + e.getMessage());
+}    // TODO add your handling code here:
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
-    String barangSelected = cbBarang.getSelectedItem().toString();
-        String idBarang = barangSelected.split(" - ")[0]; 
-        String namaBarang = barangSelected.split(" - ")[1];
+   
+    String namaBarang = cbBarang.getSelectedItem().toString();
+    
+    // Validasi jika user belum memilih barang
+    if (namaBarang.equals("- Pilih Barang -")) {
+        JOptionPane.showMessageDialog(this, "Silakan pilih barang terlebih dahulu!");
+        return;
+    }
+    
+    String idBarang = "";
+    
+    // 2. Cari id_barang ke database berdasarkan nama_barang
+    try {
+        java.sql.Connection conn = Koneksi.getKoneksi();
+        String sql = "SELECT id_barang FROM barang WHERE nama_barang = ?";
+        java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+        pst.setString(1, namaBarang);
+        java.sql.ResultSet rs = pst.executeQuery();
         
-        int jumlah = (int) spJumlah.getValue();
-        String keterangan = txtKeterangan.getText();
-        
-        if (jumlah <= 0) {
-            JOptionPane.showMessageDialog(this, "Jumlah barang harus lebih dari 0!");
-            return;
+        if (rs.next()) {
+            idBarang = rs.getString("id_barang");
         }
-        
-        Object[] dataBaris = {idBarang, namaBarang, jumlah, keterangan};
-        model.addRow(dataBaris);
-        
-        spJumlah.setValue(1);
-        txtKeterangan.setText("");   // TODO add your handling code here:
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Gagal mengambil ID Barang: " + e.getMessage());
+        return; // Hentikan proses jika database error
+    }
+    
+    // 3. Ambil data jumlah dan keterangan dari inputan form
+    int jumlah = (int) spJumlah.getValue();
+    String keterangan = txtKeterangan.getText();
+    
+    // Validasi jumlah barang
+    if (jumlah <= 0) {
+        JOptionPane.showMessageDialog(this, "Jumlah barang harus lebih dari 0!");
+        return;
+    }
+    
+    // 4. Masukkan data ke dalam tabel (JTable)
+    Object[] dataBaris = {idBarang, namaBarang, jumlah, keterangan};
+    model.addRow(dataBaris);
+    
+    // 5. Reset input detail barang ke kondisi awal
+    cbBarang.setSelectedIndex(0); // Kembali ke "- Pilih Barang -"
+    spJumlah.setValue(1);
+    txtKeterangan.setText("");
+// TODO add your handling code here:
     }//GEN-LAST:event_btnTambahActionPerformed
 
     private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
