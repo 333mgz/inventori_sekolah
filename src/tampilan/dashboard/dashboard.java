@@ -212,14 +212,14 @@ public class dashboard extends javax.swing.JFrame {
 
         ResultSet rs =
         st.executeQuery(
-        "SELECT id_transaksi,tanggal,'Barang Masuk' aktivitas " +
+        "SELECT id_masuk,tanggal,'Barang Masuk' aktivitas " +
         "FROM barang_masuk LIMIT 10");
 
         while(rs.next()){
 
             model.addRow(new Object[]{
 
-                rs.getString("id_transaksi"),
+                rs.getString("id_masuk"),
                 rs.getString("tanggal"),
                 rs.getString("aktivitas")
             });

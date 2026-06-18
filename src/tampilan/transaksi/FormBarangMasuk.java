@@ -549,11 +549,12 @@ public class FormBarangMasuk extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBatalActionPerformed
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
-    dashboard db = new dashboard();
+ 
+    tampilan.dashboard.dashboard dsh = new tampilan.dashboard.dashboard();
+    dsh.setVisible(true);
 
-    db.setVisible(true);
-
-    this.dispose();    // TODO add your handling code here:
+    this.dispose(); 
+    // TODO add your handling code here:
     }//GEN-LAST:event_btnHomeActionPerformed
 
     /**
