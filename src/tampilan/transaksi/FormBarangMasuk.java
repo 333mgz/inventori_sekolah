@@ -45,25 +45,27 @@ public class FormBarangMasuk extends javax.swing.JFrame {
     }
     
    private void idOtomatis() {
-        try {
-            java.sql.Connection conn = (java.sql.Connection) Koneksi.getKoneksi();
-            java.sql.Statement st = conn.createStatement();
-            String sql = "SELECT id_masuk FROM barang_masuk ORDER BY id_barang DESC LIMIT 1";
-            java.sql.ResultSet rs = st.executeQuery(sql);
-            
-            if (rs.next()) {
-                String id_barang = rs.getString("id_barang");
-                int nomor = Integer.parseInt(id_barang.substring(3)) + 1;
-                String kode = String.format("BM-%03d", nomor);
-                txtId.setText(kode);
-            } else {
-                txtId.setText("BM-001");
-            }
-            txtId.setEditable(false);
-        } catch (Exception e) {
-            System.out.println("Eror ID Otomatis: " + e.getMessage());
+    try {
+        java.sql.Connection conn = (java.sql.Connection) Koneksi.getKoneksi();
+        java.sql.Statement st = conn.createStatement();
+        // PERBAIKAN: Urutkan berdasarkan id_masuk, bukan id_barang
+        String sql = "SELECT id_masuk FROM barang_masuk ORDER BY id_masuk DESC LIMIT 1"; 
+        java.sql.ResultSet rs = st.executeQuery(sql);
+        
+        if (rs.next()) {
+            // PERBAIKAN: Ambil berdasarkan id_masuk
+            String id_masuk = rs.getString("id_masuk"); 
+            int nomor = Integer.parseInt(id_masuk.substring(3)) + 1;
+            String kode = String.format("BM-%03d", nomor);
+            txtId.setText(kode);
+        } else {
+            txtId.setText("BM-001");
         }
+        txtId.setEditable(false);
+    } catch (Exception e) {
+        System.out.println("Eror ID Otomatis: " + e.getMessage());
     }
+}
   private void loadSupplier() {
    
     try {
@@ -118,18 +120,8 @@ public class FormBarangMasuk extends javax.swing.JFrame {
         javax.swing.JOptionPane.showMessageDialog(null, "Eror Load Barang: " + e.getMessage());
     }
 }
-    private void cbBarangActionPerformed(java.awt.event.ActionEvent evt) {
-    // Memastikan item yang dipilih tidak kosong dan bukan teks default
-    if (cbBarang.getSelectedItem() != null && !cbBarang.getSelectedItem().toString().equals("- Pilih Barang -")) {
-        String selectedBarang = cbBarang.getSelectedItem().toString();
-        
-        // Memisahkan ID Barang dan Nama Barang menggunakan pembatas " - "
-        String idBarang = selectedBarang.split(" - ")[0];  // Menghasilkan "BRG001"
-        String namaBarang = selectedBarang.split(" - ")[1]; // Menghasilkan "Komputer"
-        
-        // Selesai diurai, data ini sudah siap kamu gunakan untuk dimasukkan ke tabel transaksi nanti
-    }
-}
+
+
     private void loadPetugas() {
     cbPetugas.removeAllItems(); 
     cbPetugas.addItem("- Pilih Petugas -"); 
