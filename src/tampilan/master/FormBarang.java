@@ -302,59 +302,101 @@ public class FormBarang extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIdActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
+        if (txtId.getText().trim().isEmpty()
+            || txtNama.getText().trim().isEmpty()
+            || txtStok.getText().trim().isEmpty()
+            || txtLokasi.getText().trim().isEmpty()) {
 
-        try {
-            String sql = "INSERT INTO barang VALUES (?,?,?,?,?,?)";
-            PreparedStatement pst = Koneksi.getKoneksi().prepareStatement(sql);
+        JOptionPane.showMessageDialog(this, "Semua data harus diisi!");
+        return;
+    }
 
-            pst.setString(1, txtId.getText());
-            pst.setString(2, txtNama.getText());
-            pst.setString(3, cbKategori.getSelectedItem().toString());
-            pst.setInt(4, Integer.parseInt(txtStok.getText()));
-            pst.setString(5, cbKondisi.getSelectedItem().toString());
-            pst.setString(6, txtLokasi.getText());
-
-            pst.executeUpdate();
-            if (txtId.getText().trim().isEmpty()
-        || txtNama.getText().trim().isEmpty()
-        || txtStok.getText().trim().isEmpty()
-        || txtLokasi.getText().trim().isEmpty()) {
-
-    JOptionPane.showMessageDialog(this, "Semua data harus diisi!");
-    return;
-}
-
-            JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
-            tampilData();
-            autoId();
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+    try {
+        java.sql.Connection conn = Koneksi.getKoneksi();
+        
+        // 1. Cari id_kategori berdasarkan nama_kategori yang dipilih di ComboBox
+        String namaKategoriPilihan = cbKategori.getSelectedItem().toString();
+        String idKategori = "";
+        
+        String sqlCariKategori = "SELECT id_kategori FROM kategori WHERE nama_kategori = ?";
+        PreparedStatement pstKat = conn.prepareStatement(sqlCariKategori);
+        pstKat.setString(1, namaKategoriPilihan);
+        ResultSet rsKat = pstKat.executeQuery();
+        
+        if (rsKat.next()) {
+            idKategori = rsKat.getString("id_kategori");
+        }
+        pstKat.close();
+        
+        // Pastikan idKategori ditemukan
+        if (idKategori.equals("")) {
+            JOptionPane.showMessageDialog(this, "Kategori tidak ditemukan di database!");
+            return;
         }
 
-        // TODO add your handling code here:
+        // 2. Proses Insert menggunakan idKategori yang sudah ditemukan
+        String sql = "INSERT INTO barang VALUES (?,?,?,?,?,?)";
+        PreparedStatement pst = conn.prepareStatement(sql);
+
+        pst.setString(1, txtId.getText());
+        pst.setString(2, txtNama.getText());
+        pst.setString(3, idKategori); // PERBAIKAN: Masukkan ID Kategori, bukan namanya
+        pst.setInt(4, Integer.parseInt(txtStok.getText()));
+        pst.setString(5, cbKondisi.getSelectedItem().toString());
+        pst.setString(6, txtLokasi.getText());
+
+        pst.executeUpdate();
+        pst.close();
+
+        JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
+        tampilData();
+        autoId();
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error Simpan: " + e.getMessage());
+    }
+                // TODO add your handling code here:
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         try {
-            String sql = "UPDATE barang SET nama_barang=?, id_kategori=?, stok=?, kondisi=?, lokasi=? WHERE id_barang=?";
-            PreparedStatement pst = Koneksi.getKoneksi().prepareStatement(sql);
+        java.sql.Connection conn = Koneksi.getKoneksi();
+        
+        // 1. Cari id_kategori berdasarkan nama_kategori yang dipilih di ComboBox
+        String namaKategoriPilihan = cbKategori.getSelectedItem().toString();
+        String idKategori = "";
+        
+        String sqlCariKategori = "SELECT id_kategori FROM kategori WHERE nama_kategori = ?";
+        PreparedStatement pstKat = conn.prepareStatement(sqlCariKategori);
+        pstKat.setString(1, namaKategoriPilihan);
+        ResultSet rsKat = pstKat.executeQuery();
+        
+        if (rsKat.next()) {
+            idKategori = rsKat.getString("id_kategori");
+        }
+        pstKat.close();
 
-            pst.setString(1, txtNama.getText());
-            pst.setString(2, cbKategori.getSelectedItem().toString());
-            pst.setInt(3, Integer.parseInt(txtStok.getText()));
-            pst.setString(4, cbKondisi.getSelectedItem().toString());
-            pst.setString(5, txtLokasi.getText());
-            pst.setString(6, txtId.getText());
+        // 2. Proses Update menggunakan idKategori yang sudah ditemukan
+        String sql = "UPDATE barang SET nama_barang=?, id_kategori=?, stok=?, kondisi=?, lokasi=? WHERE id_barang=?";
+        PreparedStatement pst = conn.prepareStatement(sql);
 
-            pst.executeUpdate();
+        pst.setString(1, txtNama.getText());
+        pst.setString(2, idKategori); // PERBAIKAN: Masukkan ID Kategori, bukan namanya
+        pst.setInt(3, Integer.parseInt(txtStok.getText()));
+        pst.setString(4, cbKondisi.getSelectedItem().toString());
+        pst.setString(5, txtLokasi.getText());
+        pst.setString(6, txtId.getText());
 
-            JOptionPane.showMessageDialog(null, "Data berhasil diupdate");
-            tampilData();
+        pst.executeUpdate();
+        pst.close();
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Data berhasil diupdate");
+        tampilData();
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error Edit: " + e.getMessage());
+    }                                       
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void txtLokasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLokasiActionPerformed
