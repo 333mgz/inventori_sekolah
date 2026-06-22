@@ -40,7 +40,7 @@ public class FormBarangMasuk extends javax.swing.JFrame {
                 cbPetugasActionPerformed(evt);
             }
         });
-        
+        jDateBM.setDate(new java.util.Date());
         txtIDP.setEditable(false);
     }
     
@@ -68,7 +68,7 @@ public class FormBarangMasuk extends javax.swing.JFrame {
    
     try {
         Connection conn = Koneksi.getKoneksi();
-        String sql = "SELECT nama_supplier FROM supplier"; // Mengambil kolom nama_supplier
+        String sql = "SELECT nama_supplier FROM supplier"; 
         Statement st = conn.createStatement();
         ResultSet rs = st.executeQuery(sql);
         
@@ -185,13 +185,13 @@ public class FormBarangMasuk extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        spTanggal = new javax.swing.JSpinner();
         jLabel7 = new javax.swing.JLabel();
         cbPetugas = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         cbSupplier = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         txtIDP = new javax.swing.JTextField();
+        jDateBM = new com.toedter.calendar.JDateChooser();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         cbBarang = new javax.swing.JComboBox<>();
@@ -244,14 +244,13 @@ public class FormBarangMasuk extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Tanggal :");
 
-        spTanggal.setModel(new javax.swing.SpinnerDateModel());
-        spTanggal.setEditor(new javax.swing.JSpinner.DateEditor(spTanggal, "yyyy-MM-dd"));
-
         jLabel7.setText("Petugas:");
 
         jLabel8.setText("Supplier :");
 
         jLabel9.setText("ID User :");
+
+        jDateBM.setDateFormatString("dd-MM-yyyy");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -259,12 +258,13 @@ public class FormBarangMasuk extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtId)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(spTanggal))
-                .addGap(111, 111, 111)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtId)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jDateBM, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(77, 77, 77)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cbSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -297,9 +297,9 @@ public class FormBarangMasuk extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel8))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(spTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDateBM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -389,7 +389,7 @@ public class FormBarangMasuk extends javax.swing.JFrame {
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(145, Short.MAX_VALUE))
+                        .addContainerGap(151, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnHome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -427,60 +427,98 @@ public class FormBarangMasuk extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-                                        
-    // 1. Ambil model tabel Daftar Barang Masuk (Sesuaikan nama JTable kamu jika bukan jTable1)
     DefaultTableModel model = (DefaultTableModel) tableTransaksi.getModel(); 
     int jumlahBaris = model.getRowCount();
     
+    // 1. Validasi jika tabel transaksi masih kosong
     if (jumlahBaris == 0) {
         JOptionPane.showMessageDialog(this, "Daftar barang masuk masih kosong!");
         return;
     }
-
-    try {
-        java.sql.Connection conn = Koneksi.getKoneksi(); // Sesuaikan pangkalan koneksi kamu
-        
-        // Format tanggal dari JSpinner (spTanggal)
-        java.util.Date dateFromSpinner = (java.util.Date) spTanggal.getValue();
-        java.text.SimpleDateFormat formatMsql = new java.text.SimpleDateFormat("yyyy-MM-dd");
-        String tanggalFormatted = formatMsql.format(dateFromSpinner);
-        
-        // Mengakali Data Truncation ID Supplier: Ambil 10 karakter pertama saja (misal: SPL001)
-        String supplierInput = cbSupplier.getSelectedItem().toString();
-        String idSupplier = supplierInput.length() > 10 ? supplierInput.substring(0, 10) : supplierInput;
-
-        // 2. Loop untuk membaca data baris demi baris dari tabel UI
-        for (int i = 0; i < jumlahBaris; i++) {
-            
-            String idBarang   = model.getValueAt(i, 0).toString(); // Kolom 0 = ID Barang
-            int qty           = Integer.parseInt(model.getValueAt(i, 2).toString()); // Kolom 2 = Jumlah
-            
-           
-        String sql = "INSERT INTO barang_masuk (id_masuk, tanggal, id_barang, id_supplier, jumlah, id_user) VALUES (?, ?, ?, ?, ?, ?)";
-            
-            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1, txtId.getText()); // Ini mengambil teks "BM-001" dari textfield kamu
-            pst.setString(2, tanggalFormatted);
-            pst.setString(3, idBarang);
-            pst.setString(4, idSupplier);
-            pst.setInt(5, qty); 
-            pst.setString(6, txtIDP.getText()); // Mengambil "U001"
-            
-            pst.executeUpdate();
-            pst.close();
-        }
-        
-        // 3. Jika berhasil semua, baru kosongkan tabel di layar
-        JOptionPane.showMessageDialog(this, "Data Barang Masuk Berhasil Disimpan ke Database!");
-        model.setRowCount(0); 
-        
-    } catch (Exception e) {
-        // Jika error, data di tabel tidak akan hilang misterius lagi
-        JOptionPane.showMessageDialog(this, "Gagal menyimpan transaksi: " + e.getMessage());
+    
+    // 2. Validasi jika Tanggal belum dipilih pada JDateChooser
+    if (jDateBM.getDate() == null) {
+        JOptionPane.showMessageDialog(this, "Silakan pilih tanggal transaksi terlebih dahulu!");
+        return;
     }
 
+    // 3. Validasi jika Supplier belum dipilih
+    String supplierInput = cbSupplier.getSelectedItem().toString();
+    if (supplierInput.equals("- Pilih Supplier -")) {
+        JOptionPane.showMessageDialog(this, "Silakan pilih supplier terlebih dahulu!");
+        return;
+    }
 
-   // TODO add your handling code here:
+    try {
+        java.sql.Connection conn = Koneksi.getKoneksi(); 
+        
+        // 4. Konversi tanggal dari JDateChooser ke format MySQL (yyyy-MM-dd)
+        java.util.Date tanggalDipilih = jDateBM.getDate();
+        java.text.SimpleDateFormat formatMsql = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        String tanggalFormatted = formatMsql.format(tanggalDipilih);
+        
+        // 5. SOLUSI 2: Cari id_supplier ke database berdasarkan nama_supplier yang dipilih di ComboBox
+        String idSupplier = "";
+        String sqlCariSupplier = "SELECT id_supplier FROM supplier WHERE nama_supplier = ?";
+        java.sql.PreparedStatement pstCari = conn.prepareStatement(sqlCariSupplier);
+        pstCari.setString(1, supplierInput);
+        java.sql.ResultSet rsCari = pstCari.executeQuery();
+        
+        if (rsCari.next()) {
+            idSupplier = rsCari.getString("id_supplier");
+        }
+        pstCari.close(); // Tutup statement pencarian setelah mendapatkan ID
+        
+        // Validasi jika ternyata ID supplier tidak ditemukan di database
+        if (idSupplier.equals("")) {
+            JOptionPane.showMessageDialog(this, "ID Supplier tidak ditemukan di database!");
+            return;
+        }
+
+        // 6. Loop untuk memproses setiap baris barang yang ada di JTable transaksi
+        for (int i = 0; i < jumlahBaris; i++) {
+            String idBarang   = model.getValueAt(i, 0).toString(); 
+            int qty           = Integer.parseInt(model.getValueAt(i, 2).toString()); 
+            
+            // A. Proses INSERT ke tabel barang_masuk
+            String sqlInsert = "INSERT INTO barang_masuk (id_masuk, tanggal, id_barang, id_supplier, jumlah, id_user) VALUES (?, ?, ?, ?, ?, ?)";
+            java.sql.PreparedStatement pstInsert = conn.prepareStatement(sqlInsert);
+            pstInsert.setString(1, txtId.getText()); 
+            pstInsert.setString(2, tanggalFormatted);
+            pstInsert.setString(3, idBarang);
+            pstInsert.setString(4, idSupplier); // Menggunakan idSupplier hasil pencarian database di atas
+            pstInsert.setInt(5, qty); 
+            pstInsert.setString(6, txtIDP.getText()); 
+            
+            pstInsert.executeUpdate();
+            pstInsert.close();
+            
+            // B. Proses UPDATE tambah stok otomatis ke tabel barang
+            String sqlUpdateStok = "UPDATE barang SET stok = stok + ? WHERE id_barang = ?";
+            java.sql.PreparedStatement pstUpdate = conn.prepareStatement(sqlUpdateStok);
+            pstUpdate.setInt(1, qty);        // Menambahkan stok sejumlah qty baru
+            pstUpdate.setString(2, idBarang); // Berdasarkan id_barang yang sedang diproses
+            
+            pstUpdate.executeUpdate();
+            pstUpdate.close();
+        }
+        
+        // 7. Tampilkan Pesan Sukses dan Reset seluruh inputan Form ke Kondisi Awal
+        JOptionPane.showMessageDialog(this, "Data Barang Masuk Berhasil Disimpan dan Stok Barang Berhasil Ditambahkan!");
+        
+        model.setRowCount(0); 
+        idOtomatis();
+        cbSupplier.setSelectedIndex(0);
+        cbBarang.setSelectedIndex(0);
+        cbPetugas.setSelectedIndex(0); 
+        spJumlah.setValue(1);
+        txtKeterangan.setText("");
+        txtIDP.setText("");
+        jDateBM.setDate(null); 
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Gagal menyimpan transaksi atau update stok: " + e.getMessage());
+    }
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
@@ -533,15 +571,15 @@ public class FormBarangMasuk extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTambahActionPerformed
 
     private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
-        idOtomatis();
-        cbSupplier.setSelectedIndex(0);
-        cbBarang.setSelectedIndex(0);
-        cbPetugas.setSelectedIndex(0); 
-        spJumlah.setValue(1);
-        txtKeterangan.setText("");
-        txtIDP.setText("");
-        txtId.setText("");
-        model.setRowCount(0);  // TODO add your handling code here:
+    idOtomatis();
+    cbSupplier.setSelectedIndex(0);
+    cbBarang.setSelectedIndex(0);
+    cbPetugas.setSelectedIndex(0); 
+    spJumlah.setValue(1);
+    txtKeterangan.setText("");
+    txtIDP.setText("");
+    model.setRowCount(0);  
+    jDateBM.setDate(null); // TODO add your handling code here:
     }//GEN-LAST:event_btnBatalActionPerformed
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
@@ -599,6 +637,7 @@ public class FormBarangMasuk extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbBarang;
     private javax.swing.JComboBox<String> cbPetugas;
     private javax.swing.JComboBox<String> cbSupplier;
+    private com.toedter.calendar.JDateChooser jDateBM;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -614,7 +653,6 @@ public class FormBarangMasuk extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner spJumlah;
-    private javax.swing.JSpinner spTanggal;
     private javax.swing.JTable tableTransaksi;
     private javax.swing.JTextField txtIDP;
     private javax.swing.JTextField txtId;

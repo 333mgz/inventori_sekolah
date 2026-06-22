@@ -45,7 +45,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="172" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="lblJenisLaporan" alignment="0" min="-2" pref="380" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
@@ -53,8 +53,8 @@
                                   <Component id="btnCetakUtama" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="dtChooserAkhir" pref="189" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="dtChooserAkhir" max="32767" attributes="0"/>
                                   <Component id="dtChooserAwal" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -69,26 +69,28 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" pref="49" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnDataBarang" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btn_Barangmasuk" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btn_Barangrusak" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnMutasi" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="lblJenisLaporan" min="-2" pref="27" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="jLabel1" min="-2" pref="49" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnDataBarang" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_Barangmasuk" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_Barangrusak" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnMutasi" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="lblJenisLaporan" min="-2" pref="27" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <Component id="dtChooserAwal" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="dtChooserAkhir" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
               <Component id="btnCetakUtama" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="465" max="32767" attributes="0"/>
           </Group>
@@ -145,10 +147,6 @@
         <Property name="text" type="java.lang.String" value="Filter Rentang Waktu :"/>
       </Properties>
     </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="dtChooserAwal">
-    </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="dtChooserAkhir">
-    </Component>
     <Component class="javax.swing.JButton" name="btnCetakUtama">
       <Properties>
         <Property name="text" type="java.lang.String" value="CETAK"/>
@@ -156,6 +154,10 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCetakUtamaActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="com.toedter.calendar.JDateChooser" name="dtChooserAwal">
+    </Component>
+    <Component class="com.toedter.calendar.JDateChooser" name="dtChooserAkhir">
     </Component>
   </SubComponents>
 </Form>

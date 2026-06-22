@@ -23,8 +23,7 @@ public class FormKerusakan extends javax.swing.JFrame {
      */
     public FormKerusakan() {
         initComponents();
-        javax.swing.JSpinner.DateEditor editor = new javax.swing.JSpinner.DateEditor(spTanggal, "dd/MM/yyyy");
-        spTanggal.setEditor(editor);
+        jDateKB.setDateFormatString("dd/MM/yyyy");
         aturTabel();      
         otomatisID();     
         tampilPetugas();  
@@ -119,11 +118,11 @@ public class FormKerusakan extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        spTanggal = new javax.swing.JSpinner();
         jLabel4 = new javax.swing.JLabel();
         cbPetugas = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         txtIDP = new javax.swing.JTextField();
+        jDateKB = new com.toedter.calendar.JDateChooser();
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         cbBarang = new javax.swing.JComboBox<>();
@@ -166,8 +165,6 @@ public class FormKerusakan extends javax.swing.JFrame {
 
         jLabel3.setText("Tanggal: ");
 
-        spTanggal.setModel(new javax.swing.SpinnerDateModel());
-
         jLabel4.setText("Petugas: ");
 
         cbPetugas.addActionListener(new java.awt.event.ActionListener() {
@@ -184,18 +181,21 @@ public class FormKerusakan extends javax.swing.JFrame {
             }
         });
 
+        jDateKB.setDateFormatString("dd-MM-yyyy");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtId)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(spTanggal))
-                .addGap(105, 105, 105)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                        .addComponent(txtId)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jDateKB, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(79, 79, 79)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -220,9 +220,9 @@ public class FormKerusakan extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(spTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtIDP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtIDP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDateKB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
@@ -377,45 +377,77 @@ public class FormKerusakan extends javax.swing.JFrame {
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
     int jumlahBaris = tableTransaksi.getRowCount();
+    
+    // 1. Validasi jika tabel item kerusakan masih kosong
+    if (jumlahBaris == 0) {
+        JOptionPane.showMessageDialog(this, "Tabel transaksi item masih kosong!");
+        return;
+    }
+    
+    // 2. Validasi jika tanggal belum dipilih pada JDateChooser (jDateKB)
+    if (jDateKB.getDate() == null) {
+        JOptionPane.showMessageDialog(this, "Silakan pilih tanggal transaksi terlebih dahulu!");
+        return;
+    }
+    
+    try {
+        Connection conn = Koneksi.getKoneksi();
         
-        if (jumlahBaris == 0) {
-            JOptionPane.showMessageDialog(this, "Tabel transaksi item masih kosong!");
-            return;
+        // 3. Format tanggal dari jDateKB ke format database (yyyy-MM-dd)
+        java.util.Date date = jDateKB.getDate();
+        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+        
+        // 4. Query INSERT - Sudah diperbaiki menggunakan 'jumlah_rusak' sesuai database kamu
+        String sqlInsert = "INSERT INTO kerusakan (id_kerusakan, tanggal, id_barang, jumlah_rusak, keterangan, id_user) VALUES (?, ?, ?, ?, ?, ?)";
+        PreparedStatement pstInsert = conn.prepareStatement(sqlInsert);
+        
+        // 5. Query UPDATE - Untuk mengurangi stok di tabel barang secara otomatis
+        String sqlUpdateStok = "UPDATE barang SET stok = stok - ? WHERE id_barang = ?";
+        PreparedStatement pstUpdate = conn.prepareStatement(sqlUpdateStok);
+        
+        // 6. Loop memproses semua baris data dari JTable transaksi kerusakan
+        for (int i = 0; i < jumlahBaris; i++) {
+            String idBarang   = tableTransaksi.getValueAt(i, 0).toString();
+            int qty           = Integer.parseInt(tableTransaksi.getValueAt(i, 2).toString());
+            String keterangan = tableTransaksi.getValueAt(i, 3).toString();
+            
+            // Masukkan parameter untuk Simpan ke tabel kerusakan
+            pstInsert.setString(1, txtId.getText());
+            pstInsert.setDate(2, sqlDate);
+            pstInsert.setString(3, idBarang); 
+            pstInsert.setInt(4, qty); // Ini akan mengisi kolom jumlah_rusak
+            pstInsert.setString(5, keterangan); 
+            pstInsert.setString(6, txtIDP.getText());
+            pstInsert.addBatch(); // Kumpulkan ke dalam batch
+            
+            // Masukkan parameter untuk Potong Stok di tabel barang
+            pstUpdate.setInt(1, qty);         // Mengurangi stok sebesar jumlah qty yang rusak
+            pstUpdate.setString(2, idBarang); // Berdasarkan id_barang yang sesuai
+            pstUpdate.addBatch();             // Kumpulkan ke dalam batch
         }
         
-        try {
-            Connection conn = Koneksi.getKoneksi();
-            
-            String sql = "INSERT INTO kerusakan VALUES (?, ?, ?, ?, ?, ?)";
-            PreparedStatement pst = conn.prepareStatement(sql);
-            
-            
-            java.util.Date date = (java.util.Date) spTanggal.getValue();
-            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-            
-            
-            for (int i = 0; i < jumlahBaris; i++) {
-                pst.setString(1, txtId.getText());
-                pst.setDate(2, sqlDate);
-                pst.setString(3, tableTransaksi.getValueAt(i, 0).toString()); 
-                pst.setInt(4, Integer.parseInt(tableTransaksi.getValueAt(i, 2).toString())); 
-                pst.setString(5, tableTransaksi.getValueAt(i, 3).toString()); 
-                pst.setString(6, txtIDP.getText());
-                
-                pst.addBatch(); 
-            }
-            
-            pst.executeBatch();
-            JOptionPane.showMessageDialog(this, "Sukses! Data Kerusakan Barang Berhasil Disimpan.");
-            
-            
-            model.setRowCount(0);
-            cbPetugas.setSelectedIndex(0);
-            otomatisID();
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Gagal menyimpan transaksi ke database: " + e.getMessage());
-        }    // TODO add your handling code here:
+        // 7. Eksekusi semua perintah batch sekaligus ke Database
+        pstInsert.executeBatch();
+        pstUpdate.executeBatch();
+        
+        pstInsert.close();
+        pstUpdate.close();
+        
+        JOptionPane.showMessageDialog(this, "Sukses! Data Kerusakan Berhasil Disimpan dan Stok Barang Otomatis Dikurangi.");
+        
+        // 8. Reset inputan form ke kondisi semula setelah berhasil
+        model.setRowCount(0);
+        cbPetugas.setSelectedIndex(0);
+        cbBarang.setSelectedIndex(0);
+        spJumlah.setValue(1);
+        txtKeterangan.setText("");
+        txtIDP.setText("");
+        jDateKB.setDate(null); 
+        otomatisID();
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Gagal menyimpan transaksi atau mengurangi stok: " + e.getMessage());
+    }   // TODO add your handling code here:
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
@@ -536,6 +568,7 @@ public class FormKerusakan extends javax.swing.JFrame {
     private javax.swing.JButton btnTambah;
     private javax.swing.JComboBox<String> cbBarang;
     private javax.swing.JComboBox<String> cbPetugas;
+    private com.toedter.calendar.JDateChooser jDateKB;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -553,7 +586,6 @@ public class FormKerusakan extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JSpinner spJumlah;
-    private javax.swing.JSpinner spTanggal;
     private javax.swing.JTable tableTransaksi;
     private javax.swing.JTextField txtIDP;
     private javax.swing.JTextField txtId;
