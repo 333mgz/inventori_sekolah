@@ -9,7 +9,7 @@ import Koneksi.Koneksi;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import javax.swing.JOptionPane;
+import javax.swing. JOptionPane;
 import java.awt.event.KeyEvent;
 /**
  *
@@ -75,6 +75,11 @@ public class login extends javax.swing.JFrame {
             }
         });
 
+        txtPassword9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPassword9ActionPerformed(evt);
+            }
+        });
         txtPassword9.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtPassword9txtPasswordKeyPressed(evt);
@@ -96,12 +101,6 @@ public class login extends javax.swing.JFrame {
                 btnLogin9btnLoginKeyPressed(evt);
             }
         });
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\haika\\OneDrive\\Documents\\NetBeansProjects\\Inventory_SekolahXYZ\\Inventory_SekolahXYZ\\src\\Asset\\profile.png")); // NOI18N
-
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\haika\\OneDrive\\Documents\\NetBeansProjects\\Inventory_SekolahXYZ\\Inventory_SekolahXYZ\\src\\Asset\\password.png")); // NOI18N
-
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\haika\\OneDrive\\Documents\\NetBeansProjects\\Inventory_SekolahXYZ\\Inventory_SekolahXYZ\\src\\Asset\\Logo_Sekolah_XYZ_50px Nobackground.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -173,7 +172,7 @@ public class login extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 847, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1677, Short.MAX_VALUE))
+                .addContainerGap(428, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,24 +186,33 @@ public class login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLogin9btnLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLogin9btnLoginKeyPressed
-        // TODO add your handling code here:
+      prosesLogin();  // TODO add your handling code here:
     }//GEN-LAST:event_btnLogin9btnLoginKeyPressed
 
     private void bkeluar9bkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkeluar9bkeluarActionPerformed
-        // TODO add your handling code here:
+    dispose();    // TODO add your handling code here:
     }//GEN-LAST:event_bkeluar9bkeluarActionPerformed
 
     private void txtPassword9txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassword9txtPasswordKeyPressed
-        // TODO add your handling code here:
+         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+        prosesLogin();  
+     }// TODO add your handling code here:
     }//GEN-LAST:event_txtPassword9txtPasswordKeyPressed
 
     private void txtUsername9txtUsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsername9txtUsernameKeyPressed
+       if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+        prosesLogin();
+    }
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsername9txtUsernameKeyPressed
 
     private void txtUsername9txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsername9txtUsernameActionPerformed
-        // TODO add your handling code here:
+     // TODO add your handling code here:
     }//GEN-LAST:event_txtUsername9txtUsernameActionPerformed
+
+    private void txtPassword9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPassword9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPassword9ActionPerformed
 
     /*
  * To change this license header, choose License Headers in Project Properties.

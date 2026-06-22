@@ -19,7 +19,7 @@ public class FormBarang extends javax.swing.JFrame {
     /** Creates new form menubarang */
     public FormBarang() {
         initComponents();
-        initComponents();
+        
         setTitle("ini form barang");
         tampilData();
         loadKategori();
@@ -315,6 +315,14 @@ public class FormBarang extends javax.swing.JFrame {
             pst.setString(6, txtLokasi.getText());
 
             pst.executeUpdate();
+            if (txtId.getText().trim().isEmpty()
+        || txtNama.getText().trim().isEmpty()
+        || txtStok.getText().trim().isEmpty()
+        || txtLokasi.getText().trim().isEmpty()) {
+
+    JOptionPane.showMessageDialog(this, "Semua data harus diisi!");
+    return;
+}
 
             JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
             tampilData();

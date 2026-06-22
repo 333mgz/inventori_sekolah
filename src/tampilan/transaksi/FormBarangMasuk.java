@@ -48,12 +48,12 @@ public class FormBarangMasuk extends javax.swing.JFrame {
         try {
             java.sql.Connection conn = (java.sql.Connection) Koneksi.getKoneksi();
             java.sql.Statement st = conn.createStatement();
-            String sql = "SELECT id_masuk FROM barang_masuk ORDER BY id_masuk DESC LIMIT 1";
+            String sql = "SELECT id_masuk FROM barang_masuk ORDER BY id_barang DESC LIMIT 1";
             java.sql.ResultSet rs = st.executeQuery(sql);
             
             if (rs.next()) {
-                String idMasuk = rs.getString("id_masuk");
-                int nomor = Integer.parseInt(idMasuk.substring(3)) + 1;
+                String id_barang = rs.getString("id_barang");
+                int nomor = Integer.parseInt(id_barang.substring(3)) + 1;
                 String kode = String.format("BM-%03d", nomor);
                 txtId.setText(kode);
             } else {
