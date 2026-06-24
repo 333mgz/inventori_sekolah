@@ -24,6 +24,7 @@ public class FormKategori extends javax.swing.JFrame {
         initComponents();
         aktif();      
         datatable();
+        autoID();
     }
     protected void aktif(){
         txtid.requestFocus();
@@ -60,6 +61,27 @@ public class FormKategori extends javax.swing.JFrame {
         }
     }
 
+    private void autoID() {
+    try {
+        String sql = "SELECT id_kategori FROM kategori ORDER BY id_kategori DESC LIMIT 1";
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+
+        if (rs.next()) {
+            String id = rs.getString("id_kategori").substring(3);
+            int no = Integer.parseInt(id) + 1;
+
+            String kode = String.format("KTG%03d", no);
+            txtid.setText(kode);
+        } else {
+            txtid.setText("K1");
+        }
+
+        txtid.setEditable(false); // supaya tidak bisa diubah
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Auto ID Gagal : " + e);
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

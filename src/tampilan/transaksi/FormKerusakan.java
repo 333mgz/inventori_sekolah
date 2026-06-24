@@ -40,28 +40,32 @@ public class FormKerusakan extends javax.swing.JFrame {
 
     private void otomatisID() {
         try {
-            Connection conn = Koneksi.getKoneksi();
-            String sql = "SELECT id_kerusakan FROM kerusakan ORDER BY id_kerusakan DESC LIMIT 1";
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
+        Connection conn = Koneksi.getKoneksi();
+        // Gunakan MAX untuk mencari angka paling besar
+        String sql = "SELECT MAX(id_kerusakan) FROM kerusakan WHERE id_kerusakan LIKE 'KSK%'";
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        
+        if (rs.next() && rs.getString(1) != null) {
+            String idTerakhir = rs.getString(1); // Contoh "KSK0002"
             
-            if (rs.next()) {
-                String idTerakhir = rs.getString("id_kerusakan");
-                int nomor = Integer.parseInt(idTerakhir.substring(3)) + 1;
-                String nol = "";
-                
-                if (nomor < 10) { nol = "000"; }
-                else if (nomor < 100) { nol = "00"; }
-                else if (nomor < 1000) { nol = "0"; }
-                
-                txtId.setText("KSK" + nol + nomor);
-            } else {
-                txtId.setText("KSK0001"); 
-            }
-            txtId.setEditable(false);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Gagal membuat ID Otomatis: " + e.getMessage());
+            // Potong teks "KSK" dan ambil angkanya (Index ke-3)
+            int nomor = Integer.parseInt(idTerakhir.substring(3)); 
+            nomor++; // Tambah 1
+            
+            // Format ulang dengan padding 0 di depan agar konsisten 4 digit angka
+            String kode = String.format("KSK%04d", nomor);
+            txtId.setText(kode);
+        } else {
+            // Jika tabel masih kosong
+            txtId.setText("KSK0001"); 
         }
+        txtId.setEditable(false);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Gagal membuat ID Otomatis: " + e.getMessage());
+        txtId.setText("KSK0001");
+        txtId.setEditable(false);
+    }
     }
 
     
@@ -397,13 +401,15 @@ public class FormKerusakan extends javax.swing.JFrame {
         java.util.Date date = jDateKB.getDate();
         java.sql.Date sqlDate = new java.sql.Date(date.getTime());
         
-        // 4. Query INSERT - Sudah diperbaiki menggunakan 'jumlah_rusak' sesuai database kamu
+        // 4. Query INSERT & UPDATE
         String sqlInsert = "INSERT INTO kerusakan (id_kerusakan, tanggal, id_barang, jumlah_rusak, keterangan, id_user) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement pstInsert = conn.prepareStatement(sqlInsert);
         
-        // 5. Query UPDATE - Untuk mengurangi stok di tabel barang secara otomatis
         String sqlUpdateStok = "UPDATE barang SET stok = stok - ? WHERE id_barang = ?";
         PreparedStatement pstUpdate = conn.prepareStatement(sqlUpdateStok);
+        
+        // 5. PERBAIKAN: Ambil angka dasar dari TextBox ID (Misal "KSK0002" -> Angka 2)
+        int angkaDasar = Integer.parseInt(txtId.getText().substring(3));
         
         // 6. Loop memproses semua baris data dari JTable transaksi kerusakan
         for (int i = 0; i < jumlahBaris; i++) {
@@ -411,19 +417,22 @@ public class FormKerusakan extends javax.swing.JFrame {
             int qty           = Integer.parseInt(tableTransaksi.getValueAt(i, 2).toString());
             String keterangan = tableTransaksi.getValueAt(i, 3).toString();
             
+            // PERBAIKAN: Generate ID Baru otomatis untuk setiap baris di tabel (KSK0002, KSK0003, dst)
+            String idKerusakanUnik = String.format("KSK%04d", angkaDasar + i);
+            
             // Masukkan parameter untuk Simpan ke tabel kerusakan
-            pstInsert.setString(1, txtId.getText());
+            pstInsert.setString(1, idKerusakanUnik); // Gunakan ID Unik, jangan txtId.getText()
             pstInsert.setDate(2, sqlDate);
             pstInsert.setString(3, idBarang); 
-            pstInsert.setInt(4, qty); // Ini akan mengisi kolom jumlah_rusak
+            pstInsert.setInt(4, qty); 
             pstInsert.setString(5, keterangan); 
             pstInsert.setString(6, txtIDP.getText());
-            pstInsert.addBatch(); // Kumpulkan ke dalam batch
+            pstInsert.addBatch(); 
             
             // Masukkan parameter untuk Potong Stok di tabel barang
-            pstUpdate.setInt(1, qty);         // Mengurangi stok sebesar jumlah qty yang rusak
-            pstUpdate.setString(2, idBarang); // Berdasarkan id_barang yang sesuai
-            pstUpdate.addBatch();             // Kumpulkan ke dalam batch
+            pstUpdate.setInt(1, qty);         
+            pstUpdate.setString(2, idBarang); 
+            pstUpdate.addBatch();             
         }
         
         // 7. Eksekusi semua perintah batch sekaligus ke Database
@@ -443,11 +452,11 @@ public class FormKerusakan extends javax.swing.JFrame {
         txtKeterangan.setText("");
         txtIDP.setText("");
         jDateKB.setDate(null); 
-        otomatisID();
+        otomatisID(); // Generate ID baru
         
     } catch (Exception e) {
         JOptionPane.showMessageDialog(this, "Gagal menyimpan transaksi atau mengurangi stok: " + e.getMessage());
-    }   // TODO add your handling code here:
+    }  // TODO add your handling code here:
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
