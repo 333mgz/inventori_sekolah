@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8274014f-8db9-42e8-92b5-4f374b4279db">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT m.id_mutasi, m.tanggal, b.nama_barang, m.lokasi_asal, m.lokasi_tujuan, m.jumlah, u.username FROM mutasi m JOIN barang b ON m.id_barang = b.id_barang LEFT JOIN user u ON m.id_user = u.id_user WHERE m.tanggal ]]>
+	</queryString>
+	<field name="id_mutasi" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tanggal" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama_barang" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="lokasi_asal" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="lokasi_tujuan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jumlah" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="username" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="274" y="28" width="100" height="20" uuid="e6d0d03c-dd10-491e-9650-f97ae9124d62"/>
+				<text><![CDATA[Static text]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="174" y="2" width="100" height="20" uuid="43598848-9c99-4247-b033-d21813ee459a"/>
+				<text><![CDATA[lokasi_asal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="293" y="2" width="100" height="20" uuid="2471ee54-7a9b-4ee7-8670-151d570059c6"/>
+				<text><![CDATA[jumlah]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="2" width="100" height="20" uuid="81aef238-f658-4704-a48a-89a232897f8f"/>
+				<text><![CDATA[id_mutasi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="106" y="2" width="100" height="20" uuid="7470f1be-0250-456b-8c03-14d08c960f24"/>
+				<text><![CDATA[tanggal]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="174" y="8" width="100" height="20" uuid="70c5cfb9-a869-4ddc-851f-70f1a5225c68"/>
+				<textFieldExpression><![CDATA[$F{lokasi_asal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="293" y="8" width="100" height="20" uuid="366bd8c1-c7eb-4d69-a9ad-a5776369571e"/>
+				<textFieldExpression><![CDATA[$F{jumlah}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="6" y="8" width="100" height="20" uuid="9611a5f9-37d2-4c4d-a38e-af794fc652b5"/>
+				<textFieldExpression><![CDATA[$F{id_mutasi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="106" y="8" width="100" height="20" uuid="60e28290-daab-448b-a98a-3efca9a03748"/>
+				<textFieldExpression><![CDATA[$F{tanggal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

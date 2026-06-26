@@ -4,6 +4,11 @@
  * and open the template in the editor.
  */
 package tampilan.report;
+import Koneksi.Koneksi;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,12 +18,30 @@ public class form_report extends javax.swing.JFrame {
 
     /**
      * Creates new form form_report
-     */private String statusLaporan = "barang";
+     */
+    
+    private DefaultTableModel tableModel;
+    
     public form_report() {
         initComponents();
-        lblJenisLaporan.setText("Laporan Terpilih: Seluruh Data Master Barang");
+        initTable();
+        loadComboboxData();
     }
 
+    private void initTable() {
+        String[] kolom = {"ID Barang", "Nama Barang", "Kategori", "Lokasi/Ruangan", "Jumlah", "Kondisi", "Tanggal Update"};
+        tableModel = new DefaultTableModel(null, kolom);
+        tblLaporan.setModel(tableModel);
+    }
+    
+    private void loadComboboxData() {
+        // Contoh pengisian manual, nanti bisa Anda sesuaikan dengan query database Anda
+        cbJenisLaporan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { 
+            "--- Pilih Jenis Laporan ---", "Stok Barang", "Mutasi Barang", "Kondisi Barang", "Barang per Ruangan" 
+        }));
+        
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,194 +51,323 @@ public class form_report extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        btnDataBarang = new javax.swing.JButton();
-        btn_Barangmasuk = new javax.swing.JButton();
-        btn_Barangrusak = new javax.swing.JButton();
-        btnMutasi = new javax.swing.JButton();
-        lblJenisLaporan = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        btnCetakUtama = new javax.swing.JButton();
-        dtChooserAwal = new com.toedter.calendar.JDateChooser();
-        dtChooserAkhir = new com.toedter.calendar.JDateChooser();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        PanelUtama = new javax.swing.JLabel();
+        PanelFilter = new javax.swing.JLabel();
+        cbJenisLaporan = new javax.swing.JComboBox<>();
+        lblTanggal = new javax.swing.JLabel();
+        lblTanggalDari = new javax.swing.JLabel();
+        lblTanggalSampai = new javax.swing.JLabel();
+        btnTampilkan = new javax.swing.JButton();
+        jblLaporan = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblLaporan = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        txtTanggalDari = new com.toedter.calendar.JDateChooser();
+        txtTanggalSampai = new com.toedter.calendar.JDateChooser();
+        btnCetak = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("SISTEM INVENTORI FASILITAS SEKOLAH ");
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1064, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 117, Short.MAX_VALUE)
+        );
 
-        jLabel2.setText("MENU CETAK LAPORAN");
+        jPanel2.setBackground(new java.awt.Color(102, 153, 255));
 
-        btnDataBarang.setText("LAPORAN DATA BARANG");
-        btnDataBarang.addActionListener(new java.awt.event.ActionListener() {
+        PanelUtama.setText("PARAMETER LAPORAN");
+
+        PanelFilter.setText("Jenis Laporan:");
+
+        cbJenisLaporan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "stok barang", " ", "barang masuk", "barang keluar", "mutasi", " " }));
+        cbJenisLaporan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDataBarangActionPerformed(evt);
+                cbJenisLaporanActionPerformed(evt);
             }
         });
 
-        btn_Barangmasuk.setText("LAPORAN BARANG MASUK");
-        btn_Barangmasuk.addActionListener(new java.awt.event.ActionListener() {
+        lblTanggal.setText("Rentang Tanggal");
+
+        lblTanggalDari.setText("Dari");
+
+        lblTanggalSampai.setText("Hingga:");
+
+        btnTampilkan.setText("Hasil Laporan");
+        btnTampilkan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_BarangmasukActionPerformed(evt);
+                btnTampilkanActionPerformed(evt);
             }
         });
 
-        btn_Barangrusak.setText("LAPORAN BARANG RUSAK");
-        btn_Barangrusak.addActionListener(new java.awt.event.ActionListener() {
+        jblLaporan.setText("PRATINJAU LAPORAN");
+
+        tblLaporan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID BRG", "NM BRG", "KATEGORI", "LOKASI", "JUMLAH", "KONDISI", "TGL TERAKHIR"
+            }
+        ));
+        jScrollPane1.setViewportView(tblLaporan);
+
+        jLabel10.setText("TINDAKAN LAPORAN");
+
+        btnCetak.setText("cetak");
+        btnCetak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_BarangrusakActionPerformed(evt);
+                btnCetakActionPerformed(evt);
             }
         });
 
-        btnMutasi.setText("LAPORAN MUTASI");
-        btnMutasi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMutasiActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setText("Filter Rentang Waktu :");
-
-        btnCetakUtama.setText("CETAK");
-        btnCetakUtama.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCetakUtamaActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(PanelUtama, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(26, 26, 26)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jblLaporan)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(PanelFilter)
+                                    .addGap(27, 27, 27)
+                                    .addComponent(cbJenisLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(79, 79, 79)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblTanggal)
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                                    .addComponent(lblTanggalDari)
+                                                    .addGap(32, 32, 32)
+                                                    .addComponent(txtTanggalDari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                                    .addComponent(lblTanggalSampai)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(txtTanggalSampai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGap(239, 239, 239)
+                                            .addComponent(btnTampilkan, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jScrollPane1)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(btnCetak, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(PanelUtama)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(PanelFilter)
+                    .addComponent(cbJenisLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTanggal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtTanggalDari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTanggalDari))
+                .addGap(9, 9, 9)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtTanggalSampai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTanggalSampai))
+                .addGap(44, 44, 44)
+                .addComponent(btnTampilkan, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jblLaporan)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCetak, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 161, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(399, 399, 399)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(332, 332, 332)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(btnDataBarang)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_Barangmasuk)
-                        .addGap(30, 30, 30)
-                        .addComponent(btn_Barangrusak)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnMutasi))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(172, 172, 172)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblJenisLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(btnCetakUtama))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(dtChooserAkhir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(dtChooserAwal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                .addContainerGap(143, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 25, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addGap(49, 49, 49)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnDataBarang)
-                            .addComponent(btn_Barangmasuk)
-                            .addComponent(btn_Barangrusak)
-                            .addComponent(btnMutasi))
-                        .addGap(18, 18, 18)
-                        .addComponent(lblJenisLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11)
-                        .addComponent(jLabel5))
-                    .addComponent(dtChooserAwal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(dtChooserAkhir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
-                .addComponent(btnCetakUtama)
-                .addContainerGap(465, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 36, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnMutasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMutasiActionPerformed
-statusLaporan = "mutasi";
- lblJenisLaporan.setText("Laporan Terpilih: Log Perpindahan / Mutasi Ruangan");        // TODO add your handling code here:
-    }//GEN-LAST:event_btnMutasiActionPerformed
+    private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
+        // 1. Cek apakah ada data di tabel, jika kosong beri peringatan
+    if (tblLaporan.getRowCount() == 0) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Tidak ada data untuk dicetak!", "Info", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        return;
+    }
 
-    private void btnDataBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDataBarangActionPerformed
-statusLaporan = "barang";
- lblJenisLaporan.setText("Laporan Terpilih: Seluruh Data Master Barang");        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDataBarangActionPerformed
-
-    private void btn_BarangmasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BarangmasukActionPerformed
-statusLaporan = "masuk";
- lblJenisLaporan.setText("Laporan Terpilih: Transaksi Masuk Fasilitas Sekolah");        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_BarangmasukActionPerformed
-
-    private void btn_BarangrusakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BarangrusakActionPerformed
-statusLaporan = "rusak";
- lblJenisLaporan.setText("Laporan Terpilih: Data Kerusakan Aset Sekolah");        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_BarangrusakActionPerformed
-
-    private void btnCetakUtamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakUtamaActionPerformed
-try {
-        // Langkah 1: Membuka Gerbang Koneksi ke Driver Database MySQL
-        java.sql.Connection conn = (java.sql.Connection) Koneksi.Koneksi.getKoneksi();
+    try {
+        // 2. Ambil pilihan dari ComboBox
+        String jenisLaporan = cbJenisLaporan.getSelectedItem().toString().trim();
+        java.sql.Connection conn = Koneksi.getKoneksi(); // Pastikan nama package koneksi Anda sesuai
         
-        // Langkah 2: Inisialisasi Objek Parameter Penampung Filter SQL
-        java.util.HashMap<String, Object> param = new java.util.HashMap<>();
-        String fileJasperPath = "";
-        
-        // Langkah 3: Seleksi Kondisi Menentukan Path File .jasper Sesuai Saklar Navigator
-        switch(statusLaporan) {
-            case "barang":
-                fileJasperPath = "src/tampilan/report/laporan_databarang.jasper";
-                break;
-            case "masuk":
-                fileJasperPath = "src/tampilan/report/laporan_barangmasuk.jasper";
-                // Mengirim filter rentang tanggal apabila parameter diatur di Jaspersoft
-                if(dtChooserAwal.getDate() != null && dtChooserAkhir.getDate() != null){
-                    param.put("tgl_awal", dtChooserAwal.getDate());
-                    param.put("tgl_akhir", dtChooserAkhir.getDate());
-                }
-                break;
-            case "rusak":
-                fileJasperPath = "src/tampilan/report/laporan_barangrusak.jasper";
-                break;
-            case "mutasi":
-                fileJasperPath = "src/tampilan/report/laporan_mutasi.jasper";
-                break;
-            default:
-                // PERBAIKAN: Teks string disatukan dalam satu baris
-                javax.swing.JOptionPane.showMessageDialog(this, "Validasi Error: Status laporan tidak dikenali!");
-                return;
+        // 3. Tentukan path file .jasper berdasarkan pilihan
+        String path = "";
+        if (jenisLaporan.equalsIgnoreCase("Stok Barang")) {
+            path = "/tampilan/report/laporan_stok.jasper";
+        } else if (jenisLaporan.equalsIgnoreCase("Mutasi Barang")) {
+            path = "/tampilan/report/laporan_mutasi.jasper";
+        } else if (jenisLaporan.equalsIgnoreCase("Kondisi Barang")) {
+            path = "/tampilan/report/laporan_kondisi.jasper";
+        } else if (jenisLaporan.equalsIgnoreCase("Barang per Ruangan")) {
+            path = "/tampilan/report/laporan_ruangan.jasper";
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Pilih jenis laporan yang benar!");
+            return;
         }
+
+        // 4. Eksekusi file jasper
+        java.io.InputStream is = getClass().getResourceAsStream(path);
         
-        // Langkah 4: Membaca berkas fisik Jasper dan Mengisinya dengan Baris Data SQL
-        net.sf.jasperreports.engine.JasperPrint cetakDokumen = 
-            net.sf.jasperreports.engine.JasperFillManager.fillReport(fileJasperPath, param, conn);
-        
-        // Langkah 5: Tampilkan jendela peninjau cetak ke layar monitor
-        net.sf.jasperreports.view.JasperViewer.viewReport(cetakDokumen, false);
-        
-    } catch (net.sf.jasperreports.engine.JRException jrEx) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Kegagalan Engine Laporan Jasper: " + jrEx.getMessage(), "Reporting Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        // Cek apakah file ada atau tidak
+        if (is == null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "File template tidak ditemukan di: " + path, "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Buka JasperViewer
+        net.sf.jasperreports.engine.JasperPrint jp = net.sf.jasperreports.engine.JasperFillManager.fillReport(is, null, conn);
+        net.sf.jasperreports.view.JasperViewer.viewReport(jp, false);
+
     } catch (Exception e) {
-        // PERBAIKAN: Menambahkan Exception umum untuk menangkap error dari configDB()
-        javax.swing.JOptionPane.showMessageDialog(this, "Kegagalan Sistem / Koneksi Database: " + e.getMessage(), "System Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-    }// TODO add your handling code here:
-    }//GEN-LAST:event_btnCetakUtamaActionPerformed
+        javax.swing.JOptionPane.showMessageDialog(this, "Gagal Mencetak: " + e.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_btnCetakActionPerformed
+
+    private void btnTampilkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTampilkanActionPerformed
+        try {
+            // 1. Ambil nilai dari ComboBox Jenis Laporan
+            String jenisLaporan = cbJenisLaporan.getSelectedItem().toString().trim();
+
+            if (cbJenisLaporan.getSelectedIndex() == 0 || jenisLaporan.isEmpty()) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Silakan pilih Jenis Laporan terlebih dahulu!", "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // 2. Kosongkan tabel
+            DefaultTableModel model = (DefaultTableModel) tblLaporan.getModel();
+            model.setRowCount(0);
+
+            // 3. Persiapkan koneksi database
+           java.sql.Connection conn = Koneksi.getKoneksi(); // Pastikan pemanggilan class koneksi Anda benar
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = null;
+
+            // --------------------------------------------------------
+            // LOGIKA: STOK BARANG (Tidak butuh filter tanggal)
+            // --------------------------------------------------------
+            if (jenisLaporan.equalsIgnoreCase("Stok Barang")) {
+                model.setColumnIdentifiers(new String[]{
+                    "ID Barang", "Nama Barang", "Kategori", "Stok", "Kondisi", "Lokasi/Ruangan"
+                });
+                
+                String sql = "SELECT b.id_barang, b.nama_barang, k.nama_kategori, b.stok, b.kondisi, r.nama_ruangan "
+                           + "FROM barang b "
+                           + "LEFT JOIN kategori k ON b.id_kategori = k.id_kategori "
+                           + "LEFT JOIN ruangan r ON b.lokasi = r.lokasi";
+                
+                res = stm.executeQuery(sql);
+                while(res.next()) {
+                    model.addRow(new Object[]{
+                        res.getString("id_barang"), res.getString("nama_barang"), res.getString("nama_kategori"),
+                        res.getString("stok"), res.getString("kondisi"), res.getString("nama_ruangan")
+                    });
+                }
+            } 
+            // --------------------------------------------------------
+            // LOGIKA LAPORAN DENGAN FILTER TANGGAL
+            // --------------------------------------------------------
+            else {
+                // CEK TANGGAL: Hanya untuk laporan yang butuh tanggal
+                if (txtTanggalDari.getDate() == null || txtTanggalSampai.getDate() == null) {
+                    javax.swing.JOptionPane.showMessageDialog(this, "Silakan pilih rentang tanggal (Dari & Hingga) terlebih dahulu!", "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+                String tglAwal = sdf.format(txtTanggalDari.getDate());
+                String tglAkhir = sdf.format(txtTanggalSampai.getDate());
+
+                // LOGIKA: MUTASI BARANG
+                if (jenisLaporan.equalsIgnoreCase("Mutasi Barang")) {
+                    model.setColumnIdentifiers(new String[]{"ID Mutasi", "Tanggal", "Nama Barang", "Lokasi Asal", "Lokasi Tujuan", "Jumlah", "Petugas"});
+                    String sql = "SELECT m.id_mutasi, m.tanggal, b.nama_barang, m.lokasi_asal, m.lokasi_tujuan, m.jumlah, u.username "
+                               + "FROM mutasi m JOIN barang b ON m.id_barang = b.id_barang LEFT JOIN user u ON m.id_user = u.id_user "
+                               + "WHERE m.tanggal BETWEEN '" + tglAwal + "' AND '" + tglAkhir + "'";
+                    res = stm.executeQuery(sql);
+                    while(res.next()) {
+                        model.addRow(new Object[]{res.getString("id_mutasi"), res.getString("tanggal"), res.getString("nama_barang"), res.getString("lokasi_asal"), res.getString("lokasi_tujuan"), res.getString("jumlah"), res.getString("username")});
+                    }
+                } 
+                // LOGIKA: KONDISI BARANG
+                else if (jenisLaporan.equalsIgnoreCase("Kondisi Barang")) {
+                    model.setColumnIdentifiers(new String[]{"ID Kerusakan", "Tanggal", "Nama Barang", "Jumlah Rusak", "Keterangan", "Petugas"});
+                    String sql = "SELECT kr.id_kerusakan, kr.tanggal, b.nama_barang, kr.jumlah_rusak, kr.keterangan, u.username "
+                               + "FROM kerusakan kr JOIN barang b ON kr.id_barang = b.id_barang LEFT JOIN user u ON kr.id_user = u.id_user "
+                               + "WHERE kr.tanggal BETWEEN '" + tglAwal + "' AND '" + tglAkhir + "'";
+                    res = stm.executeQuery(sql);
+                    while(res.next()) {
+                        model.addRow(new Object[]{res.getString("id_kerusakan"), res.getString("tanggal"), res.getString("nama_barang"), res.getString("jumlah_rusak"), res.getString("keterangan"), res.getString("username")});
+                    }
+                }
+                // LOGIKA: BARANG PER RUANGAN
+                else if (jenisLaporan.equalsIgnoreCase("Barang per Ruangan")) {
+                    model.setColumnIdentifiers(new String[]{"Lokasi/Ruangan", "ID Barang", "Nama Barang", "Kategori", "Stok", "Kondisi"});
+                    String sql = "SELECT r.nama_ruangan, b.id_barang, b.nama_barang, k.nama_kategori, b.stok, b.kondisi "
+                               + "FROM barang b LEFT JOIN kategori k ON b.id_kategori = k.id_kategori JOIN ruangan r ON b.lokasi = r.lokasi ORDER BY r.nama_ruangan ASC";
+                    res = stm.executeQuery(sql);
+                    while(res.next()) {
+                        model.addRow(new Object[]{res.getString("nama_ruangan"), res.getString("id_barang"), res.getString("nama_barang"), res.getString("nama_kategori"), res.getString("stok"), res.getString("kondisi")});
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error Database", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }   // TODO add your handling code here:
+    }//GEN-LAST:event_btnTampilkanActionPerformed
+
+    private void cbJenisLaporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbJenisLaporanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbJenisLaporanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -253,16 +405,21 @@ try {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCetakUtama;
-    private javax.swing.JButton btnDataBarang;
-    private javax.swing.JButton btnMutasi;
-    private javax.swing.JButton btn_Barangmasuk;
-    private javax.swing.JButton btn_Barangrusak;
-    private com.toedter.calendar.JDateChooser dtChooserAkhir;
-    private com.toedter.calendar.JDateChooser dtChooserAwal;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel lblJenisLaporan;
+    private javax.swing.JLabel PanelFilter;
+    private javax.swing.JLabel PanelUtama;
+    private javax.swing.JButton btnCetak;
+    private javax.swing.JButton btnTampilkan;
+    private javax.swing.JComboBox<String> cbJenisLaporan;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jblLaporan;
+    private javax.swing.JLabel lblTanggal;
+    private javax.swing.JLabel lblTanggalDari;
+    private javax.swing.JLabel lblTanggalSampai;
+    private javax.swing.JTable tblLaporan;
+    private com.toedter.calendar.JDateChooser txtTanggalDari;
+    private com.toedter.calendar.JDateChooser txtTanggalSampai;
     // End of variables declaration//GEN-END:variables
 }

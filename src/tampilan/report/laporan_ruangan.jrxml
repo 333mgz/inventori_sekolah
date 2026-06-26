@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f3b612ac-924d-45f7-bf56-4e1a948e1393">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT r.nama_ruangan, b.id_barang, b.nama_barang, k.nama_kategori, b.stok, b.kondisi FROM barang b LEFT JOIN kategori k ON b.id_kategori = k.id_kategori JOIN ruangan r ON b.lokasi = r.lokasi ORDER BY r.nama_ruangan ASC]]>
+	</queryString>
+	<field name="nama_ruangan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_barang" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama_barang" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama_kategori" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="stok" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kondisi" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="140" y="2" width="100" height="20" uuid="fefafb54-be56-4524-be2b-dfb110879e1c"/>
+				<text><![CDATA[nama_ruangan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="319" y="2" width="100" height="20" uuid="51b2edba-e907-47b7-81b6-9e28f8e5d24b"/>
+				<text><![CDATA[id_barang]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="140" y="35" width="100" height="20" uuid="d68a09cf-d7fa-4199-86f2-9c0b9a3c9eac"/>
+				<textFieldExpression><![CDATA[$F{nama_ruangan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="319" y="46" width="100" height="20" uuid="1bab2599-7095-4628-ad20-2bea114ee51f"/>
+				<textFieldExpression><![CDATA[$F{id_barang}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

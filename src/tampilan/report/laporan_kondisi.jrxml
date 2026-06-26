@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="15c1915c-cdf5-4957-a972-59887442c0fd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="tgl_akhir" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT kr.id_kerusakan, kr.tanggal, b.nama_barang, kr.jumlah_rusak, kr.keterangan, u.username FROM kerusakan kr JOIN barang b ON kr.id_barang = b.id_barang LEFT JOIN user u ON kr.id_user = u.id_user WHERE kr.tanggal]]>
+	</queryString>
+	<field name="id_kerusakan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tanggal" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama_barang" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jumlah_rusak" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="keterangan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="username" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="93" y="2" width="100" height="20" uuid="217cb765-35f1-44ad-a83d-57d5cbbccfe2"/>
+				<text><![CDATA[jumlah_rusak]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="332" y="2" width="100" height="20" uuid="dddc3b58-df10-41c6-8852-ca9c25a0965c"/>
+				<text><![CDATA[keterangan]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="93" y="40" width="100" height="20" uuid="12ca223c-1e6f-4b9d-abaf-78bc3c8ae75a"/>
+				<textFieldExpression><![CDATA[$F{jumlah_rusak}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="332" y="41" width="100" height="20" uuid="76ad7256-be73-419c-9202-559a9534715e"/>
+				<textFieldExpression><![CDATA[$F{keterangan}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
