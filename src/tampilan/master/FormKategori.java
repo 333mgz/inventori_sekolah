@@ -24,7 +24,7 @@ public class FormKategori extends javax.swing.JFrame {
         initComponents();
         aktif();      
         datatable();
-        autoID();
+        autoId();
     }
     protected void aktif(){
         txtid.requestFocus();
@@ -61,25 +61,24 @@ public class FormKategori extends javax.swing.JFrame {
         }
     }
 
-    private void autoID() {
+     private void autoId() {
     try {
-        String sql = "SELECT id_kategori FROM kategori ORDER BY id_kategori DESC LIMIT 1";
-        Statement st = conn.createStatement();
-        ResultSet rs = st.executeQuery(sql);
+        String sql = "SELECT MAX(id_kategori) FROM kategori";
+        ResultSet rs = Koneksi.getKoneksi().createStatement().executeQuery(sql);
 
-        if (rs.next()) {
-            String id = rs.getString("id_kategori").substring(3);
-            int no = Integer.parseInt(id) + 1;
+        if (rs.next() && rs.getString(1) != null) {
+            String id = rs.getString(1); // contoh: BRG005
+            int angka = Integer.parseInt(id.substring(3)); // ambil 005 → 5
+            angka++;
 
-            String kode = String.format("KTG%03d", no);
-            txtid.setText(kode);
+            txtid.setText(String.format("KTG%03d", angka));
         } else {
-            txtid.setText("K1");
+            txtid.setText("KTG001");
         }
 
-        txtid.setEditable(false); // supaya tidak bisa diubah
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Auto ID Gagal : " + e);
+        JOptionPane.showMessageDialog(null, e);
+        txtid.setText("KTG001");
     }
 }
     /**

@@ -23,6 +23,7 @@ public class FormBarang extends javax.swing.JFrame {
         setTitle("ini form barang");
         tampilData();
         loadKategori();
+        loadLokasi();
         autoId();
         
         
@@ -98,6 +99,19 @@ public class FormBarang extends javax.swing.JFrame {
         txtId.setText("BRG001");
     }
 }
+    private void loadLokasi() {
+    try {
+        cbLokasi.removeAllItems();
+        String sql = "SELECT nama_ruangan FROM ruangan"; // Mengambil data dari tabel ruangan
+        ResultSet rs = Koneksi.getKoneksi().createStatement().executeQuery(sql);
+
+        while (rs.next()) {
+            cbLokasi.addItem(rs.getString("nama_ruangan"));
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Gagal memuat lokasi: " + e.getMessage());
+    }
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -129,7 +143,7 @@ public class FormBarang extends javax.swing.JFrame {
         btnHome = new javax.swing.JButton();
         cbKondisi = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        txtLokasi = new javax.swing.JTextField();
+        cbLokasi = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -259,12 +273,8 @@ public class FormBarang extends javax.swing.JFrame {
         jLabel7.setText("Lokasi");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 260, -1, -1));
 
-        txtLokasi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtLokasiActionPerformed(evt);
-            }
-        });
-        jPanel2.add(txtLokasi, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 260, 133, -1));
+        cbLokasi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel2.add(cbLokasi, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 260, 140, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -301,10 +311,10 @@ public class FormBarang extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIdActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        if (txtId.getText().trim().isEmpty()
-            || txtNama.getText().trim().isEmpty()
-            || txtStok.getText().trim().isEmpty()
-            || txtLokasi.getText().trim().isEmpty()) {
+     if (txtId.getText().trim().isEmpty()
+        || txtNama.getText().trim().isEmpty()
+        || txtStok.getText().trim().isEmpty()
+        || cbLokasi.getSelectedItem() == null) { // Perubahan validasi lokasi
 
         JOptionPane.showMessageDialog(this, "Semua data harus diisi!");
         return;
@@ -327,41 +337,38 @@ public class FormBarang extends javax.swing.JFrame {
         }
         pstKat.close();
         
-        // Pastikan idKategori ditemukan
         if (idKategori.equals("")) {
             JOptionPane.showMessageDialog(this, "Kategori tidak ditemukan di database!");
             return;
         }
 
-        // 2. Proses Insert menggunakan idKategori yang sudah ditemukan
+        // 2. Proses Insert
         String sql = "INSERT INTO barang VALUES (?,?,?,?,?,?)";
         PreparedStatement pst = conn.prepareStatement(sql);
 
         pst.setString(1, txtId.getText());
         pst.setString(2, txtNama.getText());
-        pst.setString(3, idKategori); // PERBAIKAN: Masukkan ID Kategori, bukan namanya
+        pst.setString(3, idKategori); 
         pst.setInt(4, Integer.parseInt(txtStok.getText()));
         pst.setString(5, cbKondisi.getSelectedItem().toString());
-        pst.setString(6, txtLokasi.getText());
+        pst.setString(6, cbLokasi.getSelectedItem().toString()); // PERBAIKAN: Menggunakan ComboBox
 
         pst.executeUpdate();
         pst.close();
 
         JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
         tampilData();
-        autoId();
+        btnResetActionPerformed(evt); // Menggunakan reset agar form bersih sempurna dan ID Baru ter-generate
 
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Error Simpan: " + e.getMessage());
-    }
-                // TODO add your handling code here:
+    }          // TODO add your handling code here:
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        try {
+     try {
         java.sql.Connection conn = Koneksi.getKoneksi();
         
-        // 1. Cari id_kategori berdasarkan nama_kategori yang dipilih di ComboBox
         String namaKategoriPilihan = cbKategori.getSelectedItem().toString();
         String idKategori = "";
         
@@ -375,15 +382,15 @@ public class FormBarang extends javax.swing.JFrame {
         }
         pstKat.close();
 
-        // 2. Proses Update menggunakan idKategori yang sudah ditemukan
+        // Proses Update
         String sql = "UPDATE barang SET nama_barang=?, id_kategori=?, stok=?, kondisi=?, lokasi=? WHERE id_barang=?";
         PreparedStatement pst = conn.prepareStatement(sql);
 
         pst.setString(1, txtNama.getText());
-        pst.setString(2, idKategori); // PERBAIKAN: Masukkan ID Kategori, bukan namanya
+        pst.setString(2, idKategori); 
         pst.setInt(3, Integer.parseInt(txtStok.getText()));
         pst.setString(4, cbKondisi.getSelectedItem().toString());
-        pst.setString(5, txtLokasi.getText());
+        pst.setString(5, cbLokasi.getSelectedItem().toString()); // PERBAIKAN: Menggunakan ComboBox
         pst.setString(6, txtId.getText());
 
         pst.executeUpdate();
@@ -391,16 +398,13 @@ public class FormBarang extends javax.swing.JFrame {
 
         JOptionPane.showMessageDialog(null, "Data berhasil diupdate");
         tampilData();
+        btnResetActionPerformed(evt);
 
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Error Edit: " + e.getMessage());
-    }                                       
+    }                                                                      
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEditActionPerformed
-
-    private void txtLokasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLokasiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtLokasiActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
         try {
@@ -419,12 +423,15 @@ public class FormBarang extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHapusActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-        txtId.setText("");
-        txtNama.setText("");
-        txtStok.setText("");
-        txtLokasi.setText("");
-        cbKategori.setSelectedIndex(0);
-        cbKondisi.setSelectedIndex(0);        // TODO add your handling code here:
+    txtNama.setText("");
+    txtStok.setText("");
+    cbKategori.setSelectedIndex(0);
+    cbKondisi.setSelectedIndex(0); 
+    if(cbLokasi.getItemCount() > 0) {
+        cbLokasi.setSelectedIndex(0); 
+    }
+    autoId();
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void tableBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBarangMouseClicked
@@ -435,7 +442,7 @@ public class FormBarang extends javax.swing.JFrame {
         cbKategori.setSelectedItem(tableBarang.getValueAt(baris, 2).toString());
         txtStok.setText(tableBarang.getValueAt(baris, 3).toString());
         cbKondisi.setSelectedItem(tableBarang.getValueAt(baris, 4).toString());
-        txtLokasi.setText(tableBarang.getValueAt(baris, 5).toString());        // TODO add your handling code here:
+        cbLokasi.setSelectedItem(tableBarang.getValueAt(baris, 5).toString());       // TODO add your handling code here:
     }//GEN-LAST:event_tableBarangMouseClicked
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
@@ -496,6 +503,7 @@ dashboard db = new dashboard();
     private javax.swing.JButton btnSimpan;
     private javax.swing.JComboBox<String> cbKategori;
     private javax.swing.JComboBox<String> cbKondisi;
+    private javax.swing.JComboBox<String> cbLokasi;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -509,7 +517,6 @@ dashboard db = new dashboard();
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableBarang;
     private javax.swing.JTextField txtId;
-    private javax.swing.JTextField txtLokasi;
     private javax.swing.JTextField txtNama;
     private javax.swing.JTextField txtStok;
     // End of variables declaration//GEN-END:variables
