@@ -46,24 +46,36 @@ public class login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 0, 153));
 
-        jPanel4.setBackground(new java.awt.Color(51, 204, 255));
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel13.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel13.setBackground(new java.awt.Color(0, 204, 204));
+        jPanel13.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel28.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel28.setText("SISTEM INVENTORI FASILITAS SEKOLAH");
+        jPanel13.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 50, 470, -1));
 
         jLabel29.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel29.setText("Username");
+        jPanel13.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 170, -1, -1));
 
-        jLabel30.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel30.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel30.setText("Password");
+        jPanel13.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 220, -1, -1));
 
+        txtUsername9.setEditable(false);
+        txtUsername9.setBackground(new java.awt.Color(0, 204, 204));
+        txtUsername9.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
+        txtUsername9.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txtUsername9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUsername9txtUsernameActionPerformed(evt);
@@ -74,7 +86,11 @@ public class login extends javax.swing.JFrame {
                 txtUsername9txtUsernameKeyPressed(evt);
             }
         });
+        jPanel13.add(txtUsername9, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 170, 220, -1));
 
+        txtPassword9.setBackground(new java.awt.Color(0, 204, 204));
+        txtPassword9.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
+        txtPassword9.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txtPassword9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPassword9ActionPerformed(evt);
@@ -85,6 +101,7 @@ public class login extends javax.swing.JFrame {
                 txtPassword9txtPasswordKeyPressed(evt);
             }
         });
+        jPanel13.add(txtPassword9, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 220, 221, -1));
 
         bkeluar9.setBackground(new java.awt.Color(204, 0, 0));
         bkeluar9.setText("KELUAR");
@@ -93,6 +110,7 @@ public class login extends javax.swing.JFrame {
                 bkeluar9bkeluarActionPerformed(evt);
             }
         });
+        jPanel13.add(bkeluar9, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 290, -1, -1));
 
         btnLogin9.setBackground(new java.awt.Color(51, 102, 255));
         btnLogin9.setText("LOGIN");
@@ -101,85 +119,35 @@ public class login extends javax.swing.JFrame {
                 btnLogin9btnLoginKeyPressed(evt);
             }
         });
+        jPanel13.add(btnLogin9, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 290, -1, -1));
+        jPanel13.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(178, 138, -1, -1));
+        jPanel13.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(177, 198, -1, -1));
+        jPanel13.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(328, 16, -1, 51));
 
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(jLabel28))
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addGap(82, 82, 82)
-                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel13Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtUsername9, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel13Layout.createSequentialGroup()
-                                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel30)
-                                    .addComponent(jLabel29))
-                                .addGap(16, 16, 16)
-                                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel13Layout.createSequentialGroup()
-                                        .addGap(28, 28, 28)
-                                        .addComponent(btnLogin9)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(bkeluar9))
-                                    .addGroup(jPanel13Layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtPassword9, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(67, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(264, 264, 264))
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel28)
-                .addGap(30, 30, 30)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel29)
-                    .addComponent(jLabel1)
-                    .addComponent(txtUsername9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel30)
-                    .addComponent(txtPassword9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(43, 43, 43)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bkeluar9)
-                    .addComponent(btnLogin9))
-                .addContainerGap(155, Short.MAX_VALUE))
-        );
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel4.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, -1, -1));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/LOGO-MIN18-FINAL.png"))); // NOI18N
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 540));
+
+        jPanel13.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 540));
+
+        jPanel4.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 330, 1010, 540));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Animasi Min 18 Jakarta.png"))); // NOI18N
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 2000, 1110));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(303, Short.MAX_VALUE)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 847, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(210, 210, 210))
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 2011, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(112, 112, 112)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(152, Short.MAX_VALUE))
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -199,20 +167,20 @@ public class login extends javax.swing.JFrame {
      }// TODO add your handling code here:
     }//GEN-LAST:event_txtPassword9txtPasswordKeyPressed
 
+    private void txtPassword9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPassword9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPassword9ActionPerformed
+
     private void txtUsername9txtUsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsername9txtUsernameKeyPressed
-       if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-        prosesLogin();
-    }
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            prosesLogin();
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsername9txtUsernameKeyPressed
 
     private void txtUsername9txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsername9txtUsernameActionPerformed
-     // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsername9txtUsernameActionPerformed
-
-    private void txtPassword9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPassword9ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtPassword9ActionPerformed
+    }//GEN-LAST:event_txtUsername9txtUsernameActionPerformed
 
     /*
  * To change this license header, choose License Headers in Project Properties.
@@ -306,6 +274,9 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPasswordField txtPassword9;

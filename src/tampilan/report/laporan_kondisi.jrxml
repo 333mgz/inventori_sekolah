@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="15c1915c-cdf5-4957-a972-59887442c0fd">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="2.200000000000059"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="14"/>
 	<parameter name="tgl_akhir" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT kr.id_kerusakan, kr.tanggal, b.nama_barang, kr.jumlah_rusak, kr.keterangan, u.username FROM kerusakan kr JOIN barang b ON kr.id_barang = b.id_barang LEFT JOIN user u ON kr.id_user = u.id_user WHERE kr.tanggal]]>
@@ -29,32 +29,102 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="164" y="11" width="250" height="49" uuid="64bdb8de-0b23-4b28-9bbd-61c4b08c2e6c"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[LAPORAN KONDISI BARANG]]></text>
+			</staticText>
+		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="33" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="61" splitType="Stretch">
 			<staticText>
-				<reportElement x="93" y="2" width="100" height="20" uuid="217cb765-35f1-44ad-a83d-57d5cbbccfe2"/>
-				<text><![CDATA[jumlah_rusak]]></text>
+				<reportElement x="10" y="2" width="65" height="20" uuid="21ad58d7-5139-45fc-b86e-cb7f38aa7b92"/>
+				<text><![CDATA[ID Kerusakan]]></text>
+			</staticText>
+			<line>
+				<reportElement x="-1" y="-1" width="457" height="1" uuid="955ff7d9-2da7-4c93-aef1-f23d929e7573"/>
+			</line>
+			<line>
+				<reportElement x="1" y="21" width="457" height="1" uuid="bf2e08a7-ab3f-435c-ab87-987b22817887"/>
+			</line>
+			<line>
+				<reportElement x="76" y="0" width="1" height="53" uuid="9cadc84a-f5a4-4a9e-aea7-b6a12e66fb52"/>
+			</line>
+			<staticText>
+				<reportElement x="82" y="2" width="65" height="20" uuid="94cf92b2-3a50-4660-8ed7-16760540612d"/>
+				<text><![CDATA[Tanggal]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="332" y="2" width="100" height="20" uuid="dddc3b58-df10-41c6-8852-ca9c25a0965c"/>
-				<text><![CDATA[keterangan]]></text>
+				<reportElement x="159" y="2" width="65" height="20" uuid="45d146c1-e7e8-4a09-a2bb-64d040e7fda2"/>
+				<text><![CDATA[Nama]]></text>
 			</staticText>
+			<line>
+				<reportElement x="150" y="0" width="1" height="53" uuid="9d24d163-6267-49f3-ac45-a0b38347a781"/>
+			</line>
+			<line>
+				<reportElement x="226" y="0" width="1" height="21" uuid="bc03573c-6930-45df-89e2-5981ece1bf07"/>
+			</line>
+			<staticText>
+				<reportElement x="232" y="2" width="65" height="20" uuid="1243aeb3-467b-4df4-80f4-2239236883b7"/>
+				<text><![CDATA[Jumlah Rusak]]></text>
+			</staticText>
+			<line>
+				<reportElement x="226" y="0" width="1" height="22" uuid="33b9f217-f112-45a8-a21e-ca58ade81494"/>
+			</line>
+			<line>
+				<reportElement x="302" y="0" width="1" height="21" uuid="cf4dcf5b-00e7-4ca7-9804-0fc479155af3"/>
+			</line>
+			<staticText>
+				<reportElement x="314" y="2" width="65" height="20" uuid="b52a1ada-7912-486d-a044-9858e164dfc1"/>
+				<text><![CDATA[Keterangan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="391" y="2" width="65" height="20" uuid="c1585325-71af-454c-8193-081a13357225"/>
+				<text><![CDATA[ID Kerusakan]]></text>
+			</staticText>
+			<line>
+				<reportElement x="381" y="0" width="1" height="22" uuid="75fcc54d-275a-4a47-a2b5-60b62a159d44"/>
+			</line>
+			<line>
+				<reportElement x="457" y="0" width="1" height="21" uuid="183b791f-299e-4ae4-b329-3f4d9642fbb1"/>
+			</line>
+			<line>
+				<reportElement x="387" y="0" width="1" height="53" uuid="dc634ac9-c441-4b45-9727-d027ecc70854"/>
+			</line>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="125" splitType="Stretch">
 			<textField>
-				<reportElement x="93" y="40" width="100" height="20" uuid="12ca223c-1e6f-4b9d-abaf-78bc3c8ae75a"/>
+				<reportElement x="12" y="35" width="65" height="20" uuid="d75b2825-f81a-437f-84c2-22155a379be2"/>
+				<textFieldExpression><![CDATA[$F{id_kerusakan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="43" width="58" height="20" uuid="4176f571-7cff-449a-949a-47a12c8daa67"/>
+				<textFieldExpression><![CDATA[$F{tanggal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="167" y="43" width="66" height="20" uuid="abdf886b-8adc-4104-b54f-97456729bc9b"/>
+				<textFieldExpression><![CDATA[$F{nama_barang}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="254" y="43" width="49" height="20" uuid="fd77bd86-60a3-437f-9afd-d2af97e3793a"/>
 				<textFieldExpression><![CDATA[$F{jumlah_rusak}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="332" y="41" width="100" height="20" uuid="76ad7256-be73-419c-9202-559a9534715e"/>
+				<reportElement x="314" y="35" width="53" height="20" uuid="8774f667-c238-4c53-9a96-0c2ea575ba01"/>
 				<textFieldExpression><![CDATA[$F{keterangan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="397" y="43" width="47" height="20" uuid="bbbdda36-d3eb-4244-834e-8b7a8e90535c"/>
+				<textFieldExpression><![CDATA[$F{username}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -62,7 +132,12 @@
 		<band height="45" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="287" y="0" width="100" height="20" uuid="305c2032-13e8-4289-8301-9d5124d669aa"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>

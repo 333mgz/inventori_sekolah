@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8274014f-8db9-42e8-92b5-4f374b4279db">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="2.143588810000006"/>
+	<property name="ireport.x" value="71"/>
+	<property name="ireport.y" value="59"/>
 	<queryString>
-		<![CDATA[SELECT m.id_mutasi, m.tanggal, b.nama_barang, m.lokasi_asal, m.lokasi_tujuan, m.jumlah, u.username FROM mutasi m JOIN barang b ON m.id_barang = b.id_barang LEFT JOIN user u ON m.id_user = u.id_user WHERE m.tanggal ]]>
+		<![CDATA[SELECT m.id_mutasi, m.tanggal, b.nama_barang, m.lokasi_asal, m.lokasi_tujuan, m.jumlah, u.username FROM mutasi m JOIN barang b ON m.id_barang = b.id_barang LEFT JOIN user u ON m.id_user = u.id_user WHERE m.tanggal]]>
 	</queryString>
 	<field name="id_mutasi" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -44,21 +44,80 @@
 	<columnHeader>
 		<band height="61" splitType="Stretch">
 			<staticText>
-				<reportElement x="174" y="2" width="100" height="20" uuid="43598848-9c99-4247-b033-d21813ee459a"/>
-				<text><![CDATA[lokasi_asal]]></text>
+				<reportElement x="18" y="10" width="65" height="20" uuid="a36bf73d-c6af-42d9-aca3-51d1165ec809"/>
+				<text><![CDATA[ID Kerusakan]]></text>
+			</staticText>
+			<line>
+				<reportElement x="310" y="8" width="1" height="53" uuid="6c7a08d9-f1fd-43e3-ab20-b324613fb6e3"/>
+			</line>
+			<staticText>
+				<reportElement x="399" y="10" width="65" height="20" uuid="4e70144e-2ee1-4bb4-9616-604cf091d9c2"/>
+				<text><![CDATA[Petugas]]></text>
+			</staticText>
+			<line>
+				<reportElement x="465" y="8" width="1" height="53" uuid="6b97a7bd-28ac-4f25-bfc8-ad9386481d7b"/>
+			</line>
+			<line>
+				<reportElement x="84" y="8" width="1" height="53" uuid="88c3bbcb-6e0f-46c4-a00e-98bf58ae7a93"/>
+			</line>
+			<line>
+				<reportElement x="158" y="8" width="1" height="53" uuid="c5aaf477-4d08-4953-9149-acd865c7a68b"/>
+			</line>
+			<staticText>
+				<reportElement x="322" y="10" width="65" height="20" uuid="4ae01a7c-47c3-41b1-8300-a6a46db52849"/>
+				<text><![CDATA[Keterangan]]></text>
+			</staticText>
+			<line>
+				<reportElement x="234" y="8" width="1" height="53" uuid="97bd0813-75b4-40f7-a0a1-77b7f5678773"/>
+			</line>
+			<line>
+				<reportElement x="9" y="29" width="457" height="1" uuid="349c9cc3-8a8f-4a4c-a1b6-38398fa6bbae"/>
+			</line>
+			<staticText>
+				<reportElement x="167" y="10" width="65" height="20" uuid="af83fc6c-8e55-4545-9edb-635461cfe0e5"/>
+				<text><![CDATA[Nama]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="293" y="2" width="100" height="20" uuid="2471ee54-7a9b-4ee7-8670-151d570059c6"/>
-				<text><![CDATA[jumlah]]></text>
+				<reportElement x="90" y="10" width="65" height="20" uuid="1f029c2f-46ce-4eb1-9dc0-e288c06647bf"/>
+				<text><![CDATA[Tanggal]]></text>
 			</staticText>
+			<line>
+				<reportElement x="389" y="8" width="1" height="53" uuid="c255ff1e-9b92-49a2-a423-725530829e65"/>
+			</line>
+			<line>
+				<reportElement x="8" y="8" width="1" height="53" uuid="85d802ab-b5be-4a88-9e67-61caa7dcb36d"/>
+			</line>
 			<staticText>
-				<reportElement x="6" y="2" width="100" height="20" uuid="81aef238-f658-4704-a48a-89a232897f8f"/>
-				<text><![CDATA[id_mutasi]]></text>
+				<reportElement x="240" y="10" width="65" height="20" uuid="908c2988-3ec9-40b5-b0d6-506c18701fa8"/>
+				<text><![CDATA[Jumlah Rusak]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="106" y="2" width="100" height="20" uuid="7470f1be-0250-456b-8c03-14d08c960f24"/>
-				<text><![CDATA[tanggal]]></text>
-			</staticText>
+			<line>
+				<reportElement x="234" y="8" width="1" height="21" uuid="2f6addb6-2bb8-4f89-92cb-5dc8080dd349"/>
+			</line>
+			<line>
+				<reportElement x="9" y="7" width="456" height="1" uuid="eff8a8ea-2ab4-418a-8bc5-479442dd8cfd"/>
+			</line>
+			<line>
+				<reportElement x="10" y="2" width="1" height="125" uuid="59a52256-d6c3-4271-94bb-570ac2f52da4"/>
+			</line>
+			<line>
+				<reportElement x="312" y="2" width="1" height="125" uuid="5d8ae4e9-06db-4058-80cd-82b403c3ce81"/>
+			</line>
+			<line>
+				<reportElement x="391" y="2" width="1" height="125" uuid="7af9add8-51d5-457e-981f-9c010a10b9e2"/>
+			</line>
+			<line>
+				<reportElement x="160" y="2" width="1" height="125" uuid="6cfdb7e1-4dc5-4d55-b704-99e11e1b40db"/>
+			</line>
+			<line>
+				<reportElement x="86" y="2" width="1" height="125" uuid="3b837182-3aca-4c67-8bc9-e5cb589726ec"/>
+			</line>
+			<line>
+				<reportElement x="467" y="2" width="1" height="125" uuid="3100dd81-4918-4dc5-aee8-5f1eac43b0fe"/>
+			</line>
+			<line>
+				<reportElement x="236" y="2" width="1" height="125" uuid="1ece84b8-9967-4bda-8add-0b6293236ab9"/>
+			</line>
 		</band>
 	</columnHeader>
 	<detail>
@@ -79,10 +138,22 @@
 				<reportElement x="106" y="8" width="100" height="20" uuid="60e28290-daab-448b-a98a-3efca9a03748"/>
 				<textFieldExpression><![CDATA[$F{tanggal}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="22" y="45" width="65" height="20" uuid="3f88f81e-fabe-4d2f-a14f-a3208ea7167d"/>
+				<textFieldExpression><![CDATA[$F{id_kerusakan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="324" y="45" width="53" height="20" uuid="23b87735-3c2a-4c67-9e56-73406b3f5cdd"/>
+				<textFieldExpression><![CDATA[$F{keterangan}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement x="26" y="119" width="100" height="1" uuid="69b8fec7-97d3-4722-a944-511df96032ad"/>
+			</line>
+		</band>
 	</columnFooter>
 	<pageFooter>
 		<band height="54" splitType="Stretch"/>

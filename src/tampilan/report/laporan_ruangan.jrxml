@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f3b612ac-924d-45f7-bf56-4e1a948e1393">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="2.1435888100000033"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="137"/>
 	<queryString>
 		<![CDATA[SELECT r.nama_ruangan, b.id_barang, b.nama_barang, k.nama_kategori, b.stok, b.kondisi FROM barang b LEFT JOIN kategori k ON b.id_kategori = k.id_kategori JOIN ruangan r ON b.lokasi = r.lokasi ORDER BY r.nama_ruangan ASC]]>
 	</queryString>
@@ -34,27 +34,108 @@
 		<band height="35" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch">
-			<staticText>
-				<reportElement x="140" y="2" width="100" height="20" uuid="fefafb54-be56-4524-be2b-dfb110879e1c"/>
-				<text><![CDATA[nama_ruangan]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="319" y="2" width="100" height="20" uuid="51b2edba-e907-47b7-81b6-9e28f8e5d24b"/>
-				<text><![CDATA[id_barang]]></text>
-			</staticText>
-		</band>
+		<band height="61" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
 		<band height="125" splitType="Stretch">
+			<line>
+				<reportElement x="16" y="76" width="1" height="32" uuid="670cb68f-7a95-4c72-adc9-0542c6ae3452"/>
+			</line>
+			<line>
+				<reportElement x="318" y="76" width="1" height="32" uuid="db8a4ac2-eeef-43bb-9af1-fe7dd6659982"/>
+			</line>
+			<line>
+				<reportElement x="397" y="76" width="1" height="32" uuid="7e3a9bad-2dd3-4f71-bb0d-c388f833d2c0"/>
+			</line>
+			<line>
+				<reportElement x="166" y="76" width="1" height="32" uuid="e6d28e84-b68b-4d9f-9ac6-dbc12f89d536"/>
+			</line>
+			<line>
+				<reportElement x="92" y="76" width="1" height="32" uuid="0c7d320f-9b19-495d-b484-988a6bfa4a65"/>
+			</line>
+			<line>
+				<reportElement x="473" y="76" width="1" height="32" uuid="70e95457-a226-4dac-ac21-e7baf2d2aff8"/>
+			</line>
+			<line>
+				<reportElement x="242" y="76" width="1" height="32" uuid="c71e8c98-dfcd-4eaf-a34b-3dc14c7d26e4"/>
+			</line>
 			<textField>
-				<reportElement x="140" y="35" width="100" height="20" uuid="d68a09cf-d7fa-4199-86f2-9c0b9a3c9eac"/>
+				<reportElement x="25" y="88" width="53" height="20" uuid="c6676b46-d516-43d7-921d-7e63c4229851"/>
+				<textFieldExpression><![CDATA[$F{id_barang}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="93" y="88" width="65" height="20" uuid="574d0f91-99a7-473f-9b48-ca053595db4d"/>
 				<textFieldExpression><![CDATA[$F{nama_ruangan}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="319" y="46" width="100" height="20" uuid="1bab2599-7095-4628-ad20-2bea114ee51f"/>
-				<textFieldExpression><![CDATA[$F{id_barang}]]></textFieldExpression>
+				<reportElement x="174" y="88" width="65" height="20" uuid="dc3d89ef-aa0b-4fef-b816-ef44e6e1a0f5"/>
+				<textFieldExpression><![CDATA[$F{nama_kategori}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="247" y="88" width="54" height="20" uuid="5f523ee1-db10-4612-8ae6-69d30d547bf2"/>
+				<textFieldExpression><![CDATA[$F{stok}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="329" y="88" width="65" height="20" uuid="d1db35e9-17e2-4994-951e-422224e8596d"/>
+				<textFieldExpression><![CDATA[$F{kondisi}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="11" y="31" width="456" height="1" uuid="7d3866f4-379e-4eb4-9047-d51119729d39"/>
+			</line>
+			<staticText>
+				<reportElement x="26" y="56" width="65" height="20" uuid="610a1e39-2908-48ce-9d20-03431290c621"/>
+				<text><![CDATA[ID Kerusakan]]></text>
+			</staticText>
+			<line>
+				<reportElement x="318" y="54" width="1" height="21" uuid="636e4206-1f36-4853-ae50-f48605abf95a"/>
+			</line>
+			<staticText>
+				<reportElement x="407" y="56" width="65" height="20" uuid="a904704b-4409-43af-a0b4-0a79a94d20c3"/>
+				<text><![CDATA[Petugas]]></text>
+			</staticText>
+			<line>
+				<reportElement x="473" y="54" width="1" height="21" uuid="4cfeb834-9237-48b4-ab67-ffbba549b4ca"/>
+			</line>
+			<line>
+				<reportElement x="92" y="54" width="1" height="21" uuid="4c2565a7-5f14-4132-a8c2-bbbb9e854aab"/>
+			</line>
+			<line>
+				<reportElement x="166" y="54" width="1" height="21" uuid="439f2176-222d-40a7-8f96-6ac3819be59f"/>
+			</line>
+			<staticText>
+				<reportElement x="330" y="56" width="65" height="20" uuid="cd3909e3-3625-476b-addd-cdbaecc76e10"/>
+				<text><![CDATA[Keterangan]]></text>
+			</staticText>
+			<line>
+				<reportElement x="242" y="54" width="1" height="21" uuid="b7a00a82-6bc2-4002-81a7-4392868d10fa"/>
+			</line>
+			<line>
+				<reportElement x="12" y="75" width="457" height="1" uuid="caca1a10-2ee9-4efe-8c94-1ebcd769eeb0"/>
+			</line>
+			<staticText>
+				<reportElement x="175" y="56" width="65" height="20" uuid="092219e7-a27e-41a6-a02f-9a11a92fc53e"/>
+				<text><![CDATA[Nama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="98" y="56" width="65" height="20" uuid="000f0c5c-b3fa-4abb-8682-acfb29a43c8d"/>
+				<text><![CDATA[Tanggal]]></text>
+			</staticText>
+			<line>
+				<reportElement x="397" y="54" width="1" height="21" uuid="5923afdb-75e0-4bb7-96d9-a5cf1d43862d"/>
+			</line>
+			<line>
+				<reportElement x="16" y="54" width="1" height="21" uuid="e9a48cce-ab40-4c39-ae69-903b960c3607"/>
+			</line>
+			<staticText>
+				<reportElement x="248" y="56" width="65" height="20" uuid="2d874174-ddba-40d4-bc41-3f52dd4452fd"/>
+				<text><![CDATA[Jumlah Rusak]]></text>
+			</staticText>
+			<line>
+				<reportElement x="242" y="54" width="1" height="21" uuid="ced419bb-b0c5-4866-8958-92ec6ba3f6e9"/>
+			</line>
+			<line>
+				<reportElement x="14" y="54" width="457" height="1" uuid="b142bf22-7a5a-4dd3-8045-1962d5696c99"/>
+			</line>
 		</band>
 	</detail>
 	<columnFooter>

@@ -67,25 +67,24 @@ public class form_report extends javax.swing.JFrame {
         txtTanggalDari = new com.toedter.calendar.JDateChooser();
         txtTanggalSampai = new com.toedter.calendar.JDateChooser();
         btnCetak = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1064, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 117, Short.MAX_VALUE)
-        );
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(102, 153, 255));
+        jPanel2.setBackground(new java.awt.Color(0, 204, 204));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        PanelUtama.setFont(new java.awt.Font("Times New Roman", 1, 25)); // NOI18N
         PanelUtama.setText("PARAMETER LAPORAN");
+        jPanel2.add(PanelUtama, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 300, -1));
 
+        PanelFilter.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
         PanelFilter.setText("Jenis Laporan:");
+        jPanel2.add(PanelFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, -1));
 
         cbJenisLaporan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "stok barang", " ", "barang masuk", "barang keluar", "mutasi", " " }));
         cbJenisLaporan.addActionListener(new java.awt.event.ActionListener() {
@@ -93,12 +92,19 @@ public class form_report extends javax.swing.JFrame {
                 cbJenisLaporanActionPerformed(evt);
             }
         });
+        jPanel2.add(cbJenisLaporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 140, -1));
 
+        lblTanggal.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
         lblTanggal.setText("Rentang Tanggal");
+        jPanel2.add(lblTanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, -1, -1));
 
+        lblTanggalDari.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
         lblTanggalDari.setText("Dari");
+        jPanel2.add(lblTanggalDari, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 140, 50, -1));
 
+        lblTanggalSampai.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
         lblTanggalSampai.setText("Hingga:");
+        jPanel2.add(lblTanggalSampai, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 180, -1, -1));
 
         btnTampilkan.setText("Hasil Laporan");
         btnTampilkan.addActionListener(new java.awt.event.ActionListener() {
@@ -106,8 +112,10 @@ public class form_report extends javax.swing.JFrame {
                 btnTampilkanActionPerformed(evt);
             }
         });
+        jPanel2.add(btnTampilkan, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 150, 150, 47));
 
         jblLaporan.setText("PRATINJAU LAPORAN");
+        jPanel2.add(jblLaporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, -1, -1));
 
         tblLaporan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -122,7 +130,13 @@ public class form_report extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblLaporan);
 
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, 979, 105));
+
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
         jLabel10.setText("TINDAKAN LAPORAN");
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 430, -1, -1));
+        jPanel2.add(txtTanggalDari, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 140, 140, -1));
+        jPanel2.add(txtTanggalSampai, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 180, 140, -1));
 
         btnCetak.setText("cetak");
         btnCetak.addActionListener(new java.awt.event.ActionListener() {
@@ -130,99 +144,14 @@ public class form_report extends javax.swing.JFrame {
                 btnCetakActionPerformed(evt);
             }
         });
+        jPanel2.add(btnCetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 460, 251, 55));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(PanelUtama, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(26, 26, 26)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jblLaporan)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(PanelFilter)
-                                    .addGap(27, 27, 27)
-                                    .addComponent(cbJenisLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(79, 79, 79)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblTanggal)
-                                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                                    .addComponent(lblTanggalDari)
-                                                    .addGap(32, 32, 32)
-                                                    .addComponent(txtTanggalDari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                                    .addComponent(lblTanggalSampai)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                    .addComponent(txtTanggalSampai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addGap(239, 239, 239)
-                                            .addComponent(btnTampilkan, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jScrollPane1)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(btnCetak, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(PanelUtama)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PanelFilter)
-                    .addComponent(cbJenisLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTanggal))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtTanggalDari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTanggalDari))
-                .addGap(9, 9, 9)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtTanggalSampai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTanggalSampai))
-                .addGap(44, 44, 44)
-                .addComponent(btnTampilkan, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jblLaporan)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCetak, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 161, Short.MAX_VALUE))
-        );
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 270, 1100, 560));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 25, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 36, Short.MAX_VALUE))
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Animasi Min 18 Jakarta 6.png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 2440, 1460));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 2440, 1310));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -410,6 +339,7 @@ public class form_report extends javax.swing.JFrame {
     private javax.swing.JButton btnCetak;
     private javax.swing.JButton btnTampilkan;
     private javax.swing.JComboBox<String> cbJenisLaporan;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
