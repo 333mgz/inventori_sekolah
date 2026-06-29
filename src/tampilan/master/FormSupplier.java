@@ -29,9 +29,29 @@ public class FormSupplier extends javax.swing.JFrame {
         initComponents();
         tampilData();
         resetForm();
+        autoId();
     }
 
-    
+     private void autoId() {
+    try {
+        String sql = "SELECT MAX(id_supplier) FROM supplier";
+        ResultSet rs = Koneksi.getKoneksi().createStatement().executeQuery(sql);
+
+        if (rs.next() && rs.getString(1) != null) {
+            String id = rs.getString(1); // contoh: BRG005
+            int angka = Integer.parseInt(id.substring(3)); // ambil 005 → 5
+            angka++;
+
+            txtIdSupplier.setText(String.format("SUP%03d", angka));
+        } else {
+            txtIdSupplier.setText("SUP001");
+        }
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e);
+        txtIdSupplier.setText("SUP001");
+    }
+}
     private void tampilData() {
 
     model = new DefaultTableModel();

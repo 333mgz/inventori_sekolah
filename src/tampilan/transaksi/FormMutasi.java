@@ -54,23 +54,33 @@ DefaultTableModel modeltabel;
         txtIDP.setEditable(false);
 }
     private void tampilComboBoxRuangan() {
+    
     cbRA.removeAllItems();
     cbRT.removeAllItems();
     
+    // Tambahkan pilihan default/placeholder
     cbRA.addItem("-- Pilih Ruangan Asal --");
-    cbRA.addItem("Gudang Utama");
-    cbRA.addItem("Lab Komputer");
-    cbRA.addItem("Perpustakaan");
-    cbRA.addItem("Ruang Guru");
-    cbRA.addItem("Ruang Kelas"); 
-    
     cbRT.addItem("-- Pilih Ruangan Tujuan --");
-    cbRT.addItem("Gudang Utama");
-    cbRT.addItem("Lab Komputer");
-    cbRT.addItem("Perpustakaan");
-    cbRT.addItem("Ruang Guru");
-    cbRT.addItem("Ruang Kelas");
+    
+    // Query untuk mengambil data ruangan dari database secara alfabetis (A-Z)
+    String sql = "SELECT nama_ruangan FROM ruangan ORDER BY nama_ruangan ASC";
+    
+    try {
+        Connection conn = Koneksi.getKoneksi();
+        Statement stat = conn.createStatement();
+        ResultSet hasil = stat.executeQuery(sql);
+        
+        while (hasil.next()) {
+            String namaRuangan = hasil.getString("nama_ruangan");
+            // Masukkan data ke kedua JComboBox
+            cbRA.addItem(namaRuangan);
+            cbRT.addItem(namaRuangan);
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Gagal memuat data ruangan dari database: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
 }
+
     private void initTable() {
         String[] judulKolom = {"No", "Kode Barang", "Nama Barang", "Qty", "Keterangan", "Aksi"};
         modeltabel = new DefaultTableModel(null, judulKolom) {
@@ -83,14 +93,14 @@ DefaultTableModel modeltabel;
         TabelMutasi.setModel(modeltabel);
     }
     private void setTanggalOtomatis() {
-        spTanggal.setValue(new java.util.Date());
+        jDateMB.setDate(new java.util.Date());
     }
     private void bersihkanInputBarang() {
         txtIdBarang.setText("");
         txtNamaBarang.setText("");
         spJumlah.setValue(1); 
         txtKeterangan.setText("");
-        txtIdBarang.requestFocus();
+        txtNamaBarang.requestFocus();
     }
     private void resetSemuaForm() {
         txtId.setText("");
@@ -98,10 +108,11 @@ DefaultTableModel modeltabel;
         txtIDP.setText("");
         cbRA.setSelectedIndex(0);
         cbRT.setSelectedIndex(0);
-        spTanggal.setValue(new java.util.Date());
+        jDateMB.setDate(new java.util.Date());
         bersihkanInputBarang();
         modeltabel.setRowCount(0);
         nomorUrut = 1;
+        idOtomatis();
     }
     private void tampilComboBoxPetugas() {
     cbPetugas.removeAllItems();
@@ -177,9 +188,9 @@ DefaultTableModel modeltabel;
         jLabel7 = new javax.swing.JLabel();
         cbRT = new javax.swing.JComboBox<>();
         cbPetugas = new javax.swing.JComboBox<>();
-        spTanggal = new javax.swing.JSpinner();
         jLabel5 = new javax.swing.JLabel();
         txtIDP = new javax.swing.JTextField();
+        jDateMB = new com.toedter.calendar.JDateChooser();
         jPanel2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -231,10 +242,9 @@ DefaultTableModel modeltabel;
 
         cbRT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
-        spTanggal.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(1773320520000L), null, null, java.util.Calendar.DAY_OF_MONTH));
-        spTanggal.setEditor(new javax.swing.JSpinner.DateEditor(spTanggal, "yyyy-MM-dd"));
-
         jLabel5.setText("ID Petugas");
+
+        jDateMB.setDateFormatString("dd-MM-yyyy");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -242,12 +252,13 @@ DefaultTableModel modeltabel;
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(spTanggal)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtId)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(113, 113, 113)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtId)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jDateMB, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(85, 85, 85)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -278,16 +289,18 @@ DefaultTableModel modeltabel;
                     .addComponent(txtIDP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbRA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(13, 13, 13)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(spTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbRT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(13, 13, 13)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbRT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDateMB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -329,52 +342,60 @@ DefaultTableModel modeltabel;
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(spJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(txtIdBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(41, 41, 41)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bCari)
-                            .addComponent(jLabel9))))
-                .addGap(20, 20, 20)
-                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtIdBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(spJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(41, 41, 41)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(bCari)
+                                    .addComponent(jLabel9))))
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(23, 23, 23))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel12)
+                .addComponent(jLabel8)
                 .addGap(6, 6, 6)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtIdBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bCari)
-                            .addComponent(jLabel10))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9))
-                        .addGap(20, 20, 20)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(spJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(bCari)
+                                .addComponent(jLabel10))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(20, 20, 20))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(spJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtIdBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
                 .addComponent(bTambah, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                 .addGap(48, 48, 48))
         );
@@ -457,135 +478,121 @@ DefaultTableModel modeltabel;
     }//GEN-LAST:event_bHomeActionPerformed
 
     private void bTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTambahActionPerformed
-    // 1. Ambil ID Mutasi yang sedang aktif secara otomatis
     String idMutasi = txtId.getText(); 
+        
+        // Validasi input Nama Barang dan ID Barang hasil pencarian
+        if (txtNamaBarang.getText().trim().isEmpty() || txtIdBarang.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Silakan masukkan nama barang dan klik 'Cari' terlebih dahulu!");
+            return;
+        }
+        
+        String idBarang = txtIdBarang.getText();
+        String namaBarang = txtNamaBarang.getText();
+        int qty = (int) spJumlah.getValue();
+        String keterangan = txtKeterangan.getText();
+        
+        if (qty <= 0) {
+            JOptionPane.showMessageDialog(this, "Jumlah barang harus lebih dari 0!");
+            return;
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) TabelMutasi.getModel();
+        Object[] dataBaris = {idMutasi, idBarang, namaBarang, qty, keterangan, "Hapus"};
+        model.addRow(dataBaris);
+        
+        // Reset input detail barang
+        bersihkanInputBarang();
     
-    // 2. Validasi input ID Barang (pastikan tidak kosong)
-    if (txtIdBarang.getText().trim().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Silakan pilih atau cari barang terlebih dahulu!");
-        return;
-    }
-    
-    String idBarang = txtIdBarang.getText();
-    String namaBarang = txtNamaBarang.getText();
-    int qty = (int) spJumlah.getValue();
-    String keterangan = txtKeterangan.getText();
-    
-    if (qty <= 0) {
-        JOptionPane.showMessageDialog(this, "Jumlah barang harus lebih dari 0!");
-        return;
-    }
-    
-    // 3. Masukkan ke tabel dengan susunan: ID Mutasi, Kode Barang, Nama Barang, Qty, Keterangan, Aksi
-    DefaultTableModel model = (DefaultTableModel) TabelMutasi.getModel(); // Sesuaikan nama variabel tabelmu
-    Object[] dataBaris = {idMutasi, idBarang, namaBarang, qty, keterangan, "Hapus"};
-    model.addRow(dataBaris);
-    
-    // 4. Reset input detail barang setelah berhasil ditambah ke tabel
-    txtIdBarang.setText("");
-    txtNamaBarang.setText("");
-    spJumlah.setValue(1);
-    txtKeterangan.setText("");
-
     // TODO add your handling code here:
     }//GEN-LAST:event_bTambahActionPerformed
 
     private void bCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCariActionPerformed
-    String kodeBarang = txtIdBarang.getText().trim();
-    
-    // Validasi jika input ID Barang masih kosong
-    if (kodeBarang.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Masukkan ID Barang terlebih dahulu!", "Peringatan", JOptionPane.WARNING_MESSAGE);
-        txtIdBarang.requestFocus();
-        return;
-    }
-    
-    // Query yang sudah disesuaikan menggunakan id_barang
-    String sql = "SELECT nama_barang FROM barang WHERE id_barang = ?";
-    
-    try {
-        Connection conn = Koneksi.getKoneksi();
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setString(1, kodeBarang);
-        ResultSet hasil = ps.executeQuery();
+    String namaBarangInput = txtNamaBarang.getText().trim();
         
-        if (hasil.next()) {
-            // Jika data ditemukan, otomatis set text ke komponen txtnama
-            txtNamaBarang.setText(hasil.getString("nama_barang"));
-            
-            // Langsung arahkan fokus kursor ke Spinner Jumlah setelah barang ketemu
-            spJumlah.requestFocus(); 
-        } else {
-            // Jika data tidak ditemukan
-            JOptionPane.showMessageDialog(this, "Data Barang tidak ditemukan di database!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-            txtNamaBarang.setText(""); // Kosongkan kembali nama barang jika pencarian gagal
-            txtIdBarang.requestFocus();
+        if (namaBarangInput.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Masukkan Nama Barang terlebih dahulu!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            txtNamaBarang.requestFocus();
+            return;
         }
         
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, "Gagal melakukan pencarian: " + e.getMessage(), "Error Database", JOptionPane.ERROR_MESSAGE);
-    }
+        // Query mencari id_barang berdasarkan nama_barang
+        String sql = "SELECT id_barang, nama_barang FROM barang WHERE nama_barang LIKE ?";
+        
+        try {
+            Connection conn = Koneksi.getKoneksi();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, "%" + namaBarangInput + "%"); // Menggunakan LIKE agar pencarian lebih fleksibel
+            ResultSet hasil = ps.executeQuery();
+            
+            if (hasil.next()) {
+                // Set text otomatis ke ID Barang dan presisikan Nama Barang dari database
+                txtIdBarang.setText(hasil.getString("id_barang"));
+                txtNamaBarang.setText(hasil.getString("nama_barang"));
+                
+                spJumlah.requestFocus(); 
+            } else {
+                JOptionPane.showMessageDialog(this, "Data Barang dengan nama tersebut tidak ditemukan!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+                txtIdBarang.setText(""); 
+                txtNamaBarang.requestFocus();
+            }
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Gagal melakukan pencarian: " + e.getMessage(), "Error Database", JOptionPane.ERROR_MESSAGE);
+        }
+    
      // TODO add your handling code here:
     }//GEN-LAST:event_bCariActionPerformed
 
     private void bSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSimpanActionPerformed
-                                             
-    // 1. Ambil model tabel menggunakan nama variabel baru: TabelMutasi
-    DefaultTableModel model = (DefaultTableModel) TabelMutasi.getModel(); 
-    int jumlahBaris = model.getRowCount();
-    
-    if (jumlahBaris == 0) {
-        JOptionPane.showMessageDialog(this, "Daftar barang mutasi masih kosong!");
-        return;
-    }
-
-    try {
-        java.sql.Connection conn = Koneksi.getKoneksi(); // Sesuaikan pangkalan koneksi kamu
+   DefaultTableModel model = (DefaultTableModel) TabelMutasi.getModel(); 
+        int jumlahBaris = model.getRowCount();
         
-        // Format tanggal dari JSpinner (spTanggal)
-        java.util.Date dateFromSpinner = (java.util.Date) spTanggal.getValue();
-        java.text.SimpleDateFormat formatMsql = new java.text.SimpleDateFormat("yyyy-MM-dd");
-        String tanggalFormatted = formatMsql.format(dateFromSpinner);
-        
-        // 2. Loop untuk membaca data baris demi baris dari TabelMutasi
-        for (int i = 0; i < jumlahBaris; i++) {
-            
-            // Mengambil data berdasarkan indeks kolom yang benar:
-            String idMutasi   = model.getValueAt(i, 0).toString(); // Kolom 0 = 'No' (MTS0001)
-            String idBarang   = model.getValueAt(i, 1).toString(); // Kolom 1 = 'Kode Barang' (BRG001)
-            
-            // Kolom indeks 2 ("Komputer") dilewati agar tidak memicu error "For input string"
-            
-            int qty           = Integer.parseInt(model.getValueAt(i, 3).toString()); // Kolom 3 = 'Qty' (1)
-            
-            // Query simpan ke tabel 'mutasi' (sesuai struktur database kamu)
-            String sql = "INSERT INTO mutasi (id_mutasi, tanggal, id_barang, lokasi_asal, lokasi_tujuan, jumlah, id_user) "
-                       + "VALUES (?, ?, ?, ?, ?, ?, ?)";
-            
-            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1, idMutasi);
-            pst.setString(2, tanggalFormatted);
-            pst.setString(3, idBarang);
-            pst.setString(4, cbRA.getSelectedItem().toString());  
-            pst.setString(5, cbRT.getSelectedItem().toString());
-            pst.setInt(6, qty); 
-            pst.setString(7, txtIDP.getText()); // Mengambil U001
-            
-            pst.executeUpdate();
-            pst.close();
+        if (jumlahBaris == 0) {
+            JOptionPane.showMessageDialog(this, "Daftar barang mutasi masih kosong!");
+            return;
         }
-        
-        // 3. Jika berhasil melewati loop tanpa error, baru kosongkan tabel
-        JOptionPane.showMessageDialog(this, "Data Mutasi Barang Berhasil Disimpan!");
-        model.setRowCount(0); 
-        
-    } catch (Exception e) {
-        // Jika error, data di TabelMutasi tidak akan hilang sehingga aman untuk diperiksa
-        JOptionPane.showMessageDialog(this, "Gagal menyimpan transaksi: " + e.getMessage());
-    }
 
+        // Validasi jika tanggal belum dipilih pada JDateChooser
+        if (jDateMB.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Silakan pilih tanggal mutasi terlebih dahulu!");
+            return;
+        }
 
-
+        try {
+            Connection conn = Koneksi.getKoneksi();
+            
+            // Format tanggal dari JDateChooser (jDateMB) ke format MySQL (yyyy-MM-dd)
+            java.util.Date dateFromChooser = jDateMB.getDate();
+            SimpleDateFormat formatMsql = new SimpleDateFormat("yyyy-MM-dd");
+            String tanggalFormatted = formatMsql.format(dateFromChooser);
+            
+            for (int i = 0; i < jumlahBaris; i++) {
+                String idMutasi   = model.getValueAt(i, 0).toString(); 
+                String idBarang   = model.getValueAt(i, 1).toString(); 
+                int qty           = Integer.parseInt(model.getValueAt(i, 3).toString());
+                
+                String sql = "INSERT INTO mutasi (id_mutasi, tanggal, id_barang, lokasi_asal, lokasi_tujuan, jumlah, id_user) "
+                           + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                
+                PreparedStatement pst = conn.prepareStatement(sql);
+                pst.setString(1, idMutasi);
+                pst.setString(2, tanggalFormatted);
+                pst.setString(3, idBarang);
+                pst.setString(4, cbRA.getSelectedItem().toString());  
+                pst.setString(5, cbRT.getSelectedItem().toString());
+                pst.setInt(6, qty); 
+                pst.setString(7, txtIDP.getText());
+                
+                pst.executeUpdate();
+                pst.close();
+            }
+            
+            JOptionPane.showMessageDialog(this, "Data Mutasi Barang Berhasil Disimpan!");
+            resetSemuaForm(); // Reset form menyeluruh setelah simpan sukses
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal menyimpan transaksi: " + e.getMessage());
+        }
    // TODO add your handling code here:
     }//GEN-LAST:event_bSimpanActionPerformed
 
@@ -642,6 +649,7 @@ DefaultTableModel modeltabel;
     private javax.swing.JComboBox<String> cbPetugas;
     private javax.swing.JComboBox<String> cbRA;
     private javax.swing.JComboBox<String> cbRT;
+    private com.toedter.calendar.JDateChooser jDateMB;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -664,7 +672,6 @@ DefaultTableModel modeltabel;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSpinner spJumlah;
-    private javax.swing.JSpinner spTanggal;
     private javax.swing.JTextField txtIDP;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtIdBarang;
